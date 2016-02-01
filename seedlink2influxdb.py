@@ -12,11 +12,7 @@ from optparse import OptionParser
 import logging
 import signal
 from calendar import timegm
-import numpy as np
 
-
-# from io import BytesIO
-# from obspy.mseed.util import getTimingAndDataQuality
 
 # default logger
 logger = logging.getLogger('obspy.seedlink')
@@ -68,7 +64,7 @@ class InfluxDBExporter(object):
             "%.1f " % latency_value + str(int(t))
         self.latency.append(l)
 
-    def make_line_count2(self, channel, starttime, delta, data):
+    def make_line_count(self, channel, starttime, delta, data):
         cc = "count,channel=" + channel
         for i, v in enumerate(data):
             timestamp = starttime + i*delta
@@ -77,56 +73,12 @@ class InfluxDBExporter(object):
             c = cc + " value=" + "%.2f " % v + str(int(t))
             self.counts.append(c)
 
-    def _format_count_line(self, a):
-        timestamp = a[0] + a[1]
-        t = timegm(timestamp.utctimetuple()) * 1e9 \
-            + timestamp.microsecond * 1e3
-        return "count,channel=" + a[3] \
-            + " value=" + "%.2f " % a[2] + str(int(t))
-
-    def make_line_count(self, channel, starttime, delta, data):
-        self.counts += map(self._format_count_line,
-                           zip([starttime] * len(data),
-                               delta*np.arange(len(data)),
-                               data,
-                               [channel] * len(data)))
-
-    # def make_latency_point(self, channel, starttime, latency_value):
-    #    l = {
-    #            "measurement": "latency",
-    #            "tags": {
-    #                'channel': channel,
-    #                },
-    #            "time": starttime.datetime,
-    #            "fields": {
-    #                "value": latency_value,
-    #                }
-    #            }
-    #    self.latency.append(l)
-
-    # def make_count_points(self, channel, starttime, delta, data):
-    #    for i, v in enumerate(data):
-    #        timestamp = starttime + i*delta
-    #        c = { 
-    #                "measurement": "count",
-    #                "tags": {
-    #                    'channel': channel,
-    #                    },
-    #                "time": timestamp.datetime,
-    #                "fields": {
-    #                    "value": v,
-    #                    }
-    #                }
-    #        self.counts.append(c)
-
     def send_points(self):
         """Send points to influxsb
 
         to speed-up things make our own "data line"
-        (bypass influxdb python api)
+        (bypass influxdb write_points python api)
         """
-        # self.client.write_points(self.latency + self.counts)
-
         data = '\n'.join(self.latency + self.counts)
         headers = self.client._headers
         headers['Content-type'] = 'application/octet-stream'
@@ -229,23 +181,12 @@ class MySeedlinkClient(EasySeedLinkClient):
             return
 
         l = UTCDateTime(now) - (starttime + delta * (len(trace.data)-1))
-        # print  channel, UTCDateTime(now), 
-        #   (starttime + delta * (len(trace.data)-1)), l
 
         # do not process 'old' data
         # if l > self.influxdb.TIME_MAX:
         #     return
 
-        # counts
-        # self.influxdb.make_count_points(
-        #         channel,
-        #        starttime,
-        #        delta,
-        #        trace.data)
-        # latency
-        # self.influxdb.make_latency_point(channel, starttime, l)
-
-        self.influxdb.make_line_count2(
+        self.influxdb.make_line_count(
                 channel,
                 starttime,
                 delta,
@@ -255,7 +196,7 @@ class MySeedlinkClient(EasySeedLinkClient):
         self.influxdb.make_line_latency(channel, starttime, l)
         self.influxdb.nb_block += 1
 
-        # send data to influxdb if buffer is filled enougth
+        # send data to influxdb if buffer is filled enough
         if self.influxdb.nb_block < self.influxdb.nb_block_max:
             self.influxdb.send_points()
 
@@ -302,30 +243,23 @@ if __name__ == '__main__':
         db.create_db()
 
     # Connect to a SeedLink server
-    # client = MySeedlinkClient('rtserve.resif.fr:18000', db)
     seedlink_url = ':'.join([options.slserver, options.slport])
     client = MySeedlinkClient(seedlink_url, db)
-    # print client.show_stream_info()
 
     # Select a stream and start receiving data
-    # client.select_stream('FR', 'CHIF', 'HHZ')
-    # client.select_stream_re('SZ', 'SUBF', 'EHZ', '')
+    # use regexp
     client.select_stream_re('FR', '.*', 'HHZ', '00')
-    client.select_stream_re('FR', '.*', 'SHZ', '.*')
+    client.select_stream_re('FR', '.*', 'SHZ', '')
     client.select_stream_re('RD', '.*', 'BHZ', '.*')
-    client.select_stream_re('SZ', '.*', '.*Z', '.*')
-    client.select_stream_re('RT', '.*', '.*Z', '.*')
-    client.select_stream_re('IG', '.*', '.*Z', '.*')
+    client.select_stream_re('(SZ|RT|IG)', '.*', '.*Z', '.*')
 
     if options.recover:
-        # client.conn.setStateFile('statefile.txt')
         client.conn.statefile = 'statefile.txt'
         client.conn.recoverState('statefile.txt')
+
+        # prevent statefile to be overwitten each time a new packet 
+        # arrives (take too much ressources)
         client.conn.statefile = None
-    else:
-        # assure save state on close()
-        # client.conn.statefile = 'statefile.txt'
-        pass
 
     client.run()
 
