@@ -167,7 +167,7 @@ class MySeedlinkClient(EasySeedLinkClient):
         self.select_stream(net, sta, chan)
         stream = ".".join([net, sta, loc, chan])
         self.selected_streams.append(stream)
-        print "stream %s added" % stream
+        logger.info("stream %s added" % stream)
 
     def on_data(self, trace):
         """Implement the on_data callback"""
