@@ -175,12 +175,13 @@ class MySeedlinkClient(EasySeedLinkClient):
         starttime = trace.stats['starttime']
         channel = trace.getId()
         now = datetime.utcnow()
+        nbsamples = len(trace.data)
 
         if channel not in self.selected_streams:
             # print "Found not selected channel %s !" % channel
             return
 
-        l = UTCDateTime(now) - (starttime + delta * (len(trace.data)-1))
+        l = UTCDateTime(now) - (starttime + delta * (nbsamples - 1))
 
         # do not process 'old' data
         # if l > self.influxdb.TIME_MAX:
@@ -193,7 +194,9 @@ class MySeedlinkClient(EasySeedLinkClient):
                 trace.data)
         self.influxdb.nb_block += len(trace.data)
 
-        self.influxdb.make_line_latency(channel, starttime, l)
+        self.influxdb.make_line_latency(channel,
+                                        starttime + delta * (nbsamples - 1),
+                                        l)
         self.influxdb.nb_block += 1
 
         # send data to influxdb if buffer is filled enough
@@ -248,7 +251,7 @@ if __name__ == '__main__':
 
     # Select a stream and start receiving data
     # use regexp
-    client.select_stream_re('FR', '.*', 'HHZ', '00')
+    client.select_stream_re('FR', '.*', '(HHZ|EHZ)', '00')
     client.select_stream_re('FR', '.*', 'SHZ', '')
     client.select_stream_re('RD', '.*', 'BHZ', '.*')
     client.select_stream_re('(SZ|RT|IG)', '.*', '.*Z', '.*')
