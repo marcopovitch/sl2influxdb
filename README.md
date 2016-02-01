@@ -18,6 +18,13 @@ Options:
 </pre>
 
 ## Screenshot 
+Latency & traces for multiple stations:
+
+<img src="https://cloud.githubusercontent.com/assets/4367036/12712706/95c4a38c-c8ca-11e5-8fa7-9c40bbdb8d24.png" width="250">
+
+Waveform, RMS, latency plots for a given station:
+
+<img src="https://cloud.githubusercontent.com/assets/4367036/12712707/95e9f498-c8ca-11e5-8115-cabb66dbf692.png" width="250">
 
 
 
