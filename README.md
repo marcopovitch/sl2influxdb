@@ -1,6 +1,6 @@
 # Seedlink to InfluxDB
 
-Dump (seismological) seedlink time series into [InfluxDB](https://influxdata.com). Use [Grafana](http://grafana.org) to plot waveforms, real time latency, etc.
+Dump (seismological) seedlink time series into [InfluxDB](https://influxdata.com) (version > 0.9). Use [Grafana](http://grafana.org) to plot waveforms, real time latency, etc.
 
 ## Usage
 <pre>
