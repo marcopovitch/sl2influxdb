@@ -2,3 +2,5 @@
 statefile.txt
 
 *.pyc
+
+*.old
