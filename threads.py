@@ -2,8 +2,6 @@
 
 import threading
 import Queue
-import signal
-
 
 BUF_SIZE = 10000
 q = Queue.Queue(BUF_SIZE)
