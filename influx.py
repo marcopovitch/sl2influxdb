@@ -23,13 +23,15 @@ class InfluxDBExporter(object):
         self.pwd = pwd
         self.client = None
 
-        self.NB_MAX_TRY_REQUEST = 300  # nb of rqt error before aborting
-        self.TIME_MAX = 2*60.*60.    # nb of blocks before sending to db
+        self.NB_MAX_TRY_REQUEST = 10  # nb of rqt error before aborting
+        # self.TIME_MAX = 1*60.*60.
+        # nb of blocks before sending to db
         self.nb_block_max = 4000     # no more than 5000 (cf. influxdb doc.)
 
         # add one item by influxdb field
         self.counts = []
         self.latency = []
+        self.stats = []
         self.nb_block = 0
 
         self.client = InfluxDBClient(host=host, port=port, database=dbname)
@@ -50,6 +52,17 @@ class InfluxDBExporter(object):
         self.client.create_database(dbname, if_not_exists=True)
         self.client.switch_database(dbname)
 
+    def make_stats(self, now):
+        t = timegm(now.utctimetuple()) * 1e9 \
+            + now.microsecond * 1e3
+        t_str = str(int(t))
+        s = "queue,type=producer size=%d " % q.qsize() + t_str
+        self.stats.append(s)
+        self.nb_block += 1
+        s = "queue,type=consumer size=%d " % self.nb_block + t_str
+        self.stats.append(s)
+        self.nb_block += 1
+
     def make_line_latency(self, channel, starttime, latency_value):
         timestamp = starttime.datetime
         t = timegm(timestamp.utctimetuple()) * 1e9 \
@@ -60,6 +73,7 @@ class InfluxDBExporter(object):
                                 starttime.microsecond) + \
             str(int(t))
         self.latency.append(l)
+        self.nb_block += 1
 
     def make_line_count(self, channel, starttime, delta, data):
         cc = "count,channel=" + channel
@@ -69,6 +83,7 @@ class InfluxDBExporter(object):
                 + timestamp.microsecond * 1e3
             c = cc + " value=" + "%.2f " % v + str(int(t))
             self.counts.append(c)
+        self.nb_block += len(data)
 
     def send_points(self):
         """Send points to influxsb
@@ -76,7 +91,7 @@ class InfluxDBExporter(object):
         to speed-up things make our own "data line"
         (bypass influxdb write_points python api)
         """
-        data = '\n'.join(self.latency + self.counts)
+        data = '\n'.join(self.latency + self.counts + self.stats)
         headers = self.client._headers
         headers['Content-type'] = 'application/octet-stream'
 
@@ -104,6 +119,7 @@ class InfluxDBExporter(object):
         self.nb_block = 0
         self.counts = []
         self.latency = []
+        self.stats = []
         return True
 
     def manage_trace(self, trace):
@@ -125,15 +141,14 @@ class InfluxDBExporter(object):
                 delta,
                 trace.data)
 
-        self.nb_block += len(trace.data)
-
         self.make_line_latency(channel,
                                starttime + delta * (nbsamples - 1),
                                l)
-        self.nb_block += 1
+
+        self.make_stats(now)
 
         # send data to influxdb if buffer is filled enough
-        if self.nb_block < self.nb_block_max:
+        if self.nb_block > self.nb_block_max:
             self.send_points()
 
     def debug(self, channel):
