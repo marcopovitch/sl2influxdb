@@ -2,10 +2,12 @@
 
 import threading
 import Queue
+import signal
 
 
 BUF_SIZE = 10000
 q = Queue.Queue(BUF_SIZE)
+shutdown_event = threading.Event()
 
 
 class ProducerThread(threading.Thread):
@@ -17,7 +19,6 @@ class ProducerThread(threading.Thread):
 
     def run(self):
         self.slclient.run()
-        return
 
 
 class ConsumerThread(threading.Thread):

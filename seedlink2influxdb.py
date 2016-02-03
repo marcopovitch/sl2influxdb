@@ -1,14 +1,20 @@
 #!/usr/bin/env python
 
-
 import logging
 from optparse import OptionParser
 from influx import InfluxDBExporter
 from seedlink import MySeedlinkClient
-from threads import ConsumerThread, ProducerThread
+import threading
+from threads import ConsumerThread, ProducerThread, shutdown_event
+import signal
+
 
 logging.basicConfig(level=logging.DEBUG,
                     format='(%(threadName)-9s) %(message)s',)
+
+
+def handler(f, s):
+    shutdown_event.set()
 
 
 if __name__ == '__main__':
@@ -33,9 +39,12 @@ if __name__ == '__main__':
                       help="try to get stream from last run")
     (options, args) = parser.parse_args()
 
-    #########################
-    # start influxdb thread #
-    #########################
+    signal.signal(signal.SIGINT, handler)
+    signal.signal(signal.SIGTERM, handler)
+
+    ###################
+    # influxdb thread #
+    ###################
     c = ConsumerThread(name='influxdb',
                        dbclient=InfluxDBExporter,
                        args=(options.dbserver,
@@ -43,11 +52,10 @@ if __name__ == '__main__':
                              options.dbname,
                              'seedlink', 'seedlink',
                              options.dropdb))
-    c.start()
 
-    #########################
-    # start seedlink thread #
-    #########################
+    ###################
+    # seedlink thread #
+    ###################
 
     # forge seedLink server url
     seedlink_url = ':'.join([options.slserver, options.slport])
@@ -69,5 +77,21 @@ if __name__ == '__main__':
     p = ProducerThread(name='seedlink',
                        slclient=MySeedlinkClient,
                        args=(seedlink_url, streams, statefile))
+
+    #################
+    # start threads #
+    #################
     p.start()
+    c.start()
+
+    while True:
+        threads = threading.enumerate()
+        if len(threads) == 1: 
+            break
+        for t in threads:
+            if t != threading.currentThread() and t.is_alive():
+                t.join(.1)
+
+    c.join()
+    p.join()
 

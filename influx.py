@@ -7,10 +7,11 @@ from calendar import timegm
 import logging
 from datetime import datetime
 from obspy import UTCDateTime
-from threads import q
+from threads import q, shutdown_event
+import Queue
 
 # default logger
-logger = logging.getLogger('Influx')
+logger = logging.getLogger('InfluxDBClient')
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 
@@ -157,8 +158,15 @@ class InfluxDBExporter(object):
         logger.debug("*latency* size = %d" % len(self.latency))
 
     def run(self):
+        """Run unless shutdown signal is received"""
         while True:
-            self.manage_trace(q.get(block=True, timeout=None))
+            if shutdown_event.isSet():
+                logger.info("influx thread has catched *shutdown_event*")
+                sys.exit(0)
+            try:
+                self.manage_trace(q.get(block=True, timeout=0.1))
+            except Queue.Empty:
+                pass
         return
 
 

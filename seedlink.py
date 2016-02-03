@@ -7,9 +7,7 @@ from lxml import etree
 from StringIO import StringIO
 import re
 import logging
-# import signal
-from threads import q
-
+from threads import q, shutdown_event
 
 # default logger
 logger = logging.getLogger('obspy.seedlink')
@@ -26,7 +24,6 @@ class EasySeedLinkClientException(Exception):
 class MySeedlinkClient(EasySeedLinkClient):
     def __init__(self, server, streams, statefile):
         EasySeedLinkClient.__init__(self, server)
-
         self.selected_streams = []
         # get from server avalaible streams
         self.stream_xml = self.get_info('STREAMS')
@@ -41,8 +38,6 @@ class MySeedlinkClient(EasySeedLinkClient):
             # prevent statefile to be overwitten each time a new packet
             # arrives (take too much ressources)
             self.conn.statefile = None
-
-        # signal.signal(signal.SIGINT, self.kill_handler)
 
     def get_stream_info(self):
         """Parse xml stream info returned by server"""
@@ -98,16 +93,20 @@ class MySeedlinkClient(EasySeedLinkClient):
 
     def on_data(self, trace):
         """Implement the on_data callback"""
+        if shutdown_event.isSet():
+            logger.info("seedlink thread has catched shutdown_event")
+            self.stop_seedlink()
+
         channel = trace.getId()
         if channel not in self.selected_streams:
             return
+
         q.put(trace, block=True, timeout=None)
 
     def on_seedlink_error(self):
         logger.error("[%s] seedlink error." % datetime.utcnow())
 
-    def kill_handler(self, signal, frame):
-        logger.info("kill signal catched !")
+    def stop_seedlink(self):
         self.conn.statefile = 'statefile.txt'
         self.conn.saveState('statefile.txt')
         self.conn.close()
