@@ -93,15 +93,15 @@ class MySeedlinkClient(EasySeedLinkClient):
 
     def on_data(self, trace):
         """Implement the on_data callback"""
-        if shutdown_event.isSet():
-            logger.info("seedlink thread has catched shutdown_event")
-            self.stop_seedlink()
-
         channel = trace.getId()
         if channel not in self.selected_streams:
             return
 
         q.put(trace, block=True, timeout=None)
+
+        if shutdown_event.isSet():
+            logger.info("seedlink thread has catched *shutdown_event*")
+            self.stop_seedlink()
 
     def on_seedlink_error(self):
         logger.error("[%s] seedlink error." % datetime.utcnow())
