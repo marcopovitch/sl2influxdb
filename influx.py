@@ -27,7 +27,7 @@ class InfluxDBExporter(object):
         self.NB_MAX_TRY_REQUEST = 10  # nb of rqt error before aborting
         # self.TIME_MAX = 1*60.*60.
         # nb of blocks before sending to db
-        self.nb_block_max = 4000     # no more than 5000 (cf. influxdb doc.)
+        self.nb_block_max = 5000     # no more than 5000 (cf. influxdb doc.)
 
         # add one item by influxdb field
         self.counts = []
@@ -101,19 +101,19 @@ class InfluxDBExporter(object):
             nb_try += 1
             try:
                 self.client.request(
-                    url="write",
-                    method='POST',
-                    params={'db': self.client._database},
-                    data=data,
-                    expected_response_code=204,
-                    headers=headers
-                )
+                        url="write",
+                        method='POST',
+                        params={'db': self.client._database},
+                        data=data,
+                        expected_response_code=204,
+                        headers=headers
+                        )
             except InfluxDBServerError as e:
                 if nb_try > self.NB_MAX_TRY_REQUEST:
                     raise e
                 else:
-                    print "request failed: retrying (%d/%d)" % \
-                          (nb_try, self.NB_MAX_TRY_REQUEST)
+                    logger.error("request failed: retrying (%d/%d)" % 
+                                 (nb_try, self.NB_MAX_TRY_REQUEST))
                     continue
             break
 
@@ -150,6 +150,7 @@ class InfluxDBExporter(object):
 
         # send data to influxdb if buffer is filled enough
         if self.nb_block > self.nb_block_max:
+            logger.debug("Block sent")
             self.send_points()
 
     def debug(self, channel):
@@ -158,15 +159,16 @@ class InfluxDBExporter(object):
         logger.debug("*latency* size = %d" % len(self.latency))
 
     def run(self):
-        """Run unless shutdown signal is received"""
+        """Run unless shutdown signal is received.  """
+
         while True:
-            if shutdown_event.isSet():
-                logger.info("influx thread has catched *shutdown_event*")
-                sys.exit(0)
             try:
-                self.manage_trace(q.get(block=True, timeout=0.1))
+                self.manage_trace(q.get(timeout=0.1))
             except Queue.Empty:
-                pass
+                if shutdown_event.isSet():
+                    # process queue before shutdown
+                    logger.info("influx thread has catched *shutdown_event*")
+                    sys.exit(0)
         return
 
 
