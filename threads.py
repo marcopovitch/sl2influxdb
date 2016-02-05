@@ -3,7 +3,7 @@
 import threading
 import Queue
 
-BUF_SIZE = 1000
+BUF_SIZE = 10000
 
 # variable shared by threads
 q = Queue.Queue(BUF_SIZE)
