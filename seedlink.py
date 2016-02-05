@@ -100,7 +100,9 @@ class MySeedlinkClient(EasySeedLinkClient):
         q.put(trace, block=True, timeout=None)
 
         if shutdown_event.isSet():
-            logger.info("seedlink thread has catched *shutdown_event*")
+            logger.info("%s thread has catched *shutdown_event*" %
+                        self.__class__.__name__)
+
             self.stop_seedlink()
 
     def on_seedlink_error(self):
