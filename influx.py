@@ -26,12 +26,10 @@ class InfluxDBExporter(object):
 
         self.NB_MAX_TRY_REQUEST = 10  # nb of rqt error before aborting
         # self.TIME_MAX = 1*60.*60.
-        # nb of blocks before sending to db
 
         # add one item by influxdb line
         self.data = []
-        self.nb_block = 0
-        self.nb_block_max = 4000     # no more than 5000 (cf. influxdb doc.)
+        self.nb_data_max = 6000     # no more than 5000 (cf. influxdb doc.)
 
         self.client = InfluxDBClient(host=host, port=port, database=dbname)
         if dropdb:
@@ -57,10 +55,8 @@ class InfluxDBExporter(object):
         t_str = str(int(t))
         s = "queue,type=producer size=%d " % q.qsize() + t_str
         self.data.append(s)
-        self.nb_block += 1
-        s = "queue,type=consumer size=%d " % self.nb_block + t_str
+        s = "queue,type=consumer size=%d " % len(self.data) + t_str
         self.data.append(s)
-        self.nb_block += 1
 
     def make_line_latency(self, channel, starttime, latency_value):
         timestamp = starttime.datetime
@@ -72,7 +68,6 @@ class InfluxDBExporter(object):
                                 starttime.microsecond) + \
             str(int(t))
         self.data.append(l)
-        self.nb_block += 1
 
     def make_line_count(self, channel, starttime, delta, data):
         cc = "count,channel=" + channel
@@ -82,7 +77,6 @@ class InfluxDBExporter(object):
                 + timestamp.microsecond * 1e3
             c = cc + " value=" + "%.2f " % v + str(int(t))
             self.data.append(c)
-        self.nb_block += len(data)
 
     def send_points(self, debug=False):
         """Send points to influxsb
@@ -118,7 +112,6 @@ class InfluxDBExporter(object):
             print data
 
         self.data = []
-        self.nb_block = 0
 
     def manage_data(self, trace):
         delta = trace.stats['delta']
@@ -147,11 +140,11 @@ class InfluxDBExporter(object):
                                starttime + delta * (nbsamples - 1),
                                l)
 
-        self.make_stats(now)
-
         # send data to influxdb if buffer is filled enough
-        if self.nb_block > self.nb_block_max:
-            logger.debug("Block sent")
+        if len(self.data) > self.nb_data_max:
+            now = datetime.utcnow()
+            self.make_stats(now)
+            logger.debug("Data sent")
             self.send_points(debug=False)
 
     def run(self):
@@ -185,7 +178,6 @@ class DelayInfluxDBExporter(InfluxDBExporter):
             "value=%.2f " % delay + \
             "%s" % t_str
         self.data.append(s)
-        self.nb_block += 1
 
     def make_line_delay(self):
         for c in last_packet_time.keys():
@@ -194,7 +186,6 @@ class DelayInfluxDBExporter(InfluxDBExporter):
             lock.release()
 
     def manage_data(self):
-
         self.make_line_delay()
         self.send_points(debug=False)
 
