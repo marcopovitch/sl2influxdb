@@ -2,7 +2,7 @@
 
 import logging
 from optparse import OptionParser
-from influx import InfluxDBExporter
+from influx import InfluxDBExporter, DelayInfluxDBExporter
 from seedlink import MySeedlinkClient
 import threading
 from threads import ConsumerThread, ProducerThread, shutdown_event
@@ -45,8 +45,16 @@ if __name__ == '__main__':
     ###################
     # influxdb thread #
     ###################
-    c = ConsumerThread(name='influxdb',
+    c = ConsumerThread(name='influxdb-latency',
                        dbclient=InfluxDBExporter,
+                       args=(options.dbserver,
+                             options.dbport,
+                             options.dbname,
+                             'seedlink', 'seedlink',
+                             options.dropdb))
+
+    d = ConsumerThread(name='influxdb-delay',
+                       dbclient=DelayInfluxDBExporter,
                        args=(options.dbserver,
                              options.dbport,
                              options.dbname,
@@ -83,6 +91,7 @@ if __name__ == '__main__':
     #################
     p.start()
     c.start()
+    d.start()
 
     while True:
         threads = threading.enumerate()
@@ -92,6 +101,7 @@ if __name__ == '__main__':
             if t != threading.currentThread() and t.is_alive():
                 t.join(.1)
 
+    d.join()
     c.join()
     p.join()
 
