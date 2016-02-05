@@ -3,9 +3,13 @@
 import threading
 import Queue
 
-BUF_SIZE = 10000
+BUF_SIZE = 1000
+
+# variable shared by threads
 q = Queue.Queue(BUF_SIZE)
 shutdown_event = threading.Event()
+last_packet_time = {}
+lock = threading.Lock()
 
 
 class ProducerThread(threading.Thread):
@@ -29,5 +33,3 @@ class ConsumerThread(threading.Thread):
 
     def run(self):
         self.dbclient.run()
-        return
-
