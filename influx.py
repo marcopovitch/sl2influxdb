@@ -29,7 +29,7 @@ class InfluxDBExporter(object):
 
         # add one item by influxdb line
         self.data = []
-        self.nb_data_max = 6000     # no more than 5000 (cf. influxdb doc.)
+        self.nb_data_max = 40000     # no more than 5000 (cf. influxdb doc.)
 
         self.client = InfluxDBClient(host=host, port=port, database=dbname)
         if dropdb:
@@ -84,7 +84,9 @@ class InfluxDBExporter(object):
         to speed-up things make our own "data line"
         (bypass influxdb write_points python api)
         """
-        data = '\n'.join(self.data)
+        data = '\n'.join(self.data[:self.nb_data_max])
+        del self.data[:self.nb_data_max]
+
         headers = self.client._headers
         headers['Content-type'] = 'application/octet-stream'
 
@@ -107,11 +109,6 @@ class InfluxDBExporter(object):
                                  (nb_try, self.NB_MAX_TRY_REQUEST))
                     continue
             break
-
-        if debug:
-            print data
-
-        self.data = []
 
     def manage_data(self, trace):
         delta = trace.stats['delta']
@@ -145,7 +142,7 @@ class InfluxDBExporter(object):
             now = datetime.utcnow()
             self.make_stats(now)
             logger.debug("Data sent")
-            self.send_points(debug=False)
+            self.send_points(debug=True)
 
     def run(self):
         """Run unless shutdown signal is received.  """
