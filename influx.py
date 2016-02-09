@@ -63,9 +63,7 @@ class InfluxDBExporter(object):
         t = timegm(timestamp.utctimetuple()) * 1e9 \
             + timestamp.microsecond * 1e3
         l = "latency,channel=" + channel + \
-            " value=" + "%.1f," % latency_value + \
-            "ts=" + "%s.%s " % (starttime.strftime('%s'),
-                                starttime.microsecond) + \
+            " value=" + "%.1f " % latency_value + \
             str(int(t))
         self.data.append(l)
 
