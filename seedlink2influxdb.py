@@ -1,16 +1,12 @@
 #!/usr/bin/env python
 
-import logging
+# import logging
 from optparse import OptionParser
 from influx import InfluxDBExporter, DelayInfluxDBExporter
 from seedlink import MySeedlinkClient
 import threading
 from threads import ConsumerThread, ProducerThread, shutdown_event
 import signal
-
-
-logging.basicConfig(level=logging.DEBUG,
-                    format='(%(threadName)-9s) %(message)s',)
 
 
 def handler(f, s):
@@ -71,8 +67,10 @@ if __name__ == '__main__':
     # Select a stream and start receiving data : use regexp
     streams = [('FR', '.*', '(HHZ|EHZ)', '00'),
                ('FR', '.*', 'SHZ', ''),
+               ('RA', '.*', 'HNZ', '00'),
                ('RD', '.*', 'BHZ', '.*'),
                ('G', '.*', 'BHZ', '.*'),
+               ('XX', '.*', 'BHZ', '.*'),
                ('(SZ|RT|IG)', '.*', '.*Z', '.*')
                ]
 
@@ -83,7 +81,7 @@ if __name__ == '__main__':
     else:
         statefile = None
 
-    p = ProducerThread(name='seedlink',
+    p = ProducerThread(name='seedlink-reader',
                        slclient=MySeedlinkClient,
                        args=(seedlink_url, streams, statefile))
 
