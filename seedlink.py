@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import sys
-from obspy.seedlink import EasySeedLinkClient 
+from obspy.seedlink import EasySeedLinkClient
 from datetime import datetime
 from lxml import etree
 from StringIO import StringIO
@@ -12,13 +12,6 @@ from threads import q, shutdown_event
 # default logger
 logger = logging.getLogger('obspy.seedlink')
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-
-
-class EasySeedLinkClientException(Exception):
-    """
-    A base exception for all errors triggered explicitly by EasySeedLinkClient.
-    """
-    pass
 
 
 class MySeedlinkClient(EasySeedLinkClient):
