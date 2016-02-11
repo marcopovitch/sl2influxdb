@@ -106,6 +106,7 @@ class InfluxDBExporter(object):
                     logger.error("request failed: retrying (%d/%d)" % 
                                  (nb_try, self.NB_MAX_TRY_REQUEST))
                     continue
+
             break
 
     def manage_data(self, trace):
@@ -140,7 +141,10 @@ class InfluxDBExporter(object):
             now = datetime.utcnow()
             self.make_stats(now)
             logger.debug("Data sent")
-            self.send_points(debug=True)
+            try:
+                self.send_points(debug=False)
+            except InfluxDBServerError as e:
+                self.force_shutdown(e)
 
     def run(self):
         """Run unless shutdown signal is received.  """
@@ -182,7 +186,10 @@ class DelayInfluxDBExporter(InfluxDBExporter):
 
     def manage_data(self):
         self.make_line_delay()
-        self.send_points(debug=False)
+        try:
+            self.send_points()
+        except InfluxDBServerError as e:
+            self.force_shutdown(e)
 
     def run(self):
         while True:
