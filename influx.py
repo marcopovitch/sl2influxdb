@@ -40,12 +40,17 @@ class InfluxDBExporter(object):
         if not dbname:
             dbname = self.dbname
         logger.info("Drop %s database." % dbname)
-        self.client.drop_database(dbname)
+        try:
+            self.client.drop_database(dbname)
+        except:
+            logger.info("Can't drop %s database (not existing yet ?)." 
+                        % dbname)
+            pass
 
     def create_db(self, dbname=None):
         if not dbname:
             dbname = self.dbname
-        logger.info("open/create %s database." % dbname)
+        logger.info("Open/Create %s database." % dbname)
         self.client.create_database(dbname, if_not_exists=True)
         self.client.switch_database(dbname)
 
@@ -103,13 +108,14 @@ class InfluxDBExporter(object):
                 if nb_try > self.NB_MAX_TRY_REQUEST:
                     raise e
                 else:
-                    logger.error("request failed: retrying (%d/%d)" % 
+                    logger.error("Request failed: retrying (%d/%d)" % 
                                  (nb_try, self.NB_MAX_TRY_REQUEST))
                     continue
 
             break
 
     def manage_data(self, trace):
+        """Return True is data have been pushed to influxdb"""
         delta = trace.stats['delta']
         starttime = trace.stats['starttime']
         channel = trace.getId()
@@ -145,20 +151,46 @@ class InfluxDBExporter(object):
                 self.send_points(debug=False)
             except InfluxDBServerError as e:
                 self.force_shutdown(e)
+            else:
+                return True
+        else:
+            return False
 
     def run(self):
         """Run unless shutdown signal is received.  """
+
+        # time in seconds
+        timeout = 0.1
+        max_cumulated_wait_time = 15
+        wait_time = 0
+
         while True:
             try:
-                self.manage_data(q.get(timeout=0.1))
+                trace = q.get(timeout=timeout)
             except Queue.Empty:
                 # process queue before shutdown
                 if q.empty() and shutdown_event.isSet():
                     logger.info("%s thread has catched *shutdown_event*" %
                                 self.__class__.__name__)
                     sys.exit(0)
+
+                wait_time += timeout
+                if wait_time > max_cumulated_wait_time:
+                    # force data flush to influxdb
+                    # even if data block is not completed
+                    logger.info('Timer reached (%ds)' % max_cumulated_wait_time
+                                + '. Force data flush to influxdb '
+                                + '(bsize=%d/%d)!'
+                                % (len(self.data), self.nb_data_max))
+                    now = datetime.utcnow()
+                    self.make_stats(now)
+                    self.send_points()
+                    wait_time = 0
             else:
+                data_pushed = self.manage_data(trace)
                 q.task_done()
+                if data_pushed:
+                    wait_time = 0
 
 
 class DelayInfluxDBExporter(InfluxDBExporter):
@@ -191,6 +223,8 @@ class DelayInfluxDBExporter(InfluxDBExporter):
         except InfluxDBServerError as e:
             self.force_shutdown(e)
 
+        return True
+
     def run(self):
         while True:
             self.manage_data()
@@ -199,9 +233,4 @@ class DelayInfluxDBExporter(InfluxDBExporter):
                 logger.info("%s thread has catched *shutdown_event*" %
                             self.__class__.__name__)
                 sys.exit(0)
-
-
-
-
-
 
