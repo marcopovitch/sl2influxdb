@@ -12,7 +12,7 @@ logger = logging.getLogger('threads')
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 # variable shared by threads
-BUF_SIZE = 10000
+BUF_SIZE = 100000
 q = Queue.Queue(BUF_SIZE)
 shutdown_event = threading.Event()
 last_packet_time = {}
@@ -25,7 +25,7 @@ class ProducerThread(threading.Thread):
         super(ProducerThread, self).__init__()
         self.name = name
         try:
-            self.slclient = slclient(args[0], args[1], args[2])
+            self.slclient = slclient(args[0], args[1], args[2], args[3])
         except SeedLinkException as e:
             self.force_shutdown(e)
 
