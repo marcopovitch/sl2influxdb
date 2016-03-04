@@ -8,6 +8,7 @@ from StringIO import StringIO
 import re
 import logging
 from threads import q, shutdown_event
+import Queue
 
 # default logger
 logger = logging.getLogger('obspy.seedlink')
@@ -15,7 +16,7 @@ logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 
 class MySeedlinkClient(EasySeedLinkClient):
-    def __init__(self, server, streams, statefile):
+    def __init__(self, server, streams, statefile, recover):
         EasySeedLinkClient.__init__(self, server)
         self.selected_streams = []
         # get from server avalaible streams
@@ -24,7 +25,10 @@ class MySeedlinkClient(EasySeedLinkClient):
         for patterns in streams:
             self.select_stream_re(patterns)
 
-        if statefile:
+        self.statefile = statefile
+        self.recover = recover
+
+        if self.recover:
             self.conn.statefile = statefile
             # recover last packet indexes from previous run
             self.conn.recoverState(statefile)
@@ -90,19 +94,24 @@ class MySeedlinkClient(EasySeedLinkClient):
         if channel not in self.selected_streams:
             return
 
-        q.put(trace, block=True, timeout=None)
+        try:
+            timeout = 15
+            q.put(trace, block=True, timeout=timeout)
+        except Queue.Full:
+            logger.error("Queue is full and timeout(%ds) reached !" % timeout)
+            logger.error("Ignoring data !")
 
         if shutdown_event.isSet():
             logger.info("%s thread has catched *shutdown_event*" %
                         self.__class__.__name__)
-
             self.stop_seedlink()
 
     def on_seedlink_error(self):
         logger.error("[%s] seedlink error." % datetime.utcnow())
 
     def stop_seedlink(self):
-        self.conn.statefile = 'statefile.txt'
-        self.conn.saveState('statefile.txt')
+        # force packets indexes write on statefile
+        self.conn.statefile = self.statefile
+        self.conn.saveState(self.statefile)
         self.conn.close()
         sys.exit(0)
