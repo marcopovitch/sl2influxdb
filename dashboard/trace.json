@@ -1,0 +1,894 @@
+{
+  "id": 2,
+  "title": "single trace",
+  "originalTitle": "single trace",
+  "tags": [],
+  "style": "dark",
+  "timezone": "utc",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
+  "rows": [
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 1,
+          "interval": "",
+          "isNew": true,
+          "legend": {
+            "avg": true,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "count",
+              "query": "SELECT mean(\"value\") FROM \"count\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "$channel",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        }
+      ],
+      "showTitle": true,
+      "title": "sismogramme"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 2,
+          "interval": "",
+          "isNew": true,
+          "legend": {
+            "avg": true,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "count",
+              "query": "SELECT stddev(\"value\") FROM \"count\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "stddev"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "$channel",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        }
+      ],
+      "showTitle": true,
+      "title": "RMS"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 3,
+          "interval": "",
+          "isNew": true,
+          "legend": {
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "latency",
+              "query": "SELECT mean(\"value\") FROM \"latency\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "$channel",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "s",
+            "short"
+          ],
+          "decimals": 1
+        }
+      ],
+      "showTitle": true,
+      "title": "latency"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 4,
+          "isNew": true,
+          "legend": {
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "delay",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT mean(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Delay",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "s",
+            "short"
+          ],
+          "decimals": 1
+        }
+      ],
+      "title": "Delay",
+      "showTitle": true
+    }
+  ],
+  "time": {
+    "from": "now-15m",
+    "to": "now-10s"
+  },
+  "timepicker": {
+    "now": true,
+    "nowDelay": "10s",
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "templating": {
+    "list": [
+      {
+        "allFormat": "glob",
+        "current": {
+          "selected": false,
+          "text": "FR.BANN.00.HHZ",
+          "value": "FR.BANN.00.HHZ"
+        },
+        "datasource": null,
+        "includeAll": false,
+        "multi": false,
+        "multiFormat": "glob",
+        "name": "channel",
+        "options": [
+          {
+            "selected": false,
+            "text": "FR.AGO..SHZ",
+            "value": "FR.AGO..SHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.AJAC.00.HHZ",
+            "value": "FR.AJAC.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.ARBF.00.HHZ",
+            "value": "FR.ARBF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.ARTF.00.HHZ",
+            "value": "FR.ARTF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.ASEAF.00.HHZ",
+            "value": "FR.ASEAF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.ATE.00.HHZ",
+            "value": "FR.ATE.00.HHZ"
+          },
+          {
+            "selected": true,
+            "text": "FR.BANN.00.HHZ",
+            "value": "FR.BANN.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.BLAF.00.HHZ",
+            "value": "FR.BLAF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.BSTF.00.HHZ",
+            "value": "FR.BSTF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.CALF.00.HHZ",
+            "value": "FR.CALF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.CAMF.00.HHZ",
+            "value": "FR.CAMF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.CFF.00.HHZ",
+            "value": "FR.CFF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.CHIF.00.HHZ",
+            "value": "FR.CHIF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.CHMF.00.HHZ",
+            "value": "FR.CHMF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.CORF.00.HHZ",
+            "value": "FR.CORF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.DOU.00.HHZ",
+            "value": "FR.DOU.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.EILF.00.HHZ",
+            "value": "FR.EILF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.FILF.00.HHZ",
+            "value": "FR.FILF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.FLAF.00.HHZ",
+            "value": "FR.FLAF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.FNEB.00.HHZ",
+            "value": "FR.FNEB.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.GRN.00.HHZ",
+            "value": "FR.GRN.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.ISO.00.HHZ",
+            "value": "FR.ISO.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.LBL..SHZ",
+            "value": "FR.LBL..SHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.LEPF.00.EHZ",
+            "value": "FR.LEPF.00.EHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.LRVF.00.HHZ",
+            "value": "FR.LRVF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.MENF..SHZ",
+            "value": "FR.MENF..SHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.MLS.00.HHZ",
+            "value": "FR.MLS.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.MLYF.00.HHZ",
+            "value": "FR.MLYF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.MOF.00.HHZ",
+            "value": "FR.MOF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.MONQ.00.HHZ",
+            "value": "FR.MONQ.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.MVIF.00.HHZ",
+            "value": "FR.MVIF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.OG02.00.HHZ",
+            "value": "FR.OG02.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.OG35.00.HHZ",
+            "value": "FR.OG35.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.OGAG.00.HHZ",
+            "value": "FR.OGAG.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.OGCB.00.HHZ",
+            "value": "FR.OGCB.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.OGDI.00.HHZ",
+            "value": "FR.OGDI.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.OGGM.00.HHZ",
+            "value": "FR.OGGM.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.OGMO.00.HHZ",
+            "value": "FR.OGMO.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.OGMY.00.HHZ",
+            "value": "FR.OGMY.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.OGSA.00.HHZ",
+            "value": "FR.OGSA.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.OGSM.00.HHZ",
+            "value": "FR.OGSM.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.OGVG.00.HHZ",
+            "value": "FR.OGVG.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.PAND.00.HHZ",
+            "value": "FR.PAND.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.PYLO.00.HHZ",
+            "value": "FR.PYLO.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.PYM..SHZ",
+            "value": "FR.PYM..SHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.RENF.00.HHZ",
+            "value": "FR.RENF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.RIVEL.00.HHZ",
+            "value": "FR.RIVEL.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.RONF.00.HHZ",
+            "value": "FR.RONF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.RSL.00.HHZ",
+            "value": "FR.RSL.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.SAOF.00.HHZ",
+            "value": "FR.SAOF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.SAUF.00.HHZ",
+            "value": "FR.SAUF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.SJAF.00.HHZ",
+            "value": "FR.SJAF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.SMPL.00.HHZ",
+            "value": "FR.SMPL.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.SPIF.00.HHZ",
+            "value": "FR.SPIF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.STR.00.HHZ",
+            "value": "FR.STR.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.SURF.00.HHZ",
+            "value": "FR.SURF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.TERF.00.HHZ",
+            "value": "FR.TERF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.TRBF.00.HHZ",
+            "value": "FR.TRBF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.TURF.00.HHZ",
+            "value": "FR.TURF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.URDF.00.HHZ",
+            "value": "FR.URDF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.VIEF.00.HHZ",
+            "value": "FR.VIEF.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "FR.WLS.00.HHZ",
+            "value": "FR.WLS.00.HHZ"
+          },
+          {
+            "selected": false,
+            "text": "RA.ECH.00.HNZ",
+            "value": "RA.ECH.00.HNZ"
+          },
+          {
+            "selected": false,
+            "text": "RA.STBO.00.HNZ",
+            "value": "RA.STBO.00.HNZ"
+          },
+          {
+            "selected": false,
+            "text": "RA.STBR.00.HNZ",
+            "value": "RA.STBR.00.HNZ"
+          },
+          {
+            "selected": false,
+            "text": "RA.STDM.00.HNZ",
+            "value": "RA.STDM.00.HNZ"
+          },
+          {
+            "selected": false,
+            "text": "RA.STFL.00.HNZ",
+            "value": "RA.STFL.00.HNZ"
+          },
+          {
+            "selected": false,
+            "text": "RA.STHE.00.HNZ",
+            "value": "RA.STHE.00.HNZ"
+          },
+          {
+            "selected": false,
+            "text": "RA.STMU.00.HNZ",
+            "value": "RA.STMU.00.HNZ"
+          },
+          {
+            "selected": false,
+            "text": "RA.STR.00.HNZ",
+            "value": "RA.STR.00.HNZ"
+          },
+          {
+            "selected": false,
+            "text": "RA.STRB.00.HNZ",
+            "value": "RA.STRB.00.HNZ"
+          },
+          {
+            "selected": false,
+            "text": "RA.STRO.00.HNZ",
+            "value": "RA.STRO.00.HNZ"
+          },
+          {
+            "selected": false,
+            "text": "RA.STSF.00.HNZ",
+            "value": "RA.STSF.00.HNZ"
+          },
+          {
+            "selected": false,
+            "text": "RA.STUF.00.HNZ",
+            "value": "RA.STUF.00.HNZ"
+          }
+        ],
+        "query": "SHOW TAG VALUES WITH KEY = \"channel\"",
+        "refresh": true,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "annotations": {
+    "list": []
+  },
+  "refresh": "5s",
+  "schemaVersion": 8,
+  "version": 2,
+  "links": []
+}
