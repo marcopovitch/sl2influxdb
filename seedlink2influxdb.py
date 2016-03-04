@@ -32,7 +32,7 @@ if __name__ == '__main__':
                       help="[WARNING] drop previous database !")
     parser.add_option("--recover",  action="store_true",
                       dest="recover", default=False,
-                      help="try to get stream from last run")
+                      help="save statefile & try to get stream from last run")
     (options, args) = parser.parse_args()
 
     signal.signal(signal.SIGINT, handler)
@@ -66,24 +66,23 @@ if __name__ == '__main__':
 
     # Select a stream and start receiving data : use regexp
     streams = [('FR', '.*', '(HHZ|EHZ)', '00'),
+               # ('ND', '.*', 'HHZ', '.*'),
                ('FR', '.*', 'SHZ', ''),
                ('RA', '.*', 'HNZ', '00'),
                ('RD', '.*', 'BHZ', '.*'),
                ('G', '.*', 'BHZ', '.*'),
-               ('XX', '.*', 'BHZ', '.*'),
-               ('(SZ|RT|IG)', '.*', '.*Z', '.*')
+               # ('XX', '.*', 'BHZ', '.*'),
+               ('(SZ|RT|IG|RG)', '.*', '.*Z', '.*')
                ]
 
     # streams = [('FR', 'CHIF', 'HHZ', '00')]
 
-    if options.recover:
-        statefile = 'statefile.txt'
-    else:
-        statefile = None
+    statefile = str(options.dbname) + '.statefile.txt'
 
     p = ProducerThread(name='seedlink-reader',
                        slclient=MySeedlinkClient,
-                       args=(seedlink_url, streams, statefile))
+                       args=(seedlink_url, streams, 
+                             statefile, options.recover))
 
     #################
     # start threads #
