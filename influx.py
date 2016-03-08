@@ -16,7 +16,7 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 
 class InfluxDBExporter(object):
-    def __init__(self, host, port, dbname, user, pwd, dropdb=False):
+    def __init__(self, host, port, dbname, user, pwd, db_management):
         self.host = host
         self.port = port
         self.dbname = dbname
@@ -32,9 +32,15 @@ class InfluxDBExporter(object):
         self.nb_data_max = 40000     # no more than 5000 (cf. influxdb doc.)
 
         self.client = InfluxDBClient(host=host, port=port, database=dbname)
-        if dropdb:
+
+        if db_management:
+            self.prepare_db(db_management)
+
+    def prepare_db(self, db_management):
+        if db_management['drop_db']:
             self.drop_db()
         self.create_db()
+        self.set_retention_policies(db_management['retention'])
 
     def drop_db(self, dbname=None):
         if not dbname:
@@ -45,7 +51,6 @@ class InfluxDBExporter(object):
         except:
             logger.info("Can't drop %s database (not existing yet ?)." 
                         % dbname)
-            pass
 
     def create_db(self, dbname=None):
         if not dbname:
@@ -53,6 +58,24 @@ class InfluxDBExporter(object):
         logger.info("Open/Create %s database." % dbname)
         self.client.create_database(dbname, if_not_exists=True)
         self.client.switch_database(dbname)
+
+    def set_retention_policies(self, days, dbname=None):
+        if not dbname:
+            dbname = self.dbname
+        name = "in_days"
+        logger.info("Setting %s retention policy on %s database, keep=%d days."
+                    % (name, dbname, days))
+        try:
+            self.client.create_retention_policy(name, 
+                                                duration="%dd" % days, 
+                                                replication="1",
+                                                database=dbname, default=True)
+        except:
+            self.client.alter_retention_policy(name,
+                                               database=dbname,
+                                               duration="%dd" % days,
+                                               replication=1,
+                                               default=True)
 
     def make_stats(self, now):
         t = timegm(now.utctimetuple()) * 1e9 \

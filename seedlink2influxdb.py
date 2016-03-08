@@ -30,6 +30,8 @@ if __name__ == '__main__':
     parser.add_option("--dropdb",  action="store_true",
                       dest="dropdb", default=False,
                       help="[WARNING] drop previous database !")
+    parser.add_option("--keep", action="store", dest="keep",
+                      default=2, help="how many days to keep data")
     parser.add_option("--recover",  action="store_true",
                       dest="recover", default=False,
                       help="save statefile & try to get stream from last run")
@@ -41,21 +43,28 @@ if __name__ == '__main__':
     ###################
     # influxdb thread #
     ###################
+    # Note: only one influxdb thread should manage database
+    # for creation, drop, data rentention
+
+    db_management = {'drop_db': options.dropdb,
+                     'retention': options.keep}
+
     c = ConsumerThread(name='influxdb-latency',
                        dbclient=InfluxDBExporter,
                        args=(options.dbserver,
                              options.dbport,
                              options.dbname,
                              'seedlink', 'seedlink',
-                             options.dropdb))
+                             db_management))
 
+    db_management = False  # thread below do not manage db
     d = ConsumerThread(name='influxdb-delay',
                        dbclient=DelayInfluxDBExporter,
                        args=(options.dbserver,
                              options.dbport,
                              options.dbname,
                              'seedlink', 'seedlink',
-                             options.dropdb))
+                             db_management))
 
     ###################
     # seedlink thread #
