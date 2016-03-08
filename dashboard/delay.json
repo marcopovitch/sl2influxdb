@@ -34,8 +34,9 @@
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -51,8 +52,8 @@
           "repeat": "channel",
           "scopedVars": {
             "channel": {
-              "text": "FR.AGO..SHZ",
-              "value": "FR.AGO..SHZ",
+              "text": "FR.19T.00.HHZ",
+              "value": "FR.19T.00.HHZ",
               "selected": false
             },
             "network": {
@@ -146,8 +147,124 @@
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "FR.AGO..SHZ",
+              "value": "FR.AGO..SHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 3,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -237,7 +354,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -255,13 +372,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 3,
+          "id": 4,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -351,7 +469,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -369,13 +487,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 4,
+          "id": 5,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -465,7 +584,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -483,13 +602,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 5,
+          "id": 6,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -579,7 +699,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -597,13 +717,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 6,
+          "id": 7,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -693,7 +814,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -711,13 +832,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 7,
+          "id": 8,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -807,7 +929,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -825,13 +947,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 8,
+          "id": 9,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -921,7 +1044,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -939,13 +1062,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 9,
+          "id": 10,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -1035,7 +1159,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -1053,13 +1177,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 10,
+          "id": 11,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -1149,7 +1274,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -1167,13 +1292,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 11,
+          "id": 12,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -1263,7 +1389,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -1281,13 +1407,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 12,
+          "id": 13,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -1377,7 +1504,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -1395,13 +1522,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 13,
+          "id": 14,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -1491,7 +1619,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -1509,13 +1637,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 14,
+          "id": 15,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -1605,7 +1734,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -1623,13 +1752,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 15,
+          "id": 16,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -1719,7 +1849,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -1737,13 +1867,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 16,
+          "id": 17,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -1833,7 +1964,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -1851,13 +1982,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 17,
+          "id": 18,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -1947,7 +2079,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -1965,13 +2097,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 18,
+          "id": 19,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -2061,7 +2194,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -2079,13 +2212,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 19,
+          "id": 20,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -2175,7 +2309,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -2193,13 +2327,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 20,
+          "id": 21,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -2289,7 +2424,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -2307,13 +2442,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 21,
+          "id": 22,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -2403,7 +2539,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -2421,13 +2557,129 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 22,
+          "id": 23,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "FR.ILLK.00.HHZ",
+              "value": "FR.ILLK.00.HHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 24,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -2517,7 +2769,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -2535,13 +2787,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 23,
+          "id": 25,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -2631,7 +2884,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -2649,13 +2902,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 24,
+          "id": 26,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -2745,7 +2999,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -2763,13 +3017,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 25,
+          "id": 27,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -2859,7 +3114,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -2877,13 +3132,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 26,
+          "id": 28,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -2973,7 +3229,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -2991,13 +3247,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 27,
+          "id": 29,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -3087,7 +3344,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -3105,13 +3362,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 28,
+          "id": 30,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -3201,7 +3459,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -3219,13 +3477,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 29,
+          "id": 31,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -3315,7 +3574,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -3333,13 +3592,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 30,
+          "id": 32,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -3429,7 +3689,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -3447,13 +3707,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 31,
+          "id": 33,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -3543,7 +3804,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -3561,13 +3822,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 32,
+          "id": 34,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -3657,7 +3919,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -3675,13 +3937,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 33,
+          "id": 35,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -3771,7 +4034,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -3789,13 +4052,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 34,
+          "id": 36,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -3885,7 +4149,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -3903,13 +4167,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 35,
+          "id": 37,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -3999,7 +4264,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -4017,13 +4282,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 36,
+          "id": 38,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -4113,7 +4379,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -4131,13 +4397,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 37,
+          "id": 39,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -4227,7 +4494,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -4245,13 +4512,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 38,
+          "id": 40,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -4341,7 +4609,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -4359,127 +4627,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 39,
+          "id": 41,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
-              "type": "absolute",
-              "url": "/dashboard/db/single-trace"
-            }
-          ],
-          "maxDataPoints": 100,
-          "minSpan": 1,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "repeat": null,
-          "scopedVars": {
-            "channel": {
-              "text": "FR.OGMY.00.HHZ",
-              "value": "FR.OGMY.00.HHZ",
-              "selected": false
-            },
-            "network": {
-              "selected": true,
-              "text": "FR",
-              "value": "FR"
-            }
-          },
-          "span": 1,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": true,
-            "lineColor": "rgb(0, 0, 0)",
-            "show": true
-          },
-          "targets": [
-            {
-              "alias": "$channel",
-              "dsType": "influxdb",
-              "groupBy": [
-                {
-                  "params": [
-                    "10s"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "measurement": "delay",
-              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "channel",
-                  "operator": "=~",
-                  "value": "/$channel$/"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0.01,60,300",
-          "title": "$channel",
-          "type": "singlestat",
-          "valueFontSize": "50%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current",
-          "repeatIteration": 1456178082358,
-          "repeatPanelId": 1
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": true,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": null,
-          "decimals": 1,
-          "editable": true,
-          "error": false,
-          "format": "s",
-          "height": "50",
-          "id": 40,
-          "interval": "",
-          "isNew": true,
-          "links": [
-            {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -4569,7 +4724,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -4587,13 +4742,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 41,
+          "id": 42,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -4683,7 +4839,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -4701,13 +4857,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 42,
+          "id": 43,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -4797,7 +4954,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -4815,13 +4972,129 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 43,
+          "id": 44,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "FR.OSSF.00.EHZ",
+              "value": "FR.OSSF.00.EHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 45,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -4911,7 +5184,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -4929,13 +5202,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 44,
+          "id": 46,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -5025,7 +5299,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -5043,13 +5317,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 45,
+          "id": 47,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -5139,7 +5414,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -5157,13 +5432,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 46,
+          "id": 48,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -5253,7 +5529,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -5271,13 +5547,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 47,
+          "id": 49,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -5367,7 +5644,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -5385,127 +5662,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 48,
+          "id": 50,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
-              "type": "absolute",
-              "url": "/dashboard/db/single-trace"
-            }
-          ],
-          "maxDataPoints": 100,
-          "minSpan": 1,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "repeat": null,
-          "scopedVars": {
-            "channel": {
-              "text": "FR.RONF.00.HHZ",
-              "value": "FR.RONF.00.HHZ",
-              "selected": false
-            },
-            "network": {
-              "selected": true,
-              "text": "FR",
-              "value": "FR"
-            }
-          },
-          "span": 1,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": true,
-            "lineColor": "rgb(0, 0, 0)",
-            "show": true
-          },
-          "targets": [
-            {
-              "alias": "$channel",
-              "dsType": "influxdb",
-              "groupBy": [
-                {
-                  "params": [
-                    "10s"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "measurement": "delay",
-              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "channel",
-                  "operator": "=~",
-                  "value": "/$channel$/"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0.01,60,300",
-          "title": "$channel",
-          "type": "singlestat",
-          "valueFontSize": "50%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current",
-          "repeatIteration": 1456178082358,
-          "repeatPanelId": 1
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": true,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": null,
-          "decimals": 1,
-          "editable": true,
-          "error": false,
-          "format": "s",
-          "height": "50",
-          "id": 49,
-          "interval": "",
-          "isNew": true,
-          "links": [
-            {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -5595,7 +5759,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -5613,13 +5777,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 50,
+          "id": 51,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -5709,7 +5874,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -5727,13 +5892,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 51,
+          "id": 52,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -5823,7 +5989,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -5841,13 +6007,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 52,
+          "id": 53,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -5937,7 +6104,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -5955,13 +6122,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 53,
+          "id": 54,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -6051,7 +6219,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -6069,13 +6237,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 54,
+          "id": 55,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -6165,7 +6334,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -6183,13 +6352,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 55,
+          "id": 56,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -6279,7 +6449,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -6297,13 +6467,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 56,
+          "id": 57,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -6393,7 +6564,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -6411,13 +6582,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 57,
+          "id": 58,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -6507,7 +6679,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -6525,13 +6697,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 58,
+          "id": 59,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -6621,7 +6794,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -6639,13 +6812,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 59,
+          "id": 60,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -6735,7 +6909,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -6753,13 +6927,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 60,
+          "id": 61,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -6849,7 +7024,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -6867,13 +7042,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 61,
+          "id": 62,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -6963,7 +7139,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -6981,13 +7157,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 62,
+          "id": 63,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -7077,7 +7254,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -7095,13 +7272,474 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 63,
+          "id": 64,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "G.CLF.00.BHZ",
+              "value": "G.CLF.00.BHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 65,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "G.ECH.00.BHZ",
+              "value": "G.ECH.00.BHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 66,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "G.SSB.00.BHZ",
+              "value": "G.SSB.00.BHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 67,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "G.SSB.10.BHZ",
+              "value": "G.SSB.10.BHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 68,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -7191,7 +7829,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -7209,13 +7847,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 64,
+          "id": 69,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -7305,7 +7944,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -7323,13 +7962,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 65,
+          "id": 70,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -7419,7 +8059,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -7437,13 +8077,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 66,
+          "id": 71,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -7533,7 +8174,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -7551,13 +8192,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 67,
+          "id": 72,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -7647,7 +8289,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -7665,13 +8307,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 68,
+          "id": 73,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -7761,7 +8404,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -7779,13 +8422,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 69,
+          "id": 74,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -7875,7 +8519,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -7893,13 +8537,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 70,
+          "id": 75,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -7989,7 +8634,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -8007,13 +8652,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 71,
+          "id": 76,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -8103,7 +8749,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -8121,13 +8767,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 72,
+          "id": 77,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -8217,7 +8864,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -8235,13 +8882,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 73,
+          "id": 78,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -8331,7 +8979,7 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         },
         {
@@ -8349,13 +8997,14 @@
           "error": false,
           "format": "s",
           "height": "50",
-          "id": 74,
+          "id": 79,
           "interval": "",
           "isNew": true,
           "links": [
             {
-              "includeVars": true,
-              "params": "channel=$channel",
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
               "type": "absolute",
               "url": "/dashboard/db/single-trace"
             }
@@ -8445,7 +9094,2537 @@
             }
           ],
           "valueName": "current",
-          "repeatIteration": 1456178082358,
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 80,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "RD.LOR..BHZ",
+              "value": "RD.LOR..BHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 81,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "RD.MFF..BHZ",
+              "value": "RD.MFF..BHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 82,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "RD.MTLF..BHZ",
+              "value": "RD.MTLF..BHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 83,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "RD.ORIF..BHZ",
+              "value": "RD.ORIF..BHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 84,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "RD.PGF..BHZ",
+              "value": "RD.PGF..BHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 85,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "RD.ROSF..BHZ",
+              "value": "RD.ROSF..BHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 86,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "RG.FEGE.00.ELZ",
+              "value": "RG.FEGE.00.ELZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 87,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "RG.GEIS.00.ELZ",
+              "value": "RG.GEIS.00.ELZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 88,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "RG.GOLF.00.ELZ",
+              "value": "RG.GOLF.00.ELZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 89,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "RG.OSTW.00.ELZ",
+              "value": "RG.OSTW.00.ELZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 90,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "RT.BETS.00.ELZ",
+              "value": "RT.BETS.00.ELZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 91,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "RT.OBER.00.ELZ",
+              "value": "RT.OBER.00.ELZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 92,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "RT.RITT.00.ELZ",
+              "value": "RT.RITT.00.ELZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 93,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "RT.STUN.00.ELZ",
+              "value": "RT.STUN.00.ELZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 94,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "SZ.FOR..EHZ",
+              "value": "SZ.FOR..EHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 95,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "SZ.GUNS..EHZ",
+              "value": "SZ.GUNS..EHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 96,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "SZ.KEFF..EHZ",
+              "value": "SZ.KEFF..EHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 97,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "SZ.KUHL..EHZ",
+              "value": "SZ.KUHL..EHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 98,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "SZ.LAMP..EHZ",
+              "value": "SZ.LAMP..EHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 99,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "SZ.OPS..EHZ",
+              "value": "SZ.OPS..EHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 100,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "SZ.SCHW..EHZ",
+              "value": "SZ.SCHW..EHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
+          "repeatPanelId": 1
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "s",
+          "height": "50",
+          "id": 101,
+          "interval": "",
+          "isNew": true,
+          "links": [
+            {
+              "includeVars": false,
+              "params": "var-channel=$channel",
+              "title": "$channel traces",
+              "type": "absolute",
+              "url": "/dashboard/db/single-trace"
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 1,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "repeat": null,
+          "scopedVars": {
+            "channel": {
+              "text": "SZ.SUBF..EHZ",
+              "value": "SZ.SUBF..EHZ",
+              "selected": false
+            },
+            "network": {
+              "selected": true,
+              "text": "FR",
+              "value": "FR"
+            }
+          },
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(0, 0, 0)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "$channel",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "delay",
+              "query": "SELECT last(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "channel",
+                  "operator": "=~",
+                  "value": "/$channel$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0.01,60,300",
+          "title": "$channel",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "repeatIteration": 1457429968041,
           "repeatPanelId": 1
         }
       ],
@@ -8494,10 +11673,68 @@
   "templating": {
     "list": [
       {
+        "allFormat": "regex values",
+        "current": {
+          "text": "All",
+          "value": "(FR|G|RA|RD|RG|RT|SZ)"
+        },
+        "datasource": null,
+        "includeAll": true,
+        "multi": true,
+        "multiFormat": "pipe",
+        "name": "network",
+        "options": [
+          {
+            "text": "All",
+            "value": "(FR|G|RA|RD|RG|RT|SZ)",
+            "selected": true
+          },
+          {
+            "text": "FR",
+            "value": "FR",
+            "selected": false
+          },
+          {
+            "text": "G",
+            "value": "G",
+            "selected": false
+          },
+          {
+            "text": "RA",
+            "value": "RA",
+            "selected": false
+          },
+          {
+            "text": "RD",
+            "value": "RD",
+            "selected": false
+          },
+          {
+            "text": "RG",
+            "value": "RG",
+            "selected": false
+          },
+          {
+            "text": "RT",
+            "value": "RT",
+            "selected": false
+          },
+          {
+            "text": "SZ",
+            "value": "SZ",
+            "selected": false
+          }
+        ],
+        "query": "SHOW TAG VALUES WITH KEY = \"channel\"",
+        "refresh": true,
+        "regex": "/(^[A-Z]*)/",
+        "type": "query"
+      },
+      {
         "allFormat": "glob",
         "current": {
           "text": "All",
-          "value": "{FR.AGO..SHZ,FR.AJAC.00.HHZ,FR.ARBF.00.HHZ,FR.ARTF.00.HHZ,FR.ASEAF.00.HHZ,FR.ATE.00.HHZ,FR.BANN.00.HHZ,FR.BLAF.00.HHZ,FR.BSTF.00.HHZ,FR.CALF.00.HHZ,FR.CAMF.00.HHZ,FR.CFF.00.HHZ,FR.CHIF.00.HHZ,FR.CHMF.00.HHZ,FR.CORF.00.HHZ,FR.DOU.00.HHZ,FR.EILF.00.HHZ,FR.FILF.00.HHZ,FR.FLAF.00.HHZ,FR.FNEB.00.HHZ,FR.GRN.00.HHZ,FR.ISO.00.HHZ,FR.LBL..SHZ,FR.LEPF.00.EHZ,FR.LRVF.00.HHZ,FR.MENF..SHZ,FR.MLS.00.HHZ,FR.MLYF.00.HHZ,FR.MOF.00.HHZ,FR.MONQ.00.HHZ,FR.MVIF.00.HHZ,FR.OG02.00.HHZ,FR.OG35.00.HHZ,FR.OGAG.00.HHZ,FR.OGCB.00.HHZ,FR.OGDI.00.HHZ,FR.OGGM.00.HHZ,FR.OGMO.00.HHZ,FR.OGMY.00.HHZ,FR.OGSA.00.HHZ,FR.OGSM.00.HHZ,FR.OGVG.00.HHZ,FR.PAND.00.HHZ,FR.PYLO.00.HHZ,FR.PYM..SHZ,FR.RENF.00.HHZ,FR.RIVEL.00.HHZ,FR.RONF.00.HHZ,FR.RSL.00.HHZ,FR.SAOF.00.HHZ,FR.SAUF.00.HHZ,FR.SJAF.00.HHZ,FR.SMPL.00.HHZ,FR.SPIF.00.HHZ,FR.STR.00.HHZ,FR.SURF.00.HHZ,FR.TERF.00.HHZ,FR.TRBF.00.HHZ,FR.TURF.00.HHZ,FR.URDF.00.HHZ,FR.VIEF.00.HHZ,FR.WLS.00.HHZ,RA.ECH.00.HNZ,RA.STBO.00.HNZ,RA.STBR.00.HNZ,RA.STDM.00.HNZ,RA.STFL.00.HNZ,RA.STHE.00.HNZ,RA.STMU.00.HNZ,RA.STR.00.HNZ,RA.STRB.00.HNZ,RA.STRO.00.HNZ,RA.STSF.00.HNZ,RA.STUF.00.HNZ}"
+          "value": "{FR.19T.00.HHZ,FR.AGO..SHZ,FR.AJAC.00.HHZ,FR.ARBF.00.HHZ,FR.ARTF.00.HHZ,FR.ASEAF.00.HHZ,FR.ATE.00.HHZ,FR.BANN.00.HHZ,FR.BLAF.00.HHZ,FR.BSTF.00.HHZ,FR.CALF.00.HHZ,FR.CAMF.00.HHZ,FR.CFF.00.HHZ,FR.CHIF.00.HHZ,FR.CHMF.00.HHZ,FR.CORF.00.HHZ,FR.DOU.00.HHZ,FR.EILF.00.HHZ,FR.FILF.00.HHZ,FR.FLAF.00.HHZ,FR.FNEB.00.HHZ,FR.GRN.00.HHZ,FR.ILLK.00.HHZ,FR.ISO.00.HHZ,FR.LBL..SHZ,FR.LEPF.00.EHZ,FR.LRVF.00.HHZ,FR.MENF..SHZ,FR.MLS.00.HHZ,FR.MLYF.00.HHZ,FR.MOF.00.HHZ,FR.MONQ.00.HHZ,FR.MVIF.00.HHZ,FR.OG02.00.HHZ,FR.OG35.00.HHZ,FR.OGAG.00.HHZ,FR.OGCB.00.HHZ,FR.OGDI.00.HHZ,FR.OGGM.00.HHZ,FR.OGMO.00.HHZ,FR.OGSA.00.HHZ,FR.OGSM.00.HHZ,FR.OGVG.00.HHZ,FR.OSSF.00.EHZ,FR.PAND.00.HHZ,FR.PYLO.00.HHZ,FR.PYM..SHZ,FR.RENF.00.HHZ,FR.RIVEL.00.HHZ,FR.RSL.00.HHZ,FR.SAOF.00.HHZ,FR.SAUF.00.HHZ,FR.SJAF.00.HHZ,FR.SMPL.00.HHZ,FR.SPIF.00.HHZ,FR.STR.00.HHZ,FR.SURF.00.HHZ,FR.TERF.00.HHZ,FR.TRBF.00.HHZ,FR.TURF.00.HHZ,FR.URDF.00.HHZ,FR.VIEF.00.HHZ,FR.WLS.00.HHZ,G.CLF.00.BHZ,G.ECH.00.BHZ,G.SSB.00.BHZ,G.SSB.10.BHZ,RA.ECH.00.HNZ,RA.STBO.00.HNZ,RA.STBR.00.HNZ,RA.STDM.00.HNZ,RA.STFL.00.HNZ,RA.STHE.00.HNZ,RA.STMU.00.HNZ,RA.STR.00.HNZ,RA.STRB.00.HNZ,RA.STRO.00.HNZ,RA.STSF.00.HNZ,RA.STUF.00.HNZ,RD.LOR..BHZ,RD.MFF..BHZ,RD.MTLF..BHZ,RD.ORIF..BHZ,RD.PGF..BHZ,RD.ROSF..BHZ,RG.FEGE.00.ELZ,RG.GEIS.00.ELZ,RG.GOLF.00.ELZ,RG.OSTW.00.ELZ,RT.BETS.00.ELZ,RT.OBER.00.ELZ,RT.RITT.00.ELZ,RT.STUN.00.ELZ,SZ.FOR..EHZ,SZ.GUNS..EHZ,SZ.KEFF..EHZ,SZ.KUHL..EHZ,SZ.LAMP..EHZ,SZ.OPS..EHZ,SZ.SCHW..EHZ,SZ.SUBF..EHZ}"
         },
         "datasource": null,
         "includeAll": true,
@@ -8507,8 +11744,13 @@
         "options": [
           {
             "text": "All",
-            "value": "{FR.AGO..SHZ,FR.AJAC.00.HHZ,FR.ARBF.00.HHZ,FR.ARTF.00.HHZ,FR.ASEAF.00.HHZ,FR.ATE.00.HHZ,FR.BANN.00.HHZ,FR.BLAF.00.HHZ,FR.BSTF.00.HHZ,FR.CALF.00.HHZ,FR.CAMF.00.HHZ,FR.CFF.00.HHZ,FR.CHIF.00.HHZ,FR.CHMF.00.HHZ,FR.CORF.00.HHZ,FR.DOU.00.HHZ,FR.EILF.00.HHZ,FR.FILF.00.HHZ,FR.FLAF.00.HHZ,FR.FNEB.00.HHZ,FR.GRN.00.HHZ,FR.ISO.00.HHZ,FR.LBL..SHZ,FR.LEPF.00.EHZ,FR.LRVF.00.HHZ,FR.MENF..SHZ,FR.MLS.00.HHZ,FR.MLYF.00.HHZ,FR.MOF.00.HHZ,FR.MONQ.00.HHZ,FR.MVIF.00.HHZ,FR.OG02.00.HHZ,FR.OG35.00.HHZ,FR.OGAG.00.HHZ,FR.OGCB.00.HHZ,FR.OGDI.00.HHZ,FR.OGGM.00.HHZ,FR.OGMO.00.HHZ,FR.OGMY.00.HHZ,FR.OGSA.00.HHZ,FR.OGSM.00.HHZ,FR.OGVG.00.HHZ,FR.PAND.00.HHZ,FR.PYLO.00.HHZ,FR.PYM..SHZ,FR.RENF.00.HHZ,FR.RIVEL.00.HHZ,FR.RONF.00.HHZ,FR.RSL.00.HHZ,FR.SAOF.00.HHZ,FR.SAUF.00.HHZ,FR.SJAF.00.HHZ,FR.SMPL.00.HHZ,FR.SPIF.00.HHZ,FR.STR.00.HHZ,FR.SURF.00.HHZ,FR.TERF.00.HHZ,FR.TRBF.00.HHZ,FR.TURF.00.HHZ,FR.URDF.00.HHZ,FR.VIEF.00.HHZ,FR.WLS.00.HHZ,RA.ECH.00.HNZ,RA.STBO.00.HNZ,RA.STBR.00.HNZ,RA.STDM.00.HNZ,RA.STFL.00.HNZ,RA.STHE.00.HNZ,RA.STMU.00.HNZ,RA.STR.00.HNZ,RA.STRB.00.HNZ,RA.STRO.00.HNZ,RA.STSF.00.HNZ,RA.STUF.00.HNZ}",
+            "value": "{FR.19T.00.HHZ,FR.AGO..SHZ,FR.AJAC.00.HHZ,FR.ARBF.00.HHZ,FR.ARTF.00.HHZ,FR.ASEAF.00.HHZ,FR.ATE.00.HHZ,FR.BANN.00.HHZ,FR.BLAF.00.HHZ,FR.BSTF.00.HHZ,FR.CALF.00.HHZ,FR.CAMF.00.HHZ,FR.CFF.00.HHZ,FR.CHIF.00.HHZ,FR.CHMF.00.HHZ,FR.CORF.00.HHZ,FR.DOU.00.HHZ,FR.EILF.00.HHZ,FR.FILF.00.HHZ,FR.FLAF.00.HHZ,FR.FNEB.00.HHZ,FR.GRN.00.HHZ,FR.ILLK.00.HHZ,FR.ISO.00.HHZ,FR.LBL..SHZ,FR.LEPF.00.EHZ,FR.LRVF.00.HHZ,FR.MENF..SHZ,FR.MLS.00.HHZ,FR.MLYF.00.HHZ,FR.MOF.00.HHZ,FR.MONQ.00.HHZ,FR.MVIF.00.HHZ,FR.OG02.00.HHZ,FR.OG35.00.HHZ,FR.OGAG.00.HHZ,FR.OGCB.00.HHZ,FR.OGDI.00.HHZ,FR.OGGM.00.HHZ,FR.OGMO.00.HHZ,FR.OGSA.00.HHZ,FR.OGSM.00.HHZ,FR.OGVG.00.HHZ,FR.OSSF.00.EHZ,FR.PAND.00.HHZ,FR.PYLO.00.HHZ,FR.PYM..SHZ,FR.RENF.00.HHZ,FR.RIVEL.00.HHZ,FR.RSL.00.HHZ,FR.SAOF.00.HHZ,FR.SAUF.00.HHZ,FR.SJAF.00.HHZ,FR.SMPL.00.HHZ,FR.SPIF.00.HHZ,FR.STR.00.HHZ,FR.SURF.00.HHZ,FR.TERF.00.HHZ,FR.TRBF.00.HHZ,FR.TURF.00.HHZ,FR.URDF.00.HHZ,FR.VIEF.00.HHZ,FR.WLS.00.HHZ,G.CLF.00.BHZ,G.ECH.00.BHZ,G.SSB.00.BHZ,G.SSB.10.BHZ,RA.ECH.00.HNZ,RA.STBO.00.HNZ,RA.STBR.00.HNZ,RA.STDM.00.HNZ,RA.STFL.00.HNZ,RA.STHE.00.HNZ,RA.STMU.00.HNZ,RA.STR.00.HNZ,RA.STRB.00.HNZ,RA.STRO.00.HNZ,RA.STSF.00.HNZ,RA.STUF.00.HNZ,RD.LOR..BHZ,RD.MFF..BHZ,RD.MTLF..BHZ,RD.ORIF..BHZ,RD.PGF..BHZ,RD.ROSF..BHZ,RG.FEGE.00.ELZ,RG.GEIS.00.ELZ,RG.GOLF.00.ELZ,RG.OSTW.00.ELZ,RT.BETS.00.ELZ,RT.OBER.00.ELZ,RT.RITT.00.ELZ,RT.STUN.00.ELZ,SZ.FOR..EHZ,SZ.GUNS..EHZ,SZ.KEFF..EHZ,SZ.KUHL..EHZ,SZ.LAMP..EHZ,SZ.OPS..EHZ,SZ.SCHW..EHZ,SZ.SUBF..EHZ}",
             "selected": true
+          },
+          {
+            "text": "FR.19T.00.HHZ",
+            "value": "FR.19T.00.HHZ",
+            "selected": false
           },
           {
             "text": "FR.AGO..SHZ",
@@ -8616,6 +11858,11 @@
             "selected": false
           },
           {
+            "text": "FR.ILLK.00.HHZ",
+            "value": "FR.ILLK.00.HHZ",
+            "selected": false
+          },
+          {
             "text": "FR.ISO.00.HHZ",
             "value": "FR.ISO.00.HHZ",
             "selected": false
@@ -8701,11 +11948,6 @@
             "selected": false
           },
           {
-            "text": "FR.OGMY.00.HHZ",
-            "value": "FR.OGMY.00.HHZ",
-            "selected": false
-          },
-          {
             "text": "FR.OGSA.00.HHZ",
             "value": "FR.OGSA.00.HHZ",
             "selected": false
@@ -8718,6 +11960,11 @@
           {
             "text": "FR.OGVG.00.HHZ",
             "value": "FR.OGVG.00.HHZ",
+            "selected": false
+          },
+          {
+            "text": "FR.OSSF.00.EHZ",
+            "value": "FR.OSSF.00.EHZ",
             "selected": false
           },
           {
@@ -8743,11 +11990,6 @@
           {
             "text": "FR.RIVEL.00.HHZ",
             "value": "FR.RIVEL.00.HHZ",
-            "selected": false
-          },
-          {
-            "text": "FR.RONF.00.HHZ",
-            "value": "FR.RONF.00.HHZ",
             "selected": false
           },
           {
@@ -8821,6 +12063,26 @@
             "selected": false
           },
           {
+            "text": "G.CLF.00.BHZ",
+            "value": "G.CLF.00.BHZ",
+            "selected": false
+          },
+          {
+            "text": "G.ECH.00.BHZ",
+            "value": "G.ECH.00.BHZ",
+            "selected": false
+          },
+          {
+            "text": "G.SSB.00.BHZ",
+            "value": "G.SSB.00.BHZ",
+            "selected": false
+          },
+          {
+            "text": "G.SSB.10.BHZ",
+            "value": "G.SSB.10.BHZ",
+            "selected": false
+          },
+          {
             "text": "RA.ECH.00.HNZ",
             "value": "RA.ECH.00.HNZ",
             "selected": false
@@ -8879,9 +12141,119 @@
             "text": "RA.STUF.00.HNZ",
             "value": "RA.STUF.00.HNZ",
             "selected": false
+          },
+          {
+            "text": "RD.LOR..BHZ",
+            "value": "RD.LOR..BHZ",
+            "selected": false
+          },
+          {
+            "text": "RD.MFF..BHZ",
+            "value": "RD.MFF..BHZ",
+            "selected": false
+          },
+          {
+            "text": "RD.MTLF..BHZ",
+            "value": "RD.MTLF..BHZ",
+            "selected": false
+          },
+          {
+            "text": "RD.ORIF..BHZ",
+            "value": "RD.ORIF..BHZ",
+            "selected": false
+          },
+          {
+            "text": "RD.PGF..BHZ",
+            "value": "RD.PGF..BHZ",
+            "selected": false
+          },
+          {
+            "text": "RD.ROSF..BHZ",
+            "value": "RD.ROSF..BHZ",
+            "selected": false
+          },
+          {
+            "text": "RG.FEGE.00.ELZ",
+            "value": "RG.FEGE.00.ELZ",
+            "selected": false
+          },
+          {
+            "text": "RG.GEIS.00.ELZ",
+            "value": "RG.GEIS.00.ELZ",
+            "selected": false
+          },
+          {
+            "text": "RG.GOLF.00.ELZ",
+            "value": "RG.GOLF.00.ELZ",
+            "selected": false
+          },
+          {
+            "text": "RG.OSTW.00.ELZ",
+            "value": "RG.OSTW.00.ELZ",
+            "selected": false
+          },
+          {
+            "text": "RT.BETS.00.ELZ",
+            "value": "RT.BETS.00.ELZ",
+            "selected": false
+          },
+          {
+            "text": "RT.OBER.00.ELZ",
+            "value": "RT.OBER.00.ELZ",
+            "selected": false
+          },
+          {
+            "text": "RT.RITT.00.ELZ",
+            "value": "RT.RITT.00.ELZ",
+            "selected": false
+          },
+          {
+            "text": "RT.STUN.00.ELZ",
+            "value": "RT.STUN.00.ELZ",
+            "selected": false
+          },
+          {
+            "text": "SZ.FOR..EHZ",
+            "value": "SZ.FOR..EHZ",
+            "selected": false
+          },
+          {
+            "text": "SZ.GUNS..EHZ",
+            "value": "SZ.GUNS..EHZ",
+            "selected": false
+          },
+          {
+            "text": "SZ.KEFF..EHZ",
+            "value": "SZ.KEFF..EHZ",
+            "selected": false
+          },
+          {
+            "text": "SZ.KUHL..EHZ",
+            "value": "SZ.KUHL..EHZ",
+            "selected": false
+          },
+          {
+            "text": "SZ.LAMP..EHZ",
+            "value": "SZ.LAMP..EHZ",
+            "selected": false
+          },
+          {
+            "text": "SZ.OPS..EHZ",
+            "value": "SZ.OPS..EHZ",
+            "selected": false
+          },
+          {
+            "text": "SZ.SCHW..EHZ",
+            "value": "SZ.SCHW..EHZ",
+            "selected": false
+          },
+          {
+            "text": "SZ.SUBF..EHZ",
+            "value": "SZ.SUBF..EHZ",
+            "selected": false
           }
         ],
-        "query": "SHOW TAG VALUES WITH KEY = \"channel\"",
+        "query": "SHOW TAG VALUES WITH KEY = \"channel\"  WHERE channel =~ /^($network)\\..*/",
         "refresh": true,
         "regex": "",
         "type": "query"
@@ -8896,3 +12268,4 @@
   "version": 5,
   "links": []
 }
+

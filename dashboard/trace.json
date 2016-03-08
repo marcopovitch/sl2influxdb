@@ -1,7 +1,7 @@
 {
   "id": 2,
-  "title": "single trace",
-  "originalTitle": "single trace",
+  "title": "Single trace",
+  "originalTitle": "Single trace",
   "tags": [],
   "style": "dark",
   "timezone": "utc",
@@ -243,6 +243,7 @@
           "aliasColors": {},
           "bars": false,
           "datasource": null,
+          "decimals": 1,
           "editable": true,
           "error": false,
           "fill": 1,
@@ -340,8 +341,7 @@
           "y_formats": [
             "s",
             "short"
-          ],
-          "decimals": 1
+          ]
         }
       ],
       "showTitle": true,
@@ -356,6 +356,7 @@
           "aliasColors": {},
           "bars": false,
           "datasource": null,
+          "decimals": 1,
           "editable": true,
           "error": false,
           "fill": 1,
@@ -441,7 +442,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Delay",
+          "title": "$channel",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
@@ -452,12 +453,11 @@
           "y_formats": [
             "s",
             "short"
-          ],
-          "decimals": 1
+          ]
         }
       ],
-      "title": "Delay",
-      "showTitle": true
+      "showTitle": true,
+      "title": "Delay"
     }
   ],
   "time": {
@@ -496,9 +496,8 @@
       {
         "allFormat": "glob",
         "current": {
-          "selected": false,
-          "text": "FR.BANN.00.HHZ",
-          "value": "FR.BANN.00.HHZ"
+          "text": "RT.BETS.00.ELZ",
+          "value": "RT.BETS.00.ELZ"
         },
         "datasource": null,
         "includeAll": false,
@@ -507,374 +506,509 @@
         "name": "channel",
         "options": [
           {
-            "selected": false,
+            "text": "FR.19T.00.HHZ",
+            "value": "FR.19T.00.HHZ",
+            "selected": false
+          },
+          {
             "text": "FR.AGO..SHZ",
-            "value": "FR.AGO..SHZ"
+            "value": "FR.AGO..SHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.AJAC.00.HHZ",
-            "value": "FR.AJAC.00.HHZ"
+            "value": "FR.AJAC.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.ARBF.00.HHZ",
-            "value": "FR.ARBF.00.HHZ"
+            "value": "FR.ARBF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.ARTF.00.HHZ",
-            "value": "FR.ARTF.00.HHZ"
+            "value": "FR.ARTF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.ASEAF.00.HHZ",
-            "value": "FR.ASEAF.00.HHZ"
+            "value": "FR.ASEAF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.ATE.00.HHZ",
-            "value": "FR.ATE.00.HHZ"
+            "value": "FR.ATE.00.HHZ",
+            "selected": false
           },
           {
-            "selected": true,
             "text": "FR.BANN.00.HHZ",
-            "value": "FR.BANN.00.HHZ"
+            "value": "FR.BANN.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.BLAF.00.HHZ",
-            "value": "FR.BLAF.00.HHZ"
+            "value": "FR.BLAF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.BSTF.00.HHZ",
-            "value": "FR.BSTF.00.HHZ"
+            "value": "FR.BSTF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.CALF.00.HHZ",
-            "value": "FR.CALF.00.HHZ"
+            "value": "FR.CALF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.CAMF.00.HHZ",
-            "value": "FR.CAMF.00.HHZ"
+            "value": "FR.CAMF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.CFF.00.HHZ",
-            "value": "FR.CFF.00.HHZ"
+            "value": "FR.CFF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.CHIF.00.HHZ",
-            "value": "FR.CHIF.00.HHZ"
+            "value": "FR.CHIF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.CHMF.00.HHZ",
-            "value": "FR.CHMF.00.HHZ"
+            "value": "FR.CHMF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.CORF.00.HHZ",
-            "value": "FR.CORF.00.HHZ"
+            "value": "FR.CORF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.DOU.00.HHZ",
-            "value": "FR.DOU.00.HHZ"
+            "value": "FR.DOU.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.EILF.00.HHZ",
-            "value": "FR.EILF.00.HHZ"
+            "value": "FR.EILF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.FILF.00.HHZ",
-            "value": "FR.FILF.00.HHZ"
+            "value": "FR.FILF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.FLAF.00.HHZ",
-            "value": "FR.FLAF.00.HHZ"
+            "value": "FR.FLAF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.FNEB.00.HHZ",
-            "value": "FR.FNEB.00.HHZ"
+            "value": "FR.FNEB.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.GRN.00.HHZ",
-            "value": "FR.GRN.00.HHZ"
+            "value": "FR.GRN.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
+            "text": "FR.ILLK.00.HHZ",
+            "value": "FR.ILLK.00.HHZ",
+            "selected": false
+          },
+          {
             "text": "FR.ISO.00.HHZ",
-            "value": "FR.ISO.00.HHZ"
+            "value": "FR.ISO.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.LBL..SHZ",
-            "value": "FR.LBL..SHZ"
+            "value": "FR.LBL..SHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.LEPF.00.EHZ",
-            "value": "FR.LEPF.00.EHZ"
+            "value": "FR.LEPF.00.EHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.LRVF.00.HHZ",
-            "value": "FR.LRVF.00.HHZ"
+            "value": "FR.LRVF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.MENF..SHZ",
-            "value": "FR.MENF..SHZ"
+            "value": "FR.MENF..SHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.MLS.00.HHZ",
-            "value": "FR.MLS.00.HHZ"
+            "value": "FR.MLS.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.MLYF.00.HHZ",
-            "value": "FR.MLYF.00.HHZ"
+            "value": "FR.MLYF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.MOF.00.HHZ",
-            "value": "FR.MOF.00.HHZ"
+            "value": "FR.MOF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.MONQ.00.HHZ",
-            "value": "FR.MONQ.00.HHZ"
+            "value": "FR.MONQ.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.MVIF.00.HHZ",
-            "value": "FR.MVIF.00.HHZ"
+            "value": "FR.MVIF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.OG02.00.HHZ",
-            "value": "FR.OG02.00.HHZ"
+            "value": "FR.OG02.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.OG35.00.HHZ",
-            "value": "FR.OG35.00.HHZ"
+            "value": "FR.OG35.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.OGAG.00.HHZ",
-            "value": "FR.OGAG.00.HHZ"
+            "value": "FR.OGAG.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.OGCB.00.HHZ",
-            "value": "FR.OGCB.00.HHZ"
+            "value": "FR.OGCB.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.OGDI.00.HHZ",
-            "value": "FR.OGDI.00.HHZ"
+            "value": "FR.OGDI.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.OGGM.00.HHZ",
-            "value": "FR.OGGM.00.HHZ"
+            "value": "FR.OGGM.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.OGMO.00.HHZ",
-            "value": "FR.OGMO.00.HHZ"
+            "value": "FR.OGMO.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
-            "text": "FR.OGMY.00.HHZ",
-            "value": "FR.OGMY.00.HHZ"
-          },
-          {
-            "selected": false,
             "text": "FR.OGSA.00.HHZ",
-            "value": "FR.OGSA.00.HHZ"
+            "value": "FR.OGSA.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.OGSM.00.HHZ",
-            "value": "FR.OGSM.00.HHZ"
+            "value": "FR.OGSM.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.OGVG.00.HHZ",
-            "value": "FR.OGVG.00.HHZ"
+            "value": "FR.OGVG.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
+            "text": "FR.OSSF.00.EHZ",
+            "value": "FR.OSSF.00.EHZ",
+            "selected": false
+          },
+          {
             "text": "FR.PAND.00.HHZ",
-            "value": "FR.PAND.00.HHZ"
+            "value": "FR.PAND.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.PYLO.00.HHZ",
-            "value": "FR.PYLO.00.HHZ"
+            "value": "FR.PYLO.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.PYM..SHZ",
-            "value": "FR.PYM..SHZ"
+            "value": "FR.PYM..SHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.RENF.00.HHZ",
-            "value": "FR.RENF.00.HHZ"
+            "value": "FR.RENF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.RIVEL.00.HHZ",
-            "value": "FR.RIVEL.00.HHZ"
+            "value": "FR.RIVEL.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
-            "text": "FR.RONF.00.HHZ",
-            "value": "FR.RONF.00.HHZ"
-          },
-          {
-            "selected": false,
             "text": "FR.RSL.00.HHZ",
-            "value": "FR.RSL.00.HHZ"
+            "value": "FR.RSL.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.SAOF.00.HHZ",
-            "value": "FR.SAOF.00.HHZ"
+            "value": "FR.SAOF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.SAUF.00.HHZ",
-            "value": "FR.SAUF.00.HHZ"
+            "value": "FR.SAUF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.SJAF.00.HHZ",
-            "value": "FR.SJAF.00.HHZ"
+            "value": "FR.SJAF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.SMPL.00.HHZ",
-            "value": "FR.SMPL.00.HHZ"
+            "value": "FR.SMPL.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.SPIF.00.HHZ",
-            "value": "FR.SPIF.00.HHZ"
+            "value": "FR.SPIF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.STR.00.HHZ",
-            "value": "FR.STR.00.HHZ"
+            "value": "FR.STR.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.SURF.00.HHZ",
-            "value": "FR.SURF.00.HHZ"
+            "value": "FR.SURF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.TERF.00.HHZ",
-            "value": "FR.TERF.00.HHZ"
+            "value": "FR.TERF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.TRBF.00.HHZ",
-            "value": "FR.TRBF.00.HHZ"
+            "value": "FR.TRBF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.TURF.00.HHZ",
-            "value": "FR.TURF.00.HHZ"
+            "value": "FR.TURF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.URDF.00.HHZ",
-            "value": "FR.URDF.00.HHZ"
+            "value": "FR.URDF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.VIEF.00.HHZ",
-            "value": "FR.VIEF.00.HHZ"
+            "value": "FR.VIEF.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "FR.WLS.00.HHZ",
-            "value": "FR.WLS.00.HHZ"
+            "value": "FR.WLS.00.HHZ",
+            "selected": false
           },
           {
-            "selected": false,
+            "text": "G.CLF.00.BHZ",
+            "value": "G.CLF.00.BHZ",
+            "selected": false
+          },
+          {
+            "text": "G.ECH.00.BHZ",
+            "value": "G.ECH.00.BHZ",
+            "selected": false
+          },
+          {
+            "text": "G.SSB.00.BHZ",
+            "value": "G.SSB.00.BHZ",
+            "selected": false
+          },
+          {
+            "text": "G.SSB.10.BHZ",
+            "value": "G.SSB.10.BHZ",
+            "selected": false
+          },
+          {
             "text": "RA.ECH.00.HNZ",
-            "value": "RA.ECH.00.HNZ"
+            "value": "RA.ECH.00.HNZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "RA.STBO.00.HNZ",
-            "value": "RA.STBO.00.HNZ"
+            "value": "RA.STBO.00.HNZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "RA.STBR.00.HNZ",
-            "value": "RA.STBR.00.HNZ"
+            "value": "RA.STBR.00.HNZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "RA.STDM.00.HNZ",
-            "value": "RA.STDM.00.HNZ"
+            "value": "RA.STDM.00.HNZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "RA.STFL.00.HNZ",
-            "value": "RA.STFL.00.HNZ"
+            "value": "RA.STFL.00.HNZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "RA.STHE.00.HNZ",
-            "value": "RA.STHE.00.HNZ"
+            "value": "RA.STHE.00.HNZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "RA.STMU.00.HNZ",
-            "value": "RA.STMU.00.HNZ"
+            "value": "RA.STMU.00.HNZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "RA.STR.00.HNZ",
-            "value": "RA.STR.00.HNZ"
+            "value": "RA.STR.00.HNZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "RA.STRB.00.HNZ",
-            "value": "RA.STRB.00.HNZ"
+            "value": "RA.STRB.00.HNZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "RA.STRO.00.HNZ",
-            "value": "RA.STRO.00.HNZ"
+            "value": "RA.STRO.00.HNZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "RA.STSF.00.HNZ",
-            "value": "RA.STSF.00.HNZ"
+            "value": "RA.STSF.00.HNZ",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "RA.STUF.00.HNZ",
-            "value": "RA.STUF.00.HNZ"
+            "value": "RA.STUF.00.HNZ",
+            "selected": false
+          },
+          {
+            "text": "RD.LOR..BHZ",
+            "value": "RD.LOR..BHZ",
+            "selected": false
+          },
+          {
+            "text": "RD.MFF..BHZ",
+            "value": "RD.MFF..BHZ",
+            "selected": false
+          },
+          {
+            "text": "RD.MTLF..BHZ",
+            "value": "RD.MTLF..BHZ",
+            "selected": false
+          },
+          {
+            "text": "RD.ORIF..BHZ",
+            "value": "RD.ORIF..BHZ",
+            "selected": false
+          },
+          {
+            "text": "RD.PGF..BHZ",
+            "value": "RD.PGF..BHZ",
+            "selected": false
+          },
+          {
+            "text": "RD.ROSF..BHZ",
+            "value": "RD.ROSF..BHZ",
+            "selected": false
+          },
+          {
+            "text": "RG.FEGE.00.ELZ",
+            "value": "RG.FEGE.00.ELZ",
+            "selected": false
+          },
+          {
+            "text": "RG.GEIS.00.ELZ",
+            "value": "RG.GEIS.00.ELZ",
+            "selected": false
+          },
+          {
+            "text": "RG.GOLF.00.ELZ",
+            "value": "RG.GOLF.00.ELZ",
+            "selected": false
+          },
+          {
+            "text": "RG.OSTW.00.ELZ",
+            "value": "RG.OSTW.00.ELZ",
+            "selected": false
+          },
+          {
+            "text": "RT.BETS.00.ELZ",
+            "value": "RT.BETS.00.ELZ",
+            "selected": true
+          },
+          {
+            "text": "RT.OBER.00.ELZ",
+            "value": "RT.OBER.00.ELZ",
+            "selected": false
+          },
+          {
+            "text": "RT.RITT.00.ELZ",
+            "value": "RT.RITT.00.ELZ",
+            "selected": false
+          },
+          {
+            "text": "RT.STUN.00.ELZ",
+            "value": "RT.STUN.00.ELZ",
+            "selected": false
+          },
+          {
+            "text": "SZ.FOR..EHZ",
+            "value": "SZ.FOR..EHZ",
+            "selected": false
+          },
+          {
+            "text": "SZ.GUNS..EHZ",
+            "value": "SZ.GUNS..EHZ",
+            "selected": false
+          },
+          {
+            "text": "SZ.KEFF..EHZ",
+            "value": "SZ.KEFF..EHZ",
+            "selected": false
+          },
+          {
+            "text": "SZ.KUHL..EHZ",
+            "value": "SZ.KUHL..EHZ",
+            "selected": false
+          },
+          {
+            "text": "SZ.LAMP..EHZ",
+            "value": "SZ.LAMP..EHZ",
+            "selected": false
+          },
+          {
+            "text": "SZ.OPS..EHZ",
+            "value": "SZ.OPS..EHZ",
+            "selected": false
+          },
+          {
+            "text": "SZ.SCHW..EHZ",
+            "value": "SZ.SCHW..EHZ",
+            "selected": false
+          },
+          {
+            "text": "SZ.SUBF..EHZ",
+            "value": "SZ.SUBF..EHZ",
+            "selected": false
           }
         ],
         "query": "SHOW TAG VALUES WITH KEY = \"channel\"",
@@ -889,6 +1023,7 @@
   },
   "refresh": "5s",
   "schemaVersion": 8,
-  "version": 2,
+  "version": 4,
   "links": []
 }
+
