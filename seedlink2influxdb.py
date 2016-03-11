@@ -31,6 +31,7 @@ if __name__ == '__main__':
                       dest="dropdb", default=False,
                       help="[WARNING] drop previous database !")
     parser.add_option("--keep", action="store", dest="keep",
+                      metavar="NUMBER", type="int",
                       default=2, help="how many days to keep data")
     parser.add_option("--recover",  action="store_true",
                       dest="recover", default=False,
