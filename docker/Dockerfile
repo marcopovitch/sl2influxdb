@@ -1,4 +1,5 @@
 FROM fabienengels/obspy:latest
+
 MAINTAINER Marc Grunberg <marc.grunberg@unistra.fr>
 
 ENV SL2IDB_DIR /opt/sl2influxdb
@@ -18,9 +19,11 @@ COPY run.sh /run.sh
 RUN chmod +x /run.sh && \
     useradd -ms /bin/bash sysop && \
     chown -R sysop:users $SL2IDB_DIR && \
-    mkdir -p /data && 
+    mkdir /data && \
     chown sysop:users /data
 
-VOLUME ["/data"]
 USER sysop 
+
+VOLUME ["/data"]
+
 CMD ["/run.sh"]

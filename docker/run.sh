@@ -1,19 +1,27 @@
 #!/bin/bash
 
+
+# redirect set -x (stderr by default) to stdout
 set -x
+exec 2>&1
+
+# abort on error
+set -e
+
+EXTRA=""
 
 if [ -z "$DB_NAME" ]; then
     DB_NAME="eost"
 fi
 
 if [ -z "$RECOVER" ]; then
-    EXTRA=""
+    EXTRA=$EXTRA
 else
     EXTRA="--recover"
 fi
 
 if [ -z "$DROPDB" ]; then
-    EXTRA=""
+    EXTRA=$EXTRA
 else
     EXTRA="$EXTRA --dropdb"
 fi
@@ -28,6 +36,22 @@ if [ -z $SEEDLINK_SERVER ]; then
     exit 1
 fi
 
+pid=0
+
+# SIGTERM-handler
+term_handler() {
+  if [ $pid -ne 0 ]; then
+    kill -SIGTERM "$pid"
+    wait "$pid"
+  fi
+  exit 143; # 128 + 15 -- SIGTERM
+}
+
+# setup handlers
+trap 'kill ${!}; term_handler' SIGTERM
+
+
+# run application
 cd /data
 python $SL2IDB_DIR/sl2influxdb-master/seedlink2influxdb.py \
     --dbserver $INFLUXDB_PORT_8086_TCP_ADDR \
@@ -35,6 +59,12 @@ python $SL2IDB_DIR/sl2influxdb-master/seedlink2influxdb.py \
     --slserver $SEEDLINK_SERVER \
     --db $DB_NAME \
     --keep $KEEP \
-    $EXTRA
+    $EXTRA 2>&1  &
 
+pid="$!"
 
+# wait indefinetely
+while true
+do
+  tail -f /dev/null & wait ${!}
+done
