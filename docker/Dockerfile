@@ -12,7 +12,8 @@ RUN apt-get install -y \
     pip install influxdb && \
     mkdir -p $SL2IDB_DIR && \
     wget https://github.com/marcopovitch/sl2influxdb/archive/master.zip && \
-    unzip -d $SL2IDB_DIR master.zip
+    unzip -d $SL2IDB_DIR master.zip && \
+    rm -f master.zip
 
 COPY run.sh /run.sh
 
