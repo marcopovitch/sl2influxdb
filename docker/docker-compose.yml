@@ -7,6 +7,8 @@ services:
     ports:
       - 8086:8086
       - 8083:8083
+    volumes:
+      - influxdb_data:/var/lib/influxdb
 
   sl2influxdb:
     build: 
@@ -21,9 +23,42 @@ services:
       - DB_NAME=eost
       - KEEP=7
       - RECOVER=yes
-      #- EXTRA='--drop-db'
+#      - EXTRA='--drop-db'
 
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:master
     ports:
       - 3000:3000
+    volumes:
+      - grafana_conf:/etc/grafana
+        #- grafana_data:/var/lib/grafana
+      - ../dashboard:/var/lib/grafana/dashboards:rw
+    environment:
+      - GF_DASHBOARDS_JSON_ENABLED=true
+      - GF_DASHBOARDS_JSON_PATH=/var/lib/grafana/dashboards
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+#      - GF_USERS_ALLOW_SIGN_UP=false
+#      - GF_AUTH_ANONYMOUS_ENABLED=true
+#      - GF_AUTH_ANONYMOUS_ORG_NAME=EOST
+#      - GF_USERS_ALLOW_ORG_CREATE: 'true'
+#      - GF_SECURITY_SECRET_KEY: xxxxx
+#      - HTTP_USER=admin
+#      - HTTP_PASS=admin
+#      - INFLUXDB_HOST=influxdb
+#      - INFLUXDB_PORT=8086
+#      - INFLUXDB_NAME=eost
+#      - INFLUXDB_USER=root
+#      - INFLUXDB_PASS=root
+
+volumes:
+  influxdb_data:
+    external:
+      name: sl2influxdb_influxdb_data
+  grafana_data:
+    external:
+      name: sl2influxdb_grafana_data
+  grafana_conf:
+    external:
+      name: sl2influxdb_grafana_conf
+
