@@ -17,7 +17,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "influxdb",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -76,6 +76,7 @@
                 }
               ],
               "measurement": "queue",
+              "policy": "default",
               "query": "SELECT mean(\"size\") FROM \"queue\" WHERE \"type\" = 'producer' AND $timeFilter GROUP BY time($interval) fill(none)",
               "refId": "A",
               "resultFormat": "time_series",
@@ -106,15 +107,37 @@
           "timeShift": null,
           "title": "Producer Queue",
           "tooltip": {
+            "msResolution": true,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
           "x-axis": true,
+          "xaxis": {
+            "show": true
+          },
           "y-axis": true,
           "y_formats": [
             "short",
             "short"
+          ],
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -128,7 +151,7 @@
         {
           "aliasColors": {},
           "bars": true,
-          "datasource": null,
+          "datasource": "influxdb",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -191,6 +214,7 @@
                 }
               ],
               "measurement": "queue",
+              "policy": "default",
               "query": "SELECT mean(\"size\") FROM \"queue\" WHERE \"type\" = 'consumer' AND $timeFilter GROUP BY time(1s) fill(0)",
               "refId": "A",
               "resultFormat": "time_series",
@@ -221,15 +245,37 @@
           "timeShift": null,
           "title": "Consumer Queue",
           "tooltip": {
+            "msResolution": true,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
           "x-axis": true,
+          "xaxis": {
+            "show": true
+          },
           "y-axis": true,
           "y_formats": [
             "short",
             "short"
+          ],
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -273,7 +319,7 @@
     "list": []
   },
   "refresh": "5s",
-  "schemaVersion": 8,
-  "version": 22,
+  "schemaVersion": 12,
+  "version": 1,
   "links": []
 }

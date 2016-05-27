@@ -1,5 +1,5 @@
 {
-  "id": 2,
+  "id": 5,
   "title": "Single trace",
   "originalTitle": "Single trace",
   "tags": [],
@@ -17,17 +17,11 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "influxdb",
           "editable": true,
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -77,6 +71,7 @@
               ],
               "hide": false,
               "measurement": "count",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"count\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
               "resultFormat": "time_series",
@@ -107,15 +102,29 @@
           "timeShift": null,
           "title": "$channel",
           "tooltip": {
+            "msResolution": true,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -130,17 +139,11 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "influxdb",
           "editable": true,
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -189,6 +192,7 @@
                 }
               ],
               "measurement": "count",
+              "policy": "default",
               "query": "SELECT stddev(\"value\") FROM \"count\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
               "resultFormat": "time_series",
@@ -219,15 +223,29 @@
           "timeShift": null,
           "title": "$channel",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -242,18 +260,12 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "influxdb",
           "decimals": 1,
           "editable": true,
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -302,6 +314,7 @@
                 }
               ],
               "measurement": "latency",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"latency\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
               "refId": "A",
               "resultFormat": "time_series",
@@ -332,15 +345,29 @@
           "timeShift": null,
           "title": "$channel",
           "tooltip": {
+            "msResolution": true,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "s",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "s",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -355,18 +382,12 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "influxdb",
           "decimals": 1,
           "editable": true,
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -414,6 +435,7 @@
                 }
               ],
               "measurement": "delay",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"delay\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time(10s) fill(null)",
               "refId": "A",
               "resultFormat": "time_series",
@@ -444,15 +466,29 @@
           "timeShift": null,
           "title": "$channel",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "s",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "s",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -499,7 +535,8 @@
           "text": "RT.BETS.00.ELZ",
           "value": "RT.BETS.00.ELZ"
         },
-        "datasource": null,
+        "datasource": "influxdb",
+        "hide": 0,
         "includeAll": false,
         "multi": false,
         "multiFormat": "glob",
@@ -548,6 +585,11 @@
           {
             "text": "FR.BLAF.00.HHZ",
             "value": "FR.BLAF.00.HHZ",
+            "selected": false
+          },
+          {
+            "text": "FR.BOUC.00.HHZ",
+            "value": "FR.BOUC.00.HHZ",
             "selected": false
           },
           {
@@ -706,6 +748,11 @@
             "selected": false
           },
           {
+            "text": "FR.OGMY.00.HHZ",
+            "value": "FR.OGMY.00.HHZ",
+            "selected": false
+          },
+          {
             "text": "FR.OGSA.00.HHZ",
             "value": "FR.OGSA.00.HHZ",
             "selected": false
@@ -746,8 +793,8 @@
             "selected": false
           },
           {
-            "text": "FR.RIVEL.00.HHZ",
-            "value": "FR.RIVEL.00.HHZ",
+            "text": "FR.RONF.00.HHZ",
+            "value": "FR.RONF.00.HHZ",
             "selected": false
           },
           {
@@ -796,8 +843,8 @@
             "selected": false
           },
           {
-            "text": "FR.TRBF.00.HHZ",
-            "value": "FR.TRBF.00.HHZ",
+            "text": "FR.TRIGF.00.HHZ",
+            "value": "FR.TRIGF.00.HHZ",
             "selected": false
           },
           {
@@ -853,6 +900,11 @@
           {
             "text": "RA.STBR.00.HNZ",
             "value": "RA.STBR.00.HNZ",
+            "selected": false
+          },
+          {
+            "text": "RA.STBU.00.HNZ",
+            "value": "RA.STBU.00.HNZ",
             "selected": false
           },
           {
@@ -928,6 +980,41 @@
           {
             "text": "RD.ROSF..BHZ",
             "value": "RD.ROSF..BHZ",
+            "selected": false
+          },
+          {
+            "text": "RG.E3301.00.HHZ",
+            "value": "RG.E3301.00.HHZ",
+            "selected": false
+          },
+          {
+            "text": "RG.E3304.00.HHZ",
+            "value": "RG.E3304.00.HHZ",
+            "selected": false
+          },
+          {
+            "text": "RG.E3305.00.HHZ",
+            "value": "RG.E3305.00.HHZ",
+            "selected": false
+          },
+          {
+            "text": "RG.E3313.00.HHZ",
+            "value": "RG.E3313.00.HHZ",
+            "selected": false
+          },
+          {
+            "text": "RG.E3314.00.HHZ",
+            "value": "RG.E3314.00.HHZ",
+            "selected": false
+          },
+          {
+            "text": "RG.E3315.00.HHZ",
+            "value": "RG.E3315.00.HHZ",
+            "selected": false
+          },
+          {
+            "text": "RG.E3401.00.HHZ",
+            "value": "RG.E3401.00.HHZ",
             "selected": false
           },
           {
@@ -1012,7 +1099,7 @@
           }
         ],
         "query": "SHOW TAG VALUES WITH KEY = \"channel\"",
-        "refresh": true,
+        "refresh": 1,
         "regex": "",
         "type": "query"
       }
@@ -1022,8 +1109,7 @@
     "list": []
   },
   "refresh": "5s",
-  "schemaVersion": 8,
-  "version": 4,
+  "schemaVersion": 12,
+  "version": 3,
   "links": []
 }
-
