@@ -31,7 +31,7 @@ class MySeedlinkClient(EasySeedLinkClient):
         if self.recover:
             self.conn.statefile = statefile
             # recover last packet indexes from previous run
-            self.conn.recoverState(statefile)
+            self.conn.recover_state(statefile)
             # prevent statefile to be overwitten each time a new packet
             # arrives (take too much ressources)
             self.conn.statefile = None
