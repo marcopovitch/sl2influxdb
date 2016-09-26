@@ -56,7 +56,8 @@ class InfluxDBExporter(object):
         if not dbname:
             dbname = self.dbname
         logger.info("Open/Create %s database." % dbname)
-        self.client.create_database(dbname, if_not_exists=True)
+        # self.client.create_database(dbname, if_not_exists=True)
+        self.client.create_database(dbname)
         self.client.switch_database(dbname)
 
     def set_retention_policies(self, days, dbname=None):
@@ -141,7 +142,7 @@ class InfluxDBExporter(object):
         """Return True is data have been pushed to influxdb"""
         delta = trace.stats['delta']
         starttime = trace.stats['starttime']
-        channel = trace.getId()
+        channel = trace.get_id()
         now = datetime.utcnow()
         nbsamples = len(trace.data)
         last_sample_time = starttime + delta * (nbsamples - 1)

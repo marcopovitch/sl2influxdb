@@ -5,7 +5,7 @@ import threading
 import Queue
 import logging
 import requests 
-from obspy.seedlink.seedlinkexception import SeedLinkException
+from obspy.clients.seedlink.seedlinkexception import SeedLinkException
 
 # default logger
 logger = logging.getLogger('threads')

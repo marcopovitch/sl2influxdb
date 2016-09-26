@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import sys
-from obspy.seedlink import EasySeedLinkClient
+from obspy.clients.seedlink import EasySeedLinkClient
 from datetime import datetime
 from lxml import etree
 from StringIO import StringIO
@@ -90,7 +90,7 @@ class MySeedlinkClient(EasySeedLinkClient):
 
     def on_data(self, trace):
         """Implement the on_data callback"""
-        channel = trace.getId()
+        channel = trace.get_id()
         if channel not in self.selected_streams:
             return
 
@@ -112,6 +112,6 @@ class MySeedlinkClient(EasySeedLinkClient):
     def stop_seedlink(self):
         # force packets indexes write on statefile
         self.conn.statefile = self.statefile
-        self.conn.saveState(self.statefile)
+        self.conn.save_state(self.statefile)
         self.conn.close()
         sys.exit(0)
