@@ -6,7 +6,8 @@ ENV SL2IDB_DIR /opt/sl2influxdb
 
 WORKDIR /tmp
 
-RUN apt-get install -y \
+RUN apt-get update && \
+    apt-get install -y \
         wget \
         unzip && \
     pip install influxdb && \
