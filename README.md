@@ -1,6 +1,6 @@
 # Seedlink to InfluxDB
 
-Dump (seismological) seedlink time series into [InfluxDB](https://influxdata.com) (version > 0.9). Use [Grafana](http://grafana.org) to plot waveforms, real time latency, etc.
+Dump (seismological) seedlink time series into [InfluxDB](https://influxdata.com) (version > 0.9). Use [Grafana](http://grafana.org) to plot waveforms, real time latency delay, etc.
 
 ## Usage
 <pre>
@@ -26,8 +26,43 @@ Waveform, RMS, latency plots for a given station:
 
 <img src="https://cloud.githubusercontent.com/assets/4367036/12712707/95e9f498-c8ca-11e5-8115-cabb66dbf692.png" width="250">
 
+## InfluxDB
+
+InluxDB data representation (measurements, tags, fields, timestamps).
+
+Measurements:
+
+* **queue**: internal messages producer queue (seedlink thread) and consumer queue (influxdb exporter thread)
+	* tags  
+		* **type**=(consumer|producer)
+	* field
+		* **size**=queue size
+	* timestamp 
+
+* **count** : amplitude in count (waveforms)
+	* tags
+		* **channel** = channel name (eg. FR.WLS.00.HHZ)
+	* field
+		* **value** = amplitude	
+	* timestamp
+	 
+* **latency** : seedlink packet propagation time from station to datacenter
+	* tags
+		* **channel** = channel name 
+	* field
+		* **value** = latency value	
+	* timestamp
+		
+* **delay** : time since last seedlink packet was received
+	* tags
+		* **channel** = channel name (eg. FR.WLS.00.HHZ)
+		* **geohash** = station coordinates geohash formated (to be done)
+	* field 
+ 		* **value** = latency value
+	* timestamp
 
 
 ## Dependencies:
 * [obspy](https://github.com/obspy/obspy/wiki)
 * [python InfluxDB](https://github.com/influxdata/influxdb-python)
+* [geohash](https://github.com/vinsci/geohash/)
