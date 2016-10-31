@@ -50,7 +50,8 @@ class ConsumerThread(threading.Thread):
         self.name = name
         try:
             self.dbclient = dbclient(args[0], args[1], args[2],
-                                     args[3], args[4], args[5])
+                                     args[3], args[4], args[5],
+                                     args[6])
         except requests.exceptions.ConnectionError as e:
             self.force_shutdown(e)
         else:
