@@ -1,39 +1,9 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_INFLUXDB",
-      "label": "influxdb",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "influxdb",
-      "pluginName": "InfluxDB"
-    }
-  ],
-  "__requires": [
-    {
-      "type": "panel",
-      "id": "grafana-worldmap-panel",
-      "name": "Worldmap Panel",
-      "version": "0.0.15"
-    },
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "4.0.0-pre1"
-    },
-    {
-      "type": "datasource",
-      "id": "influxdb",
-      "name": "InfluxDB",
-      "version": "1.0.0"
-    }
-  ],
-  "id": null,
-  "title": "New dashboard",
+  "id": 1,
+  "title": "Latency/Delay Map",
   "tags": [],
   "style": "dark",
-  "timezone": "browser",
+  "timezone": "utc",
   "editable": true,
   "hideControls": false,
   "sharedCrosshair": false,
@@ -44,28 +14,33 @@
       "height": "250px",
       "panels": [
         {
-          "circleMaxSize": "10",
-          "circleMinSize": "3",
+          "circleMaxSize": "30",
+          "circleMinSize": "2",
           "colors": [
-            "rgba(114, 246, 0, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(223, 12, 12, 0.97)"
+            "rgba(34, 255, 0, 0.9)",
+            "rgba(255, 0, 0, 0.89)",
+            "rgba(0, 52, 255, 0.97)"
           ],
-          "datasource": "${DS_INFLUXDB}",
+          "datasource": "influxdb",
           "decimals": 0,
           "editable": true,
           "error": false,
           "esMetric": "Count",
+          "height": "400",
           "id": 1,
           "initialZoom": "5",
           "isNew": true,
+          "links": [],
           "locationData": "table",
           "mapCenter": "custom",
           "mapCenterLatitude": "45.7",
           "mapCenterLongitude": "2",
           "maxDataPoints": 1,
+          "minSpan": 6,
+          "repeat": "measure",
           "showLegend": true,
-          "span": 4,
+          "span": 6,
+          "tableLabel": "channel",
           "targets": [
             {
               "dsType": "influxdb",
@@ -116,24 +91,124 @@
               "tags": []
             }
           ],
-          "thresholds": "30,60",
+          "thresholds": "10,60",
           "title": "$measure map",
+          "transparent": false,
           "type": "grafana-worldmap-panel",
           "unitPlural": "s",
           "unitSingle": "",
-          "valueName": "current",
-          "tableLabel": "channel",
           "unitSingular": "s",
+          "valueName": "current",
+          "scopedVars": {
+            "measure": {
+              "selected": false,
+              "text": "delay",
+              "value": "delay"
+            }
+          }
+        },
+        {
+          "circleMaxSize": "30",
+          "circleMinSize": "2",
+          "colors": [
+            "rgba(34, 255, 0, 0.9)",
+            "rgba(255, 0, 0, 0.89)",
+            "rgba(0, 52, 255, 0.97)"
+          ],
+          "datasource": "influxdb",
+          "decimals": 0,
+          "editable": true,
+          "error": false,
+          "esMetric": "Count",
+          "height": "400",
+          "id": 2,
+          "initialZoom": "5",
+          "isNew": true,
           "links": [],
+          "locationData": "table",
+          "mapCenter": "custom",
+          "mapCenterLatitude": "45.7",
+          "mapCenterLongitude": "2",
+          "maxDataPoints": 1,
+          "minSpan": 6,
+          "repeat": null,
+          "showLegend": true,
+          "span": 6,
+          "tableLabel": "channel",
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "geohash"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "channel"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "/^$measure$/",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  },
+                  {
+                    "params": [
+                      "metric"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": "10,60",
+          "title": "$measure map",
           "transparent": false,
-          "height": "400"
+          "type": "grafana-worldmap-panel",
+          "unitPlural": "s",
+          "unitSingle": "",
+          "unitSingular": "s",
+          "valueName": "current",
+          "scopedVars": {
+            "measure": {
+              "selected": false,
+              "text": "latency",
+              "value": "latency"
+            }
+          },
+          "repeatIteration": 1477944497952,
+          "repeatPanelId": 1
         }
       ],
       "title": "Row"
     }
   ],
   "time": {
-    "from": "now-15m",
+    "from": "now-1m",
     "to": "now"
   },
   "timepicker": {
@@ -165,13 +240,32 @@
     "list": [
       {
         "allValue": null,
-        "current": {},
-        "datasource": "${DS_INFLUXDB}",
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "influxdb",
         "hide": 0,
-        "includeAll": false,
+        "includeAll": true,
         "multi": false,
         "name": "measure",
-        "options": [],
+        "options": [
+          {
+            "text": "All",
+            "value": "$__all",
+            "selected": true
+          },
+          {
+            "text": "delay",
+            "value": "delay",
+            "selected": false
+          },
+          {
+            "text": "latency",
+            "value": "latency",
+            "selected": false
+          }
+        ],
         "query": "SHOW MEASUREMENTS",
         "refresh": 1,
         "regex": "/delay|latency/",
@@ -185,8 +279,9 @@
   "annotations": {
     "list": []
   },
+  "refresh": "30s",
   "schemaVersion": 13,
-  "version": 0,
+  "version": 5,
   "links": [],
   "gnetId": null
 }
