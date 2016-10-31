@@ -21,6 +21,7 @@ services:
       - INFLUXDB_PORT_8086_TCP_ADDR=influxdb
       - INFLUXDB_PORT_8086_TCP_PORT=8086
       - SEEDLINK_SERVER=renass-fw.u-strasbg.fr
+      - FDSN_WS_STATION_SERVER="RESIF"
       - DB_NAME=eost
       - KEEP=7
       - RECOVER="yes"
