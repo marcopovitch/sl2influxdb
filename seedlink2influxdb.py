@@ -4,6 +4,7 @@
 from optparse import OptionParser
 from influx import InfluxDBExporter, DelayInfluxDBExporter
 from seedlink import MySeedlinkClient
+from station import StationCoordInfo
 import threading
 from threads import ConsumerThread, ProducerThread, shutdown_event
 import signal
@@ -14,6 +15,7 @@ def handler(f, s):
 
 
 if __name__ == '__main__':
+
     # Parse cmd line
     parser = OptionParser()
     parser.add_option("--dbserver", action="store", dest="dbserver",
@@ -23,6 +25,9 @@ if __name__ == '__main__':
     parser.add_option("--slserver", action="store", dest="slserver",
                       default='renass-fw.u-strasbg.fr', 
                       help="seedlink server name")
+    parser.add_option("--fdsnserver", action="store", dest="fdsn_server",
+                      default='RESIF', 
+                      help="fdsn station server name")
     parser.add_option("--slport", action="store", dest="slport",
                       default='18000', help="seedlink server port")
     parser.add_option("--db", action="store", dest="dbname",
@@ -41,6 +46,15 @@ if __name__ == '__main__':
     signal.signal(signal.SIGINT, handler)
     signal.signal(signal.SIGTERM, handler)
 
+    ###########
+    # geohash #
+    ###########
+    # Get station coordinates and compute geohash
+    # seedlink and fdsn-station do not use the same mask definition :/
+    fdsn_streams = [('FR', '*', 'HHZ', '00')]
+    info_sta = StationCoordInfo(options.fdsn_server, fdsn_streams)
+    station_geohash = info_sta.get_geohash()
+
     ###################
     # influxdb thread #
     ###################
@@ -55,8 +69,10 @@ if __name__ == '__main__':
                        args=(options.dbserver,
                              options.dbport,
                              options.dbname,
-                             'seedlink', 'seedlink',
-                             db_management))
+                             'seedlink',  # user
+                             'seedlink',  # pwd
+                             db_management, 
+                             station_geohash))
 
     db_management = False  # thread below do not manage db
     d = ConsumerThread(name='influxdb-delay',
@@ -64,8 +80,10 @@ if __name__ == '__main__':
                        args=(options.dbserver,
                              options.dbport,
                              options.dbname,
-                             'seedlink', 'seedlink',
-                             db_management))
+                             'seedlink',  # user
+                             'seedlink',  # pwd
+                             db_management, 
+                             station_geohash))
 
     ###################
     # seedlink thread #
