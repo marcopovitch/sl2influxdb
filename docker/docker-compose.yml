@@ -5,8 +5,8 @@ services:
   influxdb:
     image: influxdb
     ports:
-      - 8086:8086
       - 8083:8083
+      - 8086:8086
     volumes:
       - influxdb_data:/var/lib/influxdb
 
@@ -16,13 +16,14 @@ services:
       dockerfile: Dockerfile
     links:
       - influxdb
+      - grafana
     environment:
       - INFLUXDB_PORT_8086_TCP_ADDR=influxdb
       - INFLUXDB_PORT_8086_TCP_PORT=8086
-      - SEEDLINK_SERVER=10.0.0.15
+      - SEEDLINK_SERVER=renass-fw.u-strasbg.fr
       - DB_NAME=eost
       - KEEP=7
-      - RECOVER=yes
+      - RECOVER="yes"
 #      - EXTRA='--drop-db'
 
   grafana:
@@ -38,6 +39,7 @@ services:
       - GF_DASHBOARDS_JSON_PATH=/var/lib/grafana/dashboards
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=grafana-worldmap-panel
 #      - GF_USERS_ALLOW_SIGN_UP=false
 #      - GF_AUTH_ANONYMOUS_ENABLED=true
 #      - GF_AUTH_ANONYMOUS_ORG_NAME=EOST
