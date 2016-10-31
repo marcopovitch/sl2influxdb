@@ -2,12 +2,15 @@
 
 import sys
 from influxdb import InfluxDBClient
-from influxdb.exceptions import InfluxDBServerError
+from influxdb.exceptions import InfluxDBServerError, \
+                                InfluxDBClientError
+import requests.exceptions
 from calendar import timegm
 import logging
 from datetime import datetime
 from obspy import UTCDateTime
-from threads import q, shutdown_event, last_packet_time, lock
+from threads import q, shutdown_event, lock
+from threads import last_packet_time
 import Queue
 
 # default logger
@@ -16,13 +19,16 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 
 class InfluxDBExporter(object):
-    def __init__(self, host, port, dbname, user, pwd, db_management):
+    def __init__(self, host, port, 
+                 dbname, user, pwd, 
+                 db_management, geohash={}):
         self.host = host
         self.port = port
         self.dbname = dbname
         self.user = user
         self.pwd = pwd
         self.client = None
+        self.geohash = geohash
 
         self.NB_MAX_TRY_REQUEST = 10  # nb of rqt error before aborting
         # self.TIME_MAX = 1*60.*60.
@@ -91,7 +97,13 @@ class InfluxDBExporter(object):
         timestamp = starttime.datetime
         t = timegm(timestamp.utctimetuple()) * 1e9 \
             + timestamp.microsecond * 1e3
+        try:
+            geohash_tag = ",geohash=%s" % self.geohash[channel]
+        except:
+            geohash_tag = ""
+
         l = "latency,channel=" + channel + \
+            geohash_tag + \
             " value=" + "%.1f " % latency_value + \
             str(int(t))
         self.data.append(l)
@@ -128,14 +140,16 @@ class InfluxDBExporter(object):
                                     expected_response_code=204,
                                     headers=headers
                                     )
-            except InfluxDBServerError as e:
+            except (InfluxDBServerError, 
+                    InfluxDBClientError, 
+                    requests.exceptions.ConnectionError) as e:
                 if nb_try > self.NB_MAX_TRY_REQUEST:
                     raise e
                 else:
-                    logger.error("Request failed: retrying (%d/%d)" % 
+                    logger.error("Request failed (%s)" % e)
+                    logger.error("retrying (%d/%d)" %
                                  (nb_try, self.NB_MAX_TRY_REQUEST))
                     continue
-
             break
 
     def manage_data(self, trace):
@@ -208,7 +222,10 @@ class InfluxDBExporter(object):
                                 % (len(self.data), self.nb_data_max))
                     now = datetime.utcnow()
                     self.make_stats(now)
-                    self.send_points()
+                    try:
+                        self.send_points()
+                    except BaseException as e:
+                        self.force_shutdown(e)
                     wait_time = 0
             else:
                 data_pushed = self.manage_data(trace)
@@ -218,10 +235,12 @@ class InfluxDBExporter(object):
 
 
 class DelayInfluxDBExporter(InfluxDBExporter):
-    def __init__(self, host, port, dbname, user, pwd, dropdb=False):
+    def __init__(self, host, port, 
+                 dbname, user, pwd, dropdb=False, 
+                 geohash={}):
         super(DelayInfluxDBExporter, self).__init__(host, port, 
                                                     dbname, user, pwd, 
-                                                    dropdb)
+                                                    dropdb, geohash)
 
     def make_line_channel_delay(self, channel, last_sample_time):
         now = datetime.utcnow()
@@ -229,8 +248,15 @@ class DelayInfluxDBExporter(InfluxDBExporter):
             + now.microsecond * 1e3
         t_str = str(int(t))
         delay = UTCDateTime(now) - UTCDateTime(last_sample_time)
-        s = "delay,channel=%s " % channel + \
-            "value=%.2f " % delay + \
+
+        try:
+            geohash_tag = ",geohash=%s" % self.geohash[channel]
+        except:
+            geohash_tag = ""
+
+        s = "delay,channel=%s" % channel + \
+            geohash_tag + \
+            " value=%.2f " % delay + \
             "%s" % t_str
         self.data.append(s)
 
@@ -244,9 +270,8 @@ class DelayInfluxDBExporter(InfluxDBExporter):
         self.make_line_delay()
         try:
             self.send_points()
-        except InfluxDBServerError as e:
+        except BaseException as e:
             self.force_shutdown(e)
-
         return True
 
     def run(self):
