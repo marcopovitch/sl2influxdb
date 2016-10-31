@@ -61,7 +61,7 @@ python $SL2IDB_DIR/sl2influxdb-master/seedlink2influxdb.py \
     --dbserver $INFLUXDB_PORT_8086_TCP_ADDR \
     --dbport $INFLUXDB_PORT_8086_TCP_PORT \
     --slserver $SEEDLINK_SERVER \
-    --fdsnws $FDSN_WS_STATION_SERVER \
+    --fdsnserver $FDSN_WS_STATION_SERVER \
     --db $DB_NAME \
     --keep $KEEP \
     $EXTRA 2>&1  &
