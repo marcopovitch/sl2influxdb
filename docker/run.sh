@@ -36,6 +36,11 @@ if [ -z $SEEDLINK_SERVER ]; then
     exit 1
 fi
 
+if [ -z $FDSN_WS_STATION_SERVER ]; then
+    FDSN_WS_STATION_SERVER="RESIF"
+fi
+
+
 pid=0
 
 # SIGTERM-handler
@@ -50,13 +55,13 @@ term_handler() {
 # setup handlers
 trap 'kill ${!}; term_handler' SIGTERM
 
-
 # run application
 cd /data
 python $SL2IDB_DIR/sl2influxdb-master/seedlink2influxdb.py \
     --dbserver $INFLUXDB_PORT_8086_TCP_ADDR \
     --dbport $INFLUXDB_PORT_8086_TCP_PORT \
     --slserver $SEEDLINK_SERVER \
+    --fdsnws $FDSN_WS_STATION_SERVER \
     --db $DB_NAME \
     --keep $KEEP \
     $EXTRA 2>&1  &
