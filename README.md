@@ -7,28 +7,33 @@ Dump seedlink (seismological) time series into [InfluxDB](https://influxdata.com
 Usage: seedlink2influxdb.py [options]
 
 Options:
-  -h, --help           show this help message and exit
-  --dbserver=DBSERVER  InfluxDB server name
-  --dbport=DBPORT      db server port
-  --slserver=SLSERVER  seedlink server name
-  --slport=SLPORT      seedlink server port
-  --db=DBNAME          influxdb name to use
-  --dropdb             [WARNING] drop previous database !
-  --recover            try to get stream from last run
+  -h, --help            show this help message and exit
+  --dbserver=DBSERVER   InfluxDB server name
+  --dbport=DBPORT       db server port
+  --slserver=SLSERVER   seedlink server name
+  --fdsnserver=FDSN_SERVER
+                        fdsn station server name
+  --slport=SLPORT       seedlink server port
+  --db=DBNAME           influxdb name to use
+  --dropdb              [WARNING] drop previous database !
+  --keep=NUMBER         how many days to keep data
+  --recover             save statefile & try to get stream from last run
 </pre>
 
 ## Screenshot 
-Latency & traces for multiple stations:
-
-<img src="https://cloud.githubusercontent.com/assets/4367036/12712706/95c4a38c-c8ca-11e5-8fa7-9c40bbdb8d24.png" width="250">
-
-Waveform, RMS, latency plots for a given station:
-
-<img src="https://cloud.githubusercontent.com/assets/4367036/12712707/95e9f498-c8ca-11e5-8115-cabb66dbf692.png" width="250">
 
 Latency and Delay Map
 
-<img src="https://cloud.githubusercontent.com/assets/4367036/19850077/d1ad4990-9f56-11e6-83ff-0c5de3587deb.png" width="250">
+<img src="https://cloud.githubusercontent.com/assets/4367036/19850077/d1ad4990-9f56-11e6-83ff-0c5de3587deb.png" width="400">
+
+Latency & traces for multiple stations:
+
+<img src="https://cloud.githubusercontent.com/assets/4367036/12712706/95c4a38c-c8ca-11e5-8fa7-9c40bbdb8d24.png" width="350">
+
+Waveform, RMS, latency plots for a given station:
+
+<img src="https://cloud.githubusercontent.com/assets/4367036/12712707/95e9f498-c8ca-11e5-8115-cabb66dbf692.png" width="350">
+
 
 
 ## InfluxDB
