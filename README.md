@@ -1,6 +1,6 @@
 # Seedlink to InfluxDB
 
-Dump (seismological) seedlink time series into [InfluxDB](https://influxdata.com) (version > 0.9). Use [Grafana](http://grafana.org) to plot waveforms, real time latency delay, etc.
+Dump seedlink (seismological) time series into [InfluxDB](https://influxdata.com). Use [Grafana](http://grafana.org) to plot waveforms, real time latency delay, etc. Maps uses the grafana [worldmap-panel plugin](https://github.com/grafana/worldmap-panel)
 
 ## Usage
 <pre>
@@ -25,6 +25,11 @@ Latency & traces for multiple stations:
 Waveform, RMS, latency plots for a given station:
 
 <img src="https://cloud.githubusercontent.com/assets/4367036/12712707/95e9f498-c8ca-11e5-8115-cabb66dbf692.png" width="250">
+
+Latency and Delay Map
+
+<img src="https://cloud.githubusercontent.com/assets/4367036/19850077/d1ad4990-9f56-11e6-83ff-0c5de3587deb.png" width="250">
+
 
 ## InfluxDB
 
@@ -56,7 +61,7 @@ Measurements:
 * **delay** : time since last seedlink packet was received
 	* tags
 		* **channel** = channel name (eg. FR.WLS.00.HHZ)
-		* **geohash** = station coordinates geohash formated (to be done)
+		* **geohash** = station coordinates geohash formated
 	* field 
  		* **value** = latency value
 	* timestamp
@@ -66,3 +71,4 @@ Measurements:
 * [obspy](https://github.com/obspy/obspy/wiki)
 * [python InfluxDB](https://github.com/influxdata/influxdb-python)
 * [geohash](https://github.com/vinsci/geohash/)
+* [grafana](http://grafana.org) (with [worldmap-panel plugin](https://github.com/grafana/worldmap-panel))
