@@ -2,6 +2,7 @@
 
 import sys
 from obspy.clients.seedlink import EasySeedLinkClient
+from obspy.clients.seedlink.seedlinkexception import SeedLinkException
 from datetime import datetime
 from lxml import etree
 from StringIO import StringIO
@@ -31,7 +32,10 @@ class MySeedlinkClient(EasySeedLinkClient):
         if self.recover:
             self.conn.statefile = statefile
             # recover last packet indexes from previous run
-            self.conn.recover_state(statefile)
+            try:
+                self.conn.recover_state(statefile)
+            except SeedLinkException as e:
+                logger.error(e)
             # prevent statefile to be overwitten each time a new packet
             # arrives (take too much ressources)
             self.conn.statefile = None
@@ -112,6 +116,9 @@ class MySeedlinkClient(EasySeedLinkClient):
     def stop_seedlink(self):
         # force packets indexes write on statefile
         self.conn.statefile = self.statefile
-        self.conn.save_state(self.statefile)
+        try:
+            self.conn.save_state(self.statefile)
+        except SeedLinkException as e:
+            logger.error(e)
         self.conn.close()
         sys.exit(0)
