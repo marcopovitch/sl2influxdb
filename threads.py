@@ -12,7 +12,7 @@ logger = logging.getLogger('threads')
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 # variable shared by threads
-BUF_SIZE = 100000
+BUF_SIZE = 1000000
 q = Queue.Queue(BUF_SIZE)
 shutdown_event = threading.Event()
 last_packet_time = {}
