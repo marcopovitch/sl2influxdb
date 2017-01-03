@@ -18,9 +18,11 @@ RUN apt-get update && \
     unzip -d $SL2IDB_DIR master.zip && \
     rm -f master.zip
 
-COPY run.sh /run.sh
+#COPY ./run.sh /run.sh
 
-RUN chmod +x /run.sh && \
+RUN \
+    cp $SL2IDB_DIR/sl2influxdb-master/docker/run.sh /run.sh && \
+    chmod +x /run.sh && \
     useradd -ms /bin/bash sysop && \
     chown -R sysop:users $SL2IDB_DIR && \
     mkdir /data && \
