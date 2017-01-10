@@ -21,7 +21,7 @@ services:
       - INFLUXDB_PORT_8086_TCP_ADDR=influxdb
       - INFLUXDB_PORT_8086_TCP_PORT=8086
       - SEEDLINK_SERVER=renass-fw.u-strasbg.fr
-      - FDSN_WS_STATION_SERVER=RESIF
+      - FDSN_WS_STATION_SERVER=http://renass-sc1.u-strasbg.fr
       - DB_NAME=eost
       - KEEP=7
       - RECOVER="yes"
@@ -40,7 +40,7 @@ services:
       - GF_DASHBOARDS_JSON_PATH=/var/lib/grafana/dashboards
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_INSTALL_PLUGINS=grafana-worldmap-panel
+      - GF_INSTALL_PLUGINS=grafana-worldmap-panel,neocat-cal-heatmap-panel
 #      - GF_USERS_ALLOW_SIGN_UP=false
 #      - GF_AUTH_ANONYMOUS_ENABLED=true
 #      - GF_AUTH_ANONYMOUS_ORG_NAME=EOST
