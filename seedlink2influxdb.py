@@ -23,10 +23,10 @@ if __name__ == '__main__':
     parser.add_option("--dbport", action="store", dest="dbport",
                       default='8083', help="db server port")
     parser.add_option("--slserver", action="store", dest="slserver",
-                      default='renass-fw.u-strasbg.fr', 
+                      default='renass-fw.u-strasbg.fr',
                       help="seedlink server name")
     parser.add_option("--fdsnserver", action="store", dest="fdsn_server",
-                      default='RESIF', 
+                      default='RESIF',
                       help="fdsn station server name")
     parser.add_option("--slport", action="store", dest="slport",
                       default='18000', help="seedlink server port")
@@ -51,7 +51,9 @@ if __name__ == '__main__':
     ###########
     # Get station coordinates and compute geohash
     # seedlink and fdsn-station do not use the same mask definition :/
-    fdsn_streams = [('FR', '*', 'HHZ', '00')]
+    print "Get station coordinates"
+    # fdsn_streams = [('FR', '*', 'HHZ', '00')]
+    fdsn_streams = [('*', '*', '*', '*')]
     info_sta = StationCoordInfo(options.fdsn_server, fdsn_streams)
     station_geohash = info_sta.get_geohash()
 
@@ -71,7 +73,7 @@ if __name__ == '__main__':
                              options.dbname,
                              'seedlink',  # user
                              'seedlink',  # pwd
-                             db_management, 
+                             db_management,
                              station_geohash))
 
     db_management = False  # thread below do not manage db
@@ -82,7 +84,7 @@ if __name__ == '__main__':
                              options.dbname,
                              'seedlink',  # user
                              'seedlink',  # pwd
-                             db_management, 
+                             db_management,
                              station_geohash))
 
     ###################
@@ -93,8 +95,8 @@ if __name__ == '__main__':
     seedlink_url = ':'.join([options.slserver, options.slport])
 
     # Select a stream and start receiving data : use regexp
-    streams = [('FR', '.*', '(HHZ|EHZ)', '00'),
-               # ('ND', '.*', 'HHZ', '.*'),
+    streams = [('FR', '.*', '(HHZ|EHZ|ELZ)', '.*'),
+               ('ND', '.*', 'HHZ', '.*'),
                ('FR', '.*', 'SHZ', ''),
                ('RA', '.*', 'HNZ', '00'),
                ('RD', '.*', 'BHZ', '.*'),
@@ -109,7 +111,7 @@ if __name__ == '__main__':
 
     p = ProducerThread(name='seedlink-reader',
                        slclient=MySeedlinkClient,
-                       args=(seedlink_url, streams, 
+                       args=(seedlink_url, streams,
                              statefile, options.recover))
 
     #################
@@ -121,7 +123,7 @@ if __name__ == '__main__':
 
     while True:
         threads = threading.enumerate()
-        if len(threads) == 1: 
+        if len(threads) == 1:
             break
         for t in threads:
             if t != threading.currentThread() and t.is_alive():
