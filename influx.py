@@ -19,8 +19,8 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 
 class InfluxDBExporter(object):
-    def __init__(self, host, port, 
-                 dbname, user, pwd, 
+    def __init__(self, host, port,
+                 dbname, user, pwd,
                  db_management, geohash={}):
         self.host = host
         self.port = port
@@ -30,12 +30,14 @@ class InfluxDBExporter(object):
         self.client = None
         self.geohash = geohash
 
-        self.NB_MAX_TRY_REQUEST = 10  # nb of rqt error before aborting
-        # self.TIME_MAX = 1*60.*60.
-
-        # add one item by influxdb line
+        # nb of rqt error before aborting
+        self.NB_MAX_TRY_REQUEST = 10
+        # Ignore trace older than TIME_MAX sec.
+        self.TIME_MAX = 60.* 30.
+        # holds 'point' to be send to influxdb (1 by line)
         self.data = []
-        self.nb_data_max = 40000     # no more than 5000 (cf. influxdb doc.)
+        # max batch size to send:  no more than 5000 (cf. influxdb doc.)
+        self.nb_data_max = 5000
 
         self.client = InfluxDBClient(host=host, port=port, database=dbname)
 
@@ -55,7 +57,7 @@ class InfluxDBExporter(object):
         try:
             self.client.drop_database(dbname)
         except:
-            logger.info("Can't drop %s database (not existing yet ?)." 
+            logger.info("Can't drop %s database (not existing yet ?)."
                         % dbname)
 
     def create_db(self, dbname=None):
@@ -73,8 +75,8 @@ class InfluxDBExporter(object):
         logger.info("Setting %s retention policy on %s database, keep=%d days."
                     % (name, dbname, days))
         try:
-            self.client.create_retention_policy(name, 
-                                                duration="%dd" % days, 
+            self.client.create_retention_policy(name,
+                                                duration="%dd" % days,
                                                 replication="1",
                                                 database=dbname, default=True)
         except:
@@ -85,6 +87,7 @@ class InfluxDBExporter(object):
                                                default=True)
 
     def make_stats(self, now):
+        """ Build *queue* influxdb data point """
         t = timegm(now.utctimetuple()) * 1e9 \
             + now.microsecond * 1e3
         t_str = str(int(t))
@@ -94,6 +97,7 @@ class InfluxDBExporter(object):
         self.data.append(s)
 
     def make_line_latency(self, channel, starttime, latency_value):
+        """ Build *latency* influxdb data point """
         timestamp = starttime.datetime
         t = timegm(timestamp.utctimetuple()) * 1e9 \
             + timestamp.microsecond * 1e3
@@ -109,6 +113,7 @@ class InfluxDBExporter(object):
         self.data.append(l)
 
     def make_line_count(self, channel, starttime, delta, data):
+        """ Build *seimogram* influxdb data point """
         cc = "count,channel=" + channel
         for i, v in enumerate(data):
             timestamp = starttime + i*delta
@@ -118,9 +123,9 @@ class InfluxDBExporter(object):
             self.data.append(c)
 
     def send_points(self, debug=False):
-        """Send points to influxsb
+        """ Send all data points to influxdb
 
-        to speed-up things make our own "data line"
+        To speed-up things make our own "data line"
         (bypass influxdb write_points python api)
         """
         data = '\n'.join(self.data[:self.nb_data_max])
@@ -133,15 +138,15 @@ class InfluxDBExporter(object):
         while True:
             nb_try += 1
             try:
-                self.client.request(url="write", 
+                self.client.request(url="write",
                                     method='POST',
                                     params={'db': self.client._database},
                                     data=data,
                                     expected_response_code=204,
                                     headers=headers
                                     )
-            except (InfluxDBServerError, 
-                    InfluxDBClientError, 
+            except (InfluxDBServerError,
+                    InfluxDBClientError,
                     requests.exceptions.ConnectionError) as e:
                 if nb_try > self.NB_MAX_TRY_REQUEST:
                     raise e
@@ -153,7 +158,15 @@ class InfluxDBExporter(object):
             break
 
     def manage_data(self, trace):
-        """Return True is data have been pushed to influxdb"""
+        """ Build/pack data and send them to influxdb
+
+        - prepare :
+            - trace's samples
+            - latency
+        - send them to influxdb
+
+        Return True is data have been pushed.
+        """
         delta = trace.stats['delta']
         starttime = trace.stats['starttime']
         channel = trace.get_id()
@@ -163,19 +176,24 @@ class InfluxDBExporter(object):
 
         l = UTCDateTime(now) - last_sample_time
 
+        # Update timestamp of the last channel's packet received
         lock.acquire()
         last_packet_time[channel] = last_sample_time
         lock.release()
 
-        # do not process 'old' data
-        # if l > self.TIME_MAX:
-        #     return
+        # Ignore 'old' traces
+        if self.TIME_MAX and l < self.TIME_MAX:
+            # Set all trace samples in the proper format.
+            self.make_line_count(channel,
+                                 starttime,
+                                 delta,
+                                 trace.data)
+        else:
+            msg = "%s too old ( %.1f > %.1f s) ... trace ignored!" % \
+                (channel, l, self.TIME_MAX)
+            logger.debug(msg)
 
-        self.make_line_count(channel,
-                             starttime,
-                             delta,
-                             trace.data)
-
+        # Latency
         self.make_line_latency(channel,
                                starttime + delta * (nbsamples - 1),
                                l)
@@ -195,7 +213,9 @@ class InfluxDBExporter(object):
             return False
 
     def run(self):
-        """Run unless shutdown signal is received.  """
+        """
+        Run unless shutdown signal is received.
+        """
 
         # time in seconds
         timeout = 0.1
@@ -208,18 +228,25 @@ class InfluxDBExporter(object):
             except Queue.Empty:
                 # process queue before shutdown
                 if q.empty() and shutdown_event.isSet():
-                    logger.info("%s thread has catched *shutdown_event*" %
+                    logger.info("%s thread has caught *shutdown_event*" %
                                 self.__class__.__name__)
                     sys.exit(0)
 
                 wait_time += timeout
                 if wait_time > max_cumulated_wait_time:
-                    # force data flush to influxdb
-                    # even if data block is not completed
-                    logger.info('Timer reached (%ds)' % max_cumulated_wait_time
-                                + '. Force data flush to influxdb '
-                                + '(bsize=%d/%d)!'
-                                % (len(self.data), self.nb_data_max))
+                    if len(self.data) == 0:
+                        # no data from seedlink thread
+                        logger.info('Timer reached (%ds)' % max_cumulated_wait_time
+                                    + '. No data coming from seedlink thread!'
+                                    + ' Network/connection down ?')
+                    else:
+                        # force data flush to influxdb
+                        # even if data block is not completed
+                        logger.info('Timer reached (%ds)' % max_cumulated_wait_time
+                                    + '. Force data flush to influxdb '
+                                    + '(bsize=%d/%d)!'
+                                    % (len(self.data), self.nb_data_max))
+
                     now = datetime.utcnow()
                     self.make_stats(now)
                     try:
@@ -235,12 +262,13 @@ class InfluxDBExporter(object):
 
 
 class DelayInfluxDBExporter(InfluxDBExporter):
-    def __init__(self, host, port, 
-                 dbname, user, pwd, dropdb=False, 
+    def __init__(self, host, port,
+                 dbname, user, pwd, dropdb=False,
                  geohash={}):
-        super(DelayInfluxDBExporter, self).__init__(host, port, 
-                                                    dbname, user, pwd, 
+        super(DelayInfluxDBExporter, self).__init__(host, port,
+                                                    dbname, user, pwd,
                                                     dropdb, geohash)
+        self.refresh_rate = 1.  # sec.
 
     def make_line_channel_delay(self, channel, last_sample_time):
         now = datetime.utcnow()
@@ -277,7 +305,7 @@ class DelayInfluxDBExporter(InfluxDBExporter):
     def run(self):
         while True:
             self.manage_data()
-            shutdown_event.wait(1.)
+            shutdown_event.wait(self.refresh_rate)
             if shutdown_event.isSet():
                 logger.info("%s thread has catched *shutdown_event*" %
                             self.__class__.__name__)
