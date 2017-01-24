@@ -29,6 +29,14 @@ class MySeedlinkClient(EasySeedLinkClient):
         self.statefile = statefile
         self.recover = recover
 
+        # resample signal if not None
+        self.resample_rate = 10.  # Hz
+
+        # self.conn.DFT_READBUF_SIZE = 10240
+        # self.conn.timeout = 10  # Time in seconds after which a `collect()` call will be interrupted.
+        # self.conn.netto = 90  #  Network timeout (seconds) (default is 120 sec)
+        # self.conn.netdly = 30  # Network reconnect delay (seconds)  (default is 30 sec)
+
         if self.recover:
             self.conn.statefile = statefile
             # recover last packet indexes from previous run
@@ -41,7 +49,7 @@ class MySeedlinkClient(EasySeedLinkClient):
             self.conn.statefile = None
 
     def get_stream_info(self):
-        """Parse xml stream info returned by server"""
+        """Parse xml stream info returned by server."""
         stream_info = []
         self.stream_xml = self.stream_xml.replace('encoding="utf-8"', '')
         parser = etree.XMLParser(remove_blank_text=True)
@@ -59,7 +67,7 @@ class MySeedlinkClient(EasySeedLinkClient):
         return stream_info
 
     def show_stream_info(self):
-        """Show xml parsed stream info returned by server"""
+        """Show xml parsed stream info returned by server."""
         info = self.get_stream_info()
         for s in info:
             for c in s['channel']:
@@ -67,25 +75,26 @@ class MySeedlinkClient(EasySeedLinkClient):
                 print c['location'], c['seedname'], s['stream_check']
 
     def select_stream_re(self, pattern):
-        """Select stream based on regular expression"""
+        """Select stream based on regular expression."""
         net_re = re.compile(pattern[0])
         sta_re = re.compile(pattern[1])
         chan_re = re.compile(pattern[2])
         loc_re = re.compile(pattern[3])
 
-        info = self.get_stream_info()  # avalaible streams from server
+        info = self.get_stream_info()  # available streams from server
         for s in info:
             if not net_re.match(s['network']) or not sta_re.match(s['name']):
                 continue
             for c in s['channel']:
                 if chan_re.match(c['seedname']) \
                    and loc_re.match(c['location']):
-                    self.add_stream(s['network'], s['name'], 
+                    self.add_stream(s['network'], s['name'],
                                     c['seedname'], c['location'])
 
     def add_stream(self, net, sta, chan, loc):
-        """Add stream to be proceseed 
-           it is not possible to add location code here
+        """Add stream to be proceseed
+
+        It is not possible to add location code here
         """
         self.select_stream(net, sta, chan)
         stream = ".".join([net, sta, loc, chan])
@@ -93,10 +102,20 @@ class MySeedlinkClient(EasySeedLinkClient):
         logger.info("stream %s added" % stream)
 
     def on_data(self, trace):
-        """Implement the on_data callback"""
+        """Implement the on_data callback."""
         channel = trace.get_id()
         if channel not in self.selected_streams:
             return
+
+        sample_rate = trace.stats['sampling_rate']
+
+        if self.resample_rate:
+            try:
+                trace.resample(self.resample_rate)
+            except:
+                msg = "Can't resample %s(%.2f Hz) to %.2f Hz" % \
+                    (channel, sample_rate, self.resample_rate)
+                logger.warning(msg)
 
         try:
             timeout = 15
@@ -114,7 +133,7 @@ class MySeedlinkClient(EasySeedLinkClient):
         logger.error("[%s] seedlink error." % datetime.utcnow())
 
     def stop_seedlink(self):
-        # force packets indexes write on statefile
+        # force packets indexes to be written on statefile
         self.conn.statefile = self.statefile
         try:
             self.conn.save_state(self.statefile)
