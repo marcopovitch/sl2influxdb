@@ -4,7 +4,7 @@ import sys
 import threading
 import Queue
 import logging
-import requests 
+import requests
 from obspy.clients.seedlink.seedlinkexception import SeedLinkException
 
 # default logger
