@@ -14,8 +14,8 @@
       "height": "250px",
       "panels": [
         {
-          "circleMaxSize": "30",
-          "circleMinSize": "2",
+          "circleMaxSize": "20",
+          "circleMinSize": "10",
           "colors": [
             "rgba(34, 255, 0, 0.9)",
             "rgba(255, 0, 0, 0.89)",
@@ -26,7 +26,6 @@
           "editable": true,
           "error": false,
           "esMetric": "Count",
-          "height": "400",
           "id": 1,
           "initialZoom": "5",
           "isNew": true,
@@ -91,7 +90,7 @@
               "tags": []
             }
           ],
-          "thresholds": "10,60",
+          "thresholds": "20,60",
           "title": "$measure map",
           "transparent": false,
           "type": "grafana-worldmap-panel",
@@ -108,8 +107,8 @@
           }
         },
         {
-          "circleMaxSize": "30",
-          "circleMinSize": "2",
+          "circleMaxSize": "20",
+          "circleMinSize": "10",
           "colors": [
             "rgba(34, 255, 0, 0.9)",
             "rgba(255, 0, 0, 0.89)",
@@ -120,7 +119,6 @@
           "editable": true,
           "error": false,
           "esMetric": "Count",
-          "height": "400",
           "id": 2,
           "initialZoom": "5",
           "isNew": true,
@@ -185,7 +183,7 @@
               "tags": []
             }
           ],
-          "thresholds": "10,60",
+          "thresholds": "20,60",
           "title": "$measure map",
           "transparent": false,
           "type": "grafana-worldmap-panel",
