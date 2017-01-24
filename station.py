@@ -21,7 +21,13 @@ class StationCoordInfo(object):
     def get_inventory(self):
         starttime = UTCDateTime()
         endtime = UTCDateTime()
-        client = Client(self.fdsn_server)
+        try:
+            client = Client(self.fdsn_server)
+        except:
+            logger.info("Can't get FDSN client from %s" % self.fdsn_server)
+            logger.info("No station coordinates loaded !")
+            return
+
         for s in self.streams:
             net, sta, chan, loc = s
             inv = client.get_stations(starttime=starttime,
@@ -80,8 +86,10 @@ class StationCoordInfo(object):
 
 
 if __name__ == '__main__':
-    streams = [('FR', '*', 'HHZ', '00')]
-    info_sta = StationCoordInfo("RESIF", streams)
+    # streams = [('FR', '*', 'HHZ', '00')]
+    # info_sta = StationCoordInfo("RESIF", streams)
+    streams = [('*', '*', '*Z', '*')]
+    info_sta = StationCoordInfo("http://renass-sc1.u-strasbg.fr:8080", streams)
     # info_sta.show_station_coordinfo()
-    print info_sta.get_geohash()
+    info_sta.show_geohash()
 
