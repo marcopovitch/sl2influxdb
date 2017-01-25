@@ -1,6 +1,8 @@
 # Seedlink to InfluxDB
 
-Dump seedlink (seismological) time series into [InfluxDB](https://influxdata.com). Use [Grafana](http://grafana.org) to plot waveforms, real time latency delay, etc. Maps uses the grafana [worldmap-panel plugin](https://github.com/grafana/worldmap-panel)
+Dump seedlink (seismological) time series into [InfluxDB](https://influxdata.com). Use [Grafana](http://grafana.org) to plot waveforms, real time latency delay, etc. Maps uses the grafana [worldmap-panel plugin](https://github.com/grafana/worldmap-panel).
+
+Dockerfile, docker-compse.yml are available [here](https://github.com/marcopovitch/sl2influxdb/blob/master/docker/README.md).
 
 ## Usage
 <pre>
@@ -11,7 +13,7 @@ Options:
   --dbserver=DBSERVER   InfluxDB server name
   --dbport=DBPORT       db server port
   --slserver=SLSERVER   seedlink server name
-  --fdsnserver=FDSN_SERVER
+  --fdsnserver=FDSN_SERVER:PORT
                         fdsn station server name
   --slport=SLPORT       seedlink server port
   --db=DBNAME           influxdb name to use
@@ -22,9 +24,13 @@ Options:
 
 ## Screenshot 
 
-Latency and Delay Map
+Delay/Latency Map
 
+<img src="https://cloud.githubusercontent.com/assets/4367036/22286118/6a4fa65e-e2ee-11e6-93ae-ae1b4f68a7a2.png" width="350">
+
+<!--
 <img src="https://cloud.githubusercontent.com/assets/4367036/19850077/d1ad4990-9f56-11e6-83ff-0c5de3587deb.png" width="400">
+-->
 
 Latency & traces for multiple stations:
 
