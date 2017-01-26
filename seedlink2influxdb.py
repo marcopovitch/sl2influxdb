@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-
-# import logging
+import sys
+import logging
 from optparse import OptionParser
 from influx import InfluxDBExporter, DelayInfluxDBExporter
 from seedlink import MySeedlinkClient
@@ -8,6 +8,11 @@ from station import StationCoordInfo
 import threading
 from threads import ConsumerThread, ProducerThread, shutdown_event
 import signal
+
+
+# default logger
+logger = logging.getLogger('StationCoordInfo')
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 
 def handler(f, s):
@@ -26,7 +31,7 @@ if __name__ == '__main__':
                       default='renass-fw.u-strasbg.fr',
                       help="seedlink server name")
     parser.add_option("--fdsnserver", action="store", dest="fdsn_server",
-                      default='RESIF',
+                      default=None,
                       help="fdsn station server name")
     parser.add_option("--slport", action="store", dest="slport",
                       default='18000', help="seedlink server port")
@@ -51,11 +56,15 @@ if __name__ == '__main__':
     ###########
     # Get station coordinates and compute geohash
     # seedlink and fdsn-station do not use the same mask definition :/
-    print "Get station coordinates"
-    # fdsn_streams = [('FR', '*', 'HHZ', '00')]
-    fdsn_streams = [('*', '*', '*', '*')]
-    info_sta = StationCoordInfo(options.fdsn_server, fdsn_streams)
-    station_geohash = info_sta.get_geohash()
+    if options.fdsn_server:
+        logger.info("Get station coordinates from %s" % options.fdsn_server)
+        # fdsn_streams = [('FR', '*', 'HHZ', '00')]
+        fdsn_streams = [('*', '*', '*', '*')]
+        info_sta = StationCoordInfo(options.fdsn_server, fdsn_streams)
+        station_geohash = info_sta.get_geohash()
+    else:
+        logger.info("No FDSN server used to get station geoash")
+        station_geohash = {}
 
     ###################
     # influxdb thread #
