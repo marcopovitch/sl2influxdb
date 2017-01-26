@@ -22,6 +22,21 @@ Options:
   --recover             save statefile & try to get stream from last run
 </pre>
 
+Example :
+<pre>
+./seedlink2influxdb.py	--dbserver localhost \
+						--dbport 8086 \
+						--slserver rtserve.resif.fr \
+						--fdsnserver http://ws.resif.fr \
+						--db eost2 \
+						--keep 1
+</pre>
+
+### Note :
+
+Fdsnserver request (`--fdsnserver` option) is optional. It is only used and performed at the begining and *could be slow* (if too much stations info are requested) ! Data collected are only used to get station coordinates and are converted to geohash,  needed to plot measurements on a map. 
+
+
 ## Screenshot 
 
 Delay/Latency Map
