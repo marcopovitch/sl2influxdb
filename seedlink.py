@@ -124,6 +124,7 @@ class MySeedlinkClient(EasySeedLinkClient):
         endtime = trace.stats['endtime']
         sample_rate = trace.stats['sampling_rate']
 
+        # filter out too old data
         latency = UTCDateTime(now) - endtime
         if self.SL_PACKET_TIME_MAX and latency > self.SL_PACKET_TIME_MAX:
             msg = "%s too old ( %.1f > %.1f s) ... trace ignored!" % \
@@ -131,6 +132,7 @@ class MySeedlinkClient(EasySeedLinkClient):
             logger.debug(msg)
             return
 
+        # resample data
         if self.resample_rate:
             try:
                 trace.resample(self.resample_rate)
