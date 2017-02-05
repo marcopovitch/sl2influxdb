@@ -29,13 +29,22 @@ class MySeedlinkClient(EasySeedLinkClient):
         self.statefile = statefile
         self.recover = recover
 
+        # write in "trace queue"  timeout 
+        self.queue_timeout = 15  # sec
+
         # resample signal if not None
         self.resample_rate = 10.  # Hz
 
         # self.conn.DFT_READBUF_SIZE = 10240
-        # self.conn.timeout = 10  # Time in seconds after which a `collect()` call will be interrupted.
-        # self.conn.netto = 90  #  Network timeout (seconds) (default is 120 sec)
-        # self.conn.netdly = 30  # Network reconnect delay (seconds)  (default is 30 sec)
+
+        # Time in seconds after which a `collect()` call will be interrupted.
+        # self.conn.timeout = 10  
+
+        # Network timeout (seconds) (default is 120 sec)
+        # self.conn.netto = 90  
+
+        # Network reconnect delay (seconds)  (default is 30 sec)
+        # self.conn.netdly = 30  
 
         if self.recover:
             self.conn.statefile = statefile
@@ -118,10 +127,10 @@ class MySeedlinkClient(EasySeedLinkClient):
                 logger.warning(msg)
 
         try:
-            timeout = 15
-            q.put(trace, block=True, timeout=timeout)
+            q.put(trace, block=True, timeout=self.queue_timeout)
         except Queue.Full:
-            logger.error("Queue is full and timeout(%ds) reached !" % timeout)
+            logger.error("Queue is full and timeout(%ds) reached !" % 
+                         self.queue_timeout)
             logger.error("Ignoring data !")
 
         if shutdown_event.isSet():
