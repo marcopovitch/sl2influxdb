@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+from obspy import UTCDateTime
 from obspy.clients.seedlink import EasySeedLinkClient
 from obspy.clients.seedlink.seedlinkexception import SeedLinkException
 from datetime import datetime
@@ -31,6 +32,9 @@ class MySeedlinkClient(EasySeedLinkClient):
 
         # write in "trace queue"  timeout 
         self.queue_timeout = 15  # sec
+
+        # Ignore trace older than SL_TIME_MAX sec.
+        self.SL_PACKET_TIME_MAX = 60. * 30.
 
         # resample signal if not None
         self.resample_rate = 10.  # Hz
@@ -116,7 +120,16 @@ class MySeedlinkClient(EasySeedLinkClient):
         if channel not in self.selected_streams:
             return
 
+        now = datetime.utcnow()
+        endtime = trace.stats['endtime']
         sample_rate = trace.stats['sampling_rate']
+
+        latency = UTCDateTime(now) - endtime
+        if self.SL_PACKET_TIME_MAX and latency > self.SL_PACKET_TIME_MAX:
+            msg = "%s too old ( %.1f > %.1f s) ... trace ignored!" % \
+                    (channel, latency, self.SL_PACKET_TIME_MAX)
+            logger.debug(msg)
+            return
 
         if self.resample_rate:
             try:
