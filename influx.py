@@ -162,11 +162,14 @@ class InfluxDBExporter(object):
             - trace's samples
             - latency/delay :
                 Note that definition may differ !
-                - latency (http://ds.iris.edu/ds/nodes/dmc/data/latency/)
-                - delay (http://www.seiscomp3.org/doc/jakarta/current/apps/scqc.html)
-                Here latency is the time between the time of last sample of a given block 
-                and when this block arrives into the datacenter.
-                Delay is the time between to consecutive block (ie. kind of transit time)
+                - latency :
+                    (http://ds.iris.edu/ds/nodes/dmc/data/latency/)
+                - delay :
+                    (http://www.seiscomp3.org/doc/jakarta/current/apps/scqc.html)
+                Here latency is the time between the time of last sample of a
+                given block and when this block arrives into the datacenter.
+                Delay is the time between to consecutive block (ie. kind of
+                transit time)
         - send them to influxdb
 
         Return True is data have been pushed.
@@ -178,12 +181,12 @@ class InfluxDBExporter(object):
         channel = trace.get_id()
 
         # Update timestamp of the last and previous channel's packet received
+        last_ptime = UTCDateTime(now)
         lock.acquire()
         try:
             previous_ptime = last_packet_time[channel]['last']
         except:
             previous_ptime = None
-        last_ptime = UTCDateTime(now)
         last_packet_time[channel] = {'previous': previous_ptime,
                                      'last': last_ptime}
         lock.release()
@@ -233,13 +236,15 @@ class InfluxDBExporter(object):
                 if wait_time > max_cumulated_wait_time:
                     if len(self.data) == 0:
                         # no data from seedlink thread
-                        logger.info('Timer reached (%ds)' % max_cumulated_wait_time
+                        logger.info('Timer reached (%ds)' % 
+                                    max_cumulated_wait_time
                                     + '. No data coming from seedlink thread!'
                                     + ' Network/connection down ?')
                     else:
                         # force data flush to influxdb
                         # even if data block is not completed
-                        logger.info('Timer reached (%ds)' % max_cumulated_wait_time
+                        logger.info('Timer reached (%ds)' % 
+                                    max_cumulated_wait_time
                                     + '. Force data flush to influxdb '
                                     + '(bsize=%d/%d)!'
                                     % (len(self.data), self.nb_data_max))
@@ -269,20 +274,26 @@ class DelayInfluxDBExporter(InfluxDBExporter):
 
     def make_line_channel_delay(self, channel, packet_time):
         """http://www.seiscomp3.org/doc/jakarta/current/apps/scqc.html"""
-        now = datetime.utcnow()
-        t = timegm(now.utctimetuple()) * 1e9 \
-            + now.microsecond * 1e3
-        t_str = str(int(t))
+        lock.acquire()
+        previous_ptime = packet_time['previous']
+        last_ptime = packet_time['last']
+        lock.release()
 
-        if packet_time['previous'] is None:
+        if previous_ptime is None:
             return
 
-        delay =  packet_time['last'] - packet_time['previous']
+        delay = last_ptime - previous_ptime
 
         try:
             geohash_tag = ",geohash=%s" % self.geohash[channel]
         except:
             geohash_tag = ""
+
+        # now = datetime.utcnow()
+        now = last_ptime
+        t = timegm(now.utctimetuple()) * 1e9 \
+            + now.microsecond * 1e3
+        t_str = str(int(t))
 
         s = "delay,channel=%s" % channel + \
             geohash_tag + \
@@ -292,9 +303,7 @@ class DelayInfluxDBExporter(InfluxDBExporter):
 
     def make_line_delay(self):
         for c in last_packet_time.keys():
-            lock.acquire()
             self.make_line_channel_delay(c, last_packet_time[c])
-            lock.release()
 
     def manage_data(self):
         self.make_line_delay()
