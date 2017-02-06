@@ -21,7 +21,7 @@ class MySeedlinkClient(EasySeedLinkClient):
     def __init__(self, server, streams, statefile, recover):
         EasySeedLinkClient.__init__(self, server)
         self.selected_streams = []
-        # get from server avalaible streams
+        # get from server available streams
         self.stream_xml = self.get_info('STREAMS')
         # streams wanted by user
         for patterns in streams:
@@ -30,7 +30,7 @@ class MySeedlinkClient(EasySeedLinkClient):
         self.statefile = statefile
         self.recover = recover
 
-        # write in "trace queue"  timeout 
+        # write in "trace queue"  timeout
         self.queue_timeout = 15  # sec
 
         # Ignore trace older than SL_TIME_MAX sec.
@@ -42,13 +42,15 @@ class MySeedlinkClient(EasySeedLinkClient):
         # self.conn.DFT_READBUF_SIZE = 10240
 
         # Time in seconds after which a `collect()` call will be interrupted.
-        # self.conn.timeout = 10  
+        # self.conn.timeout = 10
 
         # Network timeout (seconds) (default is 120 sec)
-        # self.conn.netto = 90  
+        # self.conn.netto = 90
 
         # Network reconnect delay (seconds)  (default is 30 sec)
-        # self.conn.netdly = 30  
+        # self.conn.netdly = 30
+
+        self.show_too_old_packet_msg = {}
 
         if self.recover:
             self.conn.statefile = statefile
@@ -127,10 +129,33 @@ class MySeedlinkClient(EasySeedLinkClient):
         # filter out too old data
         latency = UTCDateTime(now) - endtime
         if self.SL_PACKET_TIME_MAX and latency > self.SL_PACKET_TIME_MAX:
-            msg = "%s too old ( %.1f > %.1f s) ... trace ignored!" % \
-                    (channel, latency, self.SL_PACKET_TIME_MAX)
-            logger.debug(msg)
+            if logger.getEffectiveLevel() <= logging.INFO:
+                # Show when a channel becomes unavailable 
+                # ie. latency > threshold
+                if channel not in self.show_too_old_packet_msg or \
+                   self.show_too_old_packet_msg[channel] is True:
+                    msg = "[%s] latency too high (%.1f s), " % \
+                           (channel, latency) + \
+                           "trace disabled until latency < %.1f s" % \
+                           (self.SL_PACKET_TIME_MAX)
+                    logger.info(msg)
+                    self.show_too_old_packet_msg[channel] = False
+
+            if shutdown_event.isSet():
+                logger.info("%s thread has catched *shutdown_event*" %
+                            self.__class__.__name__)
+                self.stop_seedlink()
             return
+
+        if logger.getEffectiveLevel() <= logging.INFO:
+            # Show when a channel becomes available ie. latency < threshold
+            if channel not in self.show_too_old_packet_msg or \
+               self.show_too_old_packet_msg[channel] is False:
+                self.show_too_old_packet_msg[channel] = True
+                msg = "[%s] latency is %.1f  < %.1f s, " % \
+                      (channel, latency, self.SL_PACKET_TIME_MAX) + \
+                      "trace enabled"
+                logger.info(msg)
 
         # resample data
         if self.resample_rate:
