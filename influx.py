@@ -180,22 +180,16 @@ class InfluxDBExporter(object):
         endtime = trace.stats['endtime']
         channel = trace.get_id()
 
-        # Update timestamp of the last and previous channel's packet received
-        last_ptime = UTCDateTime(now)
+        # Update timestamp of the last channel's packet received
         lock.acquire()
-        try:
-            previous_ptime = last_packet_time[channel]['last']
-        except:
-            previous_ptime = None
-        last_packet_time[channel] = {'previous': previous_ptime,
-                                     'last': last_ptime}
+        last_packet_time[channel] = UTCDateTime(now)
         lock.release()
 
         # Set all trace samples in the proper format.
         self.make_line_count(channel, starttime, delta, trace.data)
 
         # Latency
-        latency = UTCDateTime(now) - endtime
+        latency = last_packet_time[channel] - endtime
         self.make_line_latency(channel, endtime, latency)
 
         # send data to influxdb if buffer is filled enough
@@ -273,24 +267,23 @@ class DelayInfluxDBExporter(InfluxDBExporter):
         self.refresh_rate = 1.  # sec.
 
     def make_line_channel_delay(self, channel, packet_time):
-        """http://www.seiscomp3.org/doc/jakarta/current/apps/scqc.html"""
-        lock.acquire()
-        previous_ptime = packet_time['previous']
-        last_ptime = packet_time['last']
-        lock.release()
+        """ Delay computation
 
-        if previous_ptime is None:
-            return
+        Delay is the elapsed time between two consecutive packet.
+        Delay value is computed at each self.refresh_rate seconds,
+        if no new packet was received, delay time increase linearly.
 
-        delay = last_ptime - previous_ptime
+        Warning : definition may differ from other implementation 
+        (http://www.seiscomp3.org/doc/jakarta/current/apps/scqc.html)
+        """
+        now = datetime.utcnow()
+        delay = UTCDateTime(now) - packet_time
 
         try:
             geohash_tag = ",geohash=%s" % self.geohash[channel]
         except:
             geohash_tag = ""
 
-        # now = datetime.utcnow()
-        now = last_ptime
         t = timegm(now.utctimetuple()) * 1e9 \
             + now.microsecond * 1e3
         t_str = str(int(t))
@@ -303,7 +296,9 @@ class DelayInfluxDBExporter(InfluxDBExporter):
 
     def make_line_delay(self):
         for c in last_packet_time.keys():
+            lock.acquire()
             self.make_line_channel_delay(c, last_packet_time[c])
+            lock.release()
 
     def manage_data(self):
         self.make_line_delay()
