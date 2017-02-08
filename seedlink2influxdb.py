@@ -2,7 +2,8 @@
 import sys
 import logging
 from optparse import OptionParser
-from influx import InfluxDBExporter, DelayInfluxDBExporter
+from delay import LatencyDelayInfluxDBExporter
+from trace import TraceInfluxDBExporter
 from seedlink import MySeedlinkClient
 from station import StationCoordInfo
 import threading
@@ -75,8 +76,8 @@ if __name__ == '__main__':
     db_management = {'drop_db': options.dropdb,
                      'retention': options.keep}
 
-    c = ConsumerThread(name='influxdb-latency',
-                       dbclient=InfluxDBExporter,
+    c = ConsumerThread(name='traces',
+                       dbclient=TraceInfluxDBExporter,
                        args=(options.dbserver,
                              options.dbport,
                              options.dbname,
@@ -86,8 +87,8 @@ if __name__ == '__main__':
                              station_geohash))
 
     db_management = False  # thread below do not manage db
-    d = ConsumerThread(name='influxdb-delay',
-                       dbclient=DelayInfluxDBExporter,
+    d = ConsumerThread(name='latency-delay',
+                       dbclient=LatencyDelayInfluxDBExporter,
                        args=(options.dbserver,
                              options.dbport,
                              options.dbname,
@@ -105,7 +106,7 @@ if __name__ == '__main__':
 
     # Select a stream and start receiving data : use regexp
     streams = [('FR', '.*', '(HHZ|EHZ|ELZ)', '.*'),
-               ('ND', '.*', 'HHZ', '.*'),
+               # ('ND', '.*', 'HHZ', '.*'),
                ('FR', '.*', 'SHZ', ''),
                ('RA', '.*', 'HNZ', '00'),
                ('RD', '.*', 'BHZ', '.*'),
