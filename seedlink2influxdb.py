@@ -106,12 +106,13 @@ if __name__ == '__main__':
 
     # Select a stream and start receiving data : use regexp
     streams = [('FR', '.*', '(HHZ|EHZ|ELZ)', '.*'),
-               # ('ND', '.*', 'HHZ', '.*'),
+               ('ND', '.*', 'HHZ', '.*'),
+               ('CL', '.*', 'HHZ', '.*'),
                ('FR', '.*', 'SHZ', ''),
                ('RA', '.*', 'HNZ', '00'),
                ('RD', '.*', 'BHZ', '.*'),
                ('G', '.*', 'BHZ', '.*'),
-               # ('XX', '.*', 'BHZ', '.*'),
+               ('XX', '.*', 'HHZ', '.*'),
                ('(SZ|RT|IG|RG)', '.*', '.*Z', '.*')
                ]
 
