@@ -39,7 +39,7 @@ class TraceInfluxDBExporter(InfluxDBExporter):
         self.data.append(s)
 
     def make_line_count(self, channel, starttime, delta, data):
-        """ Build *seimogram* influxdb data point """
+        """ Build *seismogram* influxdb data point """
         cc = "count,channel=" + channel
         for i, v in enumerate(data):
             timestamp = starttime + i*delta
@@ -49,7 +49,7 @@ class TraceInfluxDBExporter(InfluxDBExporter):
             self.data.append(c)
 
     def manage_data(self, trace):
-        """ Build, pack and send data to influxdb
+        """ Build, pack and send waveform to influxdb
 
         - prepare trace's samples
         - send them to influxdb
