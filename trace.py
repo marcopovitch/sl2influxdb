@@ -45,7 +45,7 @@ class TraceInfluxDBExporter(InfluxDBExporter):
             timestamp = starttime + i*delta
             t = timegm(timestamp.utctimetuple()) * 1e9 \
                 + timestamp.microsecond * 1e3
-            c = cc + " value=" + "%.2f " % v + str(int(t))
+            c = cc + " value=" + "%e " % v + str(int(t))
             self.data.append(c)
 
     def manage_data(self, trace):
@@ -110,14 +110,14 @@ class TraceInfluxDBExporter(InfluxDBExporter):
                 if wait_time > max_cumulated_wait_time:
                     if len(self.data) == 0:
                         # no data from seedlink thread
-                        logger.info('Timer reached (%ds)' % 
+                        logger.info('Timer reached (%ds)' %
                                     max_cumulated_wait_time
                                     + '. No data coming from seedlink thread!'
                                     + ' Network/connection down ?')
                     else:
                         # force data flush to influxdb
                         # even if data block is not completed
-                        logger.info('Timer reached (%ds)' % 
+                        logger.info('Timer reached (%ds)' %
                                     max_cumulated_wait_time
                                     + '. Force data flush to influxdb '
                                     + '(bsize=%d/%d)!'

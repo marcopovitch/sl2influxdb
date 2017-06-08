@@ -26,6 +26,7 @@ if __name__ == '__main__':
     # Select a stream and start receiving data : use regexp
     default_streams = [('FR', '.*', '(HHZ|EHZ|ELZ)', '.*'),
                        ('ND', '.*', 'HHZ', '.*'),
+                       ('CL', '.*', 'HHZ', '.*'),
                        ('FR', '.*', 'SHZ', ''),
                        ('RA', '.*', 'HNZ', '00'),
                        ('RD', '.*', 'BHZ', '.*'),
