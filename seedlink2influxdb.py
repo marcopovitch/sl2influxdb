@@ -9,6 +9,7 @@ from station import StationCoordInfo
 import threading
 from threads import ConsumerThread, ProducerThread, shutdown_event
 import signal
+import ast
 
 
 # default logger
@@ -22,22 +23,36 @@ def handler(f, s):
 
 if __name__ == '__main__':
 
+    # Select a stream and start receiving data : use regexp
+    default_streams = [('FR', '.*', '(HHZ|EHZ|ELZ)', '.*'),
+                       ('ND', '.*', 'HHZ', '.*'),
+                       ('FR', '.*', 'SHZ', ''),
+                       ('RA', '.*', 'HNZ', '00'),
+                       ('RD', '.*', 'BHZ', '.*'),
+                       ('G', '.*', 'BHZ', '.*'),
+                       ('XX', '.*', 'BHZ', '.*'),
+                       ('(SZ|RT|IG|RG)', '.*', '.*Z', '.*')
+                       ]
+
     # Parse cmd line
     parser = OptionParser()
     parser.add_option("--dbserver", action="store", dest="dbserver",
                       default=None, help="InfluxDB server name")
     parser.add_option("--dbport", action="store", dest="dbport",
-                      default='8083', help="db server port")
+                      default='8083', help="InfluxDB server port")
     parser.add_option("--slserver", action="store", dest="slserver",
                       default='renass-fw.u-strasbg.fr',
                       help="seedlink server name")
+    parser.add_option("--slport", action="store", dest="slport",
+                      default='18000', help="seedlink server port")
     parser.add_option("--fdsnserver", action="store", dest="fdsn_server",
                       default=None,
                       help="fdsn station server name")
-    parser.add_option("--slport", action="store", dest="slport",
-                      default='18000', help="seedlink server port")
+    parser.add_option("--streams", action="store", dest="streams",
+                      default=default_streams, 
+                      help="streams to fetch (regexp)")
     parser.add_option("--db", action="store", dest="dbname",
-                      default='RT', help="influxdb name to use")
+                      default='RT', help="InfluxDB name to use")
     parser.add_option("--dropdb",  action="store_true",
                       dest="dropdb", default=False,
                       help="[WARNING] drop previous database !")
@@ -46,7 +61,8 @@ if __name__ == '__main__':
                       default=2, help="how many days to keep data")
     parser.add_option("--recover",  action="store_true",
                       dest="recover", default=False,
-                      help="save statefile & try to get stream from last run")
+                      help="use seedlink statefile " +
+                           "to save/get streams from last run")
     (options, args) = parser.parse_args()
 
     signal.signal(signal.SIGINT, handler)
@@ -104,24 +120,11 @@ if __name__ == '__main__':
     # forge seedLink server url
     seedlink_url = ':'.join([options.slserver, options.slport])
 
-    # Select a stream and start receiving data : use regexp
-    streams = [('FR', '.*', '(HHZ|EHZ|ELZ)', '.*'),
-               # ('ND', '.*', 'HHZ', '.*'),
-               ('FR', '.*', 'SHZ', ''),
-               ('RA', '.*', 'HNZ', '00'),
-               ('RD', '.*', 'BHZ', '.*'),
-               ('G', '.*', 'BHZ', '.*'),
-               # ('XX', '.*', 'BHZ', '.*'),
-               ('(SZ|RT|IG|RG)', '.*', '.*Z', '.*')
-               ]
-
-    # streams = [('FR', 'CHIF', 'HHZ', '00')]
-
     statefile = str(options.dbname) + '.statefile.txt'
 
     p = ProducerThread(name='seedlink-reader',
                        slclient=MySeedlinkClient,
-                       args=(seedlink_url, streams,
+                       args=(seedlink_url, ast.literal_eval(options.streams),
                              statefile, options.recover))
 
     #################
