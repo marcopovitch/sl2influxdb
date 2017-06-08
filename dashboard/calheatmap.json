@@ -1,109 +1,35 @@
 {
-  "id": 1,
-  "title": "Heatmap Calendar",
-  "tags": [],
-  "style": "dark",
-  "timezone": "browser",
-  "editable": true,
-  "sharedCrosshair": false,
-  "hideControls": false,
-  "time": {
-    "from": "now-1y",
-    "to": "now"
-  },
-  "timepicker": {
-    "refresh_intervals": [
-      "5s",
-      "10s",
-      "30s",
-      "1m",
-      "5m",
-      "15m",
-      "30m",
-      "1h",
-      "2h",
-      "1d"
-    ],
-    "time_options": [
-      "5m",
-      "15m",
-      "1h",
-      "6h",
-      "12h",
-      "24h",
-      "2d",
-      "7d",
-      "30d"
-    ]
-  },
-  "templating": {
-    "list": [
-      {
-        "allValue": null,
-        "current": {
-          "text": "FR",
-          "value": "FR"
-        },
-        "datasource": "influxdb",
-        "hide": 0,
-        "includeAll": false,
-        "label": null,
-        "multi": false,
-        "name": "network",
-        "options": [],
-        "query": "SHOW TAG VALUES WITH KEY = \"channel\"",
-        "refresh": 1,
-        "regex": "/(^[A-Z]*)/",
-        "sort": 1,
-        "tagValuesQuery": null,
-        "tagsQuery": null,
-        "type": "query"
-      },
-      {
-        "allValue": null,
-        "current": {
-          "text": "FR.CHMF.00.HHZ",
-          "value": "FR.CHMF.00.HHZ",
-          "tags": []
-        },
-        "datasource": "influxdb",
-        "hide": 0,
-        "includeAll": true,
-        "label": null,
-        "multi": false,
-        "name": "channel",
-        "options": [],
-        "query": "SHOW TAG VALUES WITH KEY = \"channel\"  WHERE channel =~ /^($network)\\..*/",
-        "refresh": 1,
-        "regex": "",
-        "sort": 1,
-        "tagValuesQuery": null,
-        "tagsQuery": null,
-        "type": "query"
-      }
-    ]
-  },
   "annotations": {
     "list": []
   },
-  "schemaVersion": 13,
-  "version": 9,
-  "links": [],
+  "editable": true,
   "gnetId": null,
+  "graphTooltip": 0,
+  "hideControls": false,
+  "id": 1,
+  "links": [],
+  "refresh": false,
   "rows": [
     {
-      "title": "Dashboard Row",
+      "collapse": false,
+      "height": 284,
       "panels": [
         {
           "config": {
             "animationDuration": 0,
-            "cellPadding": "2",
-            "cellRadius": "0",
-            "cellSize": "14",
+            "cellPadding": "4",
+            "cellRadius": "",
+            "cellSize": "20",
             "colLimit": "",
             "displayLegend": true,
             "domain": "auto",
             "domainGutter": 2,
+            "hoverDecimals": null,
+            "hoverUnitFormat": "percent",
+            "itemName": [
+              "percent",
+              "percent"
+            ],
             "label": {
               "position": "bottom",
               "rotate": "null",
@@ -111,13 +37,22 @@
             },
             "legendColors": {
               "base": "transparent",
-              "empty": "#222",
+              "empty": "rgb(255, 255, 255)",
               "max": "rgb(0, 255, 44)",
               "min": "rgb(255, 0, 0)"
             },
             "legendStr": "0.001, 10, 25, 50, 75, 90, 95, 99.99",
+            "legendTitleFormat": {
+              "inner": {},
+              "lower": {},
+              "upper": {}
+            },
             "rowLimit": "",
             "subDomain": "auto",
+            "subDomainTitleFormat": {
+              "empty": "{date}",
+              "filled": {}
+            },
             "verticalOrientation": false
           },
           "datasource": "influxdb",
@@ -128,6 +63,13 @@
           "links": [],
           "minSpan": 12,
           "repeat": "channel",
+          "scopedVars": {
+            "channel": {
+              "selected": true,
+              "text": "FR.ATE.00.HHZ",
+              "value": "FR.ATE.00.HHZ"
+            }
+          },
           "span": 12,
           "targets": [
             {
@@ -146,7 +88,8 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "availability",
+              "measurement": "$stats",
+              "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
               "resultFormat": "time_series",
@@ -174,25 +117,141 @@
             }
           ],
           "timeFrom": null,
+          "timeShift": null,
           "title": "$channel",
-          "transparent": true,
-          "type": "neocat-cal-heatmap-panel",
-          "scopedVars": {
-            "channel": {
-              "text": "FR.CHMF.00.HHZ",
-              "value": "FR.CHMF.00.HHZ",
-              "selected": true
-            }
-          }
+          "transparent": false,
+          "type": "neocat-cal-heatmap-panel"
         }
       ],
-      "showTitle": false,
-      "titleSize": "h6",
-      "height": "250px",
       "repeat": null,
-      "repeatRowId": null,
       "repeatIteration": null,
-      "collapse": false
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
     }
-  ]
+  ],
+  "schemaVersion": 14,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "tags": [],
+          "text": "FR",
+          "value": "FR"
+        },
+        "datasource": "influxdb",
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "network",
+        "options": [],
+        "query": "SHOW TAG VALUES WITH KEY = \"channel\"",
+        "refresh": 1,
+        "regex": "/(^[A-Z]*)/",
+        "sort": 1,
+        "tagValuesQuery": null,
+        "tags": [],
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "tags": [],
+          "text": "FR.ATE.00.HHZ",
+          "value": "FR.ATE.00.HHZ"
+        },
+        "datasource": "influxdb",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": false,
+        "name": "channel",
+        "options": [],
+        "query": "SHOW TAG VALUES WITH KEY = \"channel\"  WHERE channel =~ /^($network)\\..*/",
+        "refresh": 1,
+        "regex": "",
+        "sort": 1,
+        "tagValuesQuery": null,
+        "tags": [],
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "tags": [],
+          "text": "availability",
+          "value": "availability"
+        },
+        "datasource": "influxdb",
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "stats",
+        "options": [
+          {
+            "selected": true,
+            "text": "availability",
+            "value": "availability"
+          },
+          {
+            "selected": false,
+            "text": "integration",
+            "value": "integration"
+          }
+        ],
+        "query": "show measurements",
+        "refresh": 0,
+        "regex": "(rms|mean|max|availability|noverlap|ngap|lgap|timequality|integration)",
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6M",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "Heatmap Calendar",
+  "version": 0
 }
+
