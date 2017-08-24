@@ -123,9 +123,16 @@ if __name__ == '__main__':
 
     statefile = str(options.dbname) + '.statefile.txt'
 
+    try:
+        mystreams = ast.literal_eval(options.streams)
+    except:
+        logger.critical('Something went wrong with regexp streams: ' +
+                        '%s' % options.streams)
+        sys.exit(1)
+
     p = ProducerThread(name='seedlink-reader',
                        slclient=MySeedlinkClient,
-                       args=(seedlink_url, ast.literal_eval(options.streams),
+                       args=(seedlink_url, mystreams,
                              statefile, options.recover))
 
     #################
