@@ -10,6 +10,24 @@ services:
     volumes:
       - influxdb_data:/var/lib/influxdb
 
+  raspberryshake:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    links:
+      - influxdb
+      - grafana
+    environment:
+      - INFLUXDB_PORT_8086_TCP_ADDR=influxdb
+      - INFLUXDB_PORT_8086_TCP_PORT=8086
+      - SEEDLINK_SERVER=raspberryshake.local
+      - FDSN_WS_STATION_SERVER=http://raspberryshake.net:8080
+      - SEEDLINK_STREAMS="[('AM', '.*', 'SHZ', '.*')]"
+      - DB_NAME=eost
+      - KEEP=1
+      - RECOVER="no"
+      - EXTRA='--drop-db'
+
   sl2influxdb:
     build: 
       context: .
