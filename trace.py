@@ -18,15 +18,15 @@ logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 class TraceInfluxDBExporter(InfluxDBExporter):
     def __init__(self, host, port,
-                 dbname, user, pwd, dropdb=False,
+                 dbname, user, pwd,
+                 flushtime,
+                 dropdb=False,
                  geohash={}):
         super(TraceInfluxDBExporter, self).__init__(host, port,
                                                     dbname, user, pwd,
+                                                    flushtime,
                                                     dropdb, geohash)
-        # holds 'point' to be send to influxdb (1 by line)
-        self.data = []
-        # max batch size to send:  no more than 5000 (cf. influxdb doc.)
-        self.nb_data_max = 5000
+        logger.info('Flush time set to %d seconds' % self.flushtime)
 
     def make_stats(self, now):
         """ Build *queue* influxdb data point """
@@ -80,7 +80,7 @@ class TraceInfluxDBExporter(InfluxDBExporter):
             logger.debug("Data sent")
             try:
                 self.send_points(debug=False)
-            except BaseException as e:
+            except Exception as e:
                 logger.critical(e)
                 shutdown_event.set()
             else:
@@ -91,10 +91,8 @@ class TraceInfluxDBExporter(InfluxDBExporter):
     def run(self):
         """ Run unless shutdown signal is received. """
 
-        # time in seconds
-        timeout = 0.1
-        max_cumulated_wait_time = 15
-        wait_time = 0
+        timeout = 0.1  # sec
+        wait_time = 0  # sec
 
         while True:
             try:
@@ -107,27 +105,27 @@ class TraceInfluxDBExporter(InfluxDBExporter):
                     sys.exit(0)
 
                 wait_time += timeout
-                if wait_time > max_cumulated_wait_time:
+                if wait_time > self.flushtime:
                     if len(self.data) == 0:
                         # no data from seedlink thread
-                        logger.info('Timer reached (%ds)' %
-                                    max_cumulated_wait_time
+                        logger.info('Flush timer reached (%ds)' %
+                                    self.flushtime
                                     + '. No data coming from seedlink thread!'
                                     + ' Network/connection down ?')
                     else:
                         # force data flush to influxdb
                         # even if data block is not completed
-                        logger.info('Timer reached (%ds)' %
-                                    max_cumulated_wait_time
+                        logger.info('Flush timer reached (%ds)' %
+                                    self.flushtime
                                     + '. Force data flush to influxdb '
-                                    + '(bsize=%d/%d)!'
+                                    + '(bsize=%d/%d)'
                                     % (len(self.data), self.nb_data_max))
 
                     now = datetime.utcnow()
                     self.make_stats(now)
                     try:
                         self.send_points()
-                    except BaseException as e:
+                    except Exception as e:
                         logger.critical(e)
                         shutdown_event.set()
                         # self.force_shutdown(e)
