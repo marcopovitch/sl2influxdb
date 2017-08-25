@@ -51,7 +51,12 @@ if __name__ == '__main__':
                       help="fdsn station server name")
     parser.add_option("--streams", action="store", dest="streams",
                       default=default_streams, 
-                      help="streams to fetch (regexp)")
+                      help="streams to fetch (regexp):" +
+                           " [('FR','.*','SHZ','.*')]")
+    parser.add_option("--flushtime", action="store", dest="flushtime",
+                      metavar="NUMBER", type="int",
+                      default=15,
+                      help="when to force the data flush to influxdb")
     parser.add_option("--db", action="store", dest="dbname",
                       default='RT', help="InfluxDB name to use")
     parser.add_option("--dropdb",  action="store_true",
@@ -89,7 +94,6 @@ if __name__ == '__main__':
     ###################
     # Note: only one influxdb thread should manage database
     # for creation, drop, data rentention
-
     db_management = {'drop_db': options.dropdb,
                      'retention': options.keep}
 
@@ -100,10 +104,12 @@ if __name__ == '__main__':
                              options.dbname,
                              'seedlink',  # user
                              'seedlink',  # pwd
+                             options.flushtime,
                              db_management,
                              station_geohash))
 
     db_management = False  # thread below do not manage db
+    # flushtime is mandatory but thread below don't care about it
     d = ConsumerThread(name='latency-delay',
                        dbclient=LatencyDelayInfluxDBExporter,
                        args=(options.dbserver,
@@ -111,6 +117,7 @@ if __name__ == '__main__':
                              options.dbname,
                              'seedlink',  # user
                              'seedlink',  # pwd
+                             options.flushtime,
                              db_management,
                              station_geohash))
 
