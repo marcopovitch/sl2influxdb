@@ -10,6 +10,7 @@ set -e
 
 EXTRA=""
 
+
 if [ -z "$DB_NAME" ]; then
     DB_NAME="eost"
 fi
@@ -17,7 +18,13 @@ fi
 if [ -z "$RECOVER" ]; then
     EXTRA=$EXTRA
 else
-    EXTRA="--recover"
+    EXTRA="$EXTRA --recover"
+fi
+
+if [ -z "$FLUSHTIME" ]; then
+	EXTRA=$EXTRA
+else
+	EXTRA="$EXTRA --flushtime $FLUSHTIME"
 fi
 
 if [ -z "$DROPDB" ]; then
