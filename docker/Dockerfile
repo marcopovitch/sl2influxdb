@@ -11,9 +11,12 @@ RUN apt-get update && \
         wget \
         curl \
         unzip && \
+    apt-get autoremove && \
+    pip install -U pip && \
     pip install influxdb && \
-    pip install geohash  && \
-    mkdir -p $SL2IDB_DIR && \
+    pip install geohash
+
+RUN mkdir -p $SL2IDB_DIR && \
     wget https://github.com/marcopovitch/sl2influxdb/archive/master.zip && \
     unzip -d $SL2IDB_DIR master.zip && \
     rm -f master.zip
