@@ -14,16 +14,23 @@ logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 class InfluxDBExporter(object):
     def __init__(self, host, port,
-                 dbname, user, pwd,
+                 dbname, user, pwd, 
+                 flushtime,
                  db_management, geohash={}):
         self.host = host
         self.port = port
         self.dbname = dbname
         self.user = user
         self.pwd = pwd
+        self.flushtime = flushtime
         self.client = None
         self.geohash = geohash
+
+        # holds 'point' to be send to influxdb (1 by line)
         self.data = []
+
+        # max batch size to send:  no more than 5000 (cf. influxdb doc.)
+        self.nb_data_max = 5000
 
         # nb of rqt error before aborting
         self.NB_MAX_TRY_REQUEST = 10
@@ -46,17 +53,25 @@ class InfluxDBExporter(object):
         logger.info("Drop %s database." % dbname)
         try:
             self.client.drop_database(dbname)
-        except:
-            logger.info("Can't drop %s database (not existing yet ?)."
-                        % dbname)
+        except Exception as e:
+            logger.warning(e)
+            logger.warning("Can't drop %s database (not existing yet ?)."
+                           % dbname)
 
     def create_db(self, dbname=None):
         if not dbname:
             dbname = self.dbname
         logger.info("Open/Create %s database." % dbname)
         # self.client.create_database(dbname, if_not_exists=True)
-        self.client.create_database(dbname)
-        self.client.switch_database(dbname)
+        try:
+            self.client.create_database(dbname)
+        except Exception:
+            raise Exception("Can't create database %s" % dbname)
+
+        try:
+            self.client.switch_database(dbname)
+        except Exception:
+            raise Exception("Can't switch to database %s" % dbname)
 
     def set_retention_policies(self, days, dbname=None):
         if not dbname:
@@ -70,6 +85,7 @@ class InfluxDBExporter(object):
                                                 replication="1",
                                                 database=dbname, default=True)
         except:
+            logger.info("Policy already exists. Changing to new policy !")
             self.client.alter_retention_policy(name,
                                                database=dbname,
                                                duration="%dd" % days,
