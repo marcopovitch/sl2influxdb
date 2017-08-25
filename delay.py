@@ -16,16 +16,14 @@ logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 class LatencyDelayInfluxDBExporter(InfluxDBExporter):
     def __init__(self, host, port,
-                 dbname, user, pwd, dropdb=False,
+                 dbname, user, pwd,
+                 flushtime,
+                 dropdb=False,
                  geohash={}):
         super(LatencyDelayInfluxDBExporter, self).__init__(host, port,
                                                            dbname, user, pwd,
+                                                           flushtime,
                                                            dropdb, geohash)
-        # holds 'point' to be send to influxdb (1 by line)
-        self.data = []
-        # max batch size to send:  no more than 5000 (cf. influxdb doc.)
-        self.nb_data_max = 5000
-
         self.refresh_rate = 1.  # sec.
 
     def make_channel_latency_delay(self, channel, last_packet):
