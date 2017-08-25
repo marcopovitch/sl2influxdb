@@ -4,8 +4,8 @@ import sys
 import threading
 import Queue
 import logging
-import requests
 from obspy.clients.seedlink.seedlinkexception import SeedLinkException
+
 
 # default logger
 logger = logging.getLogger('threads')
@@ -51,11 +51,11 @@ class ConsumerThread(threading.Thread):
         try:
             self.dbclient = dbclient(args[0], args[1], args[2],
                                      args[3], args[4], args[5],
-                                     args[6])
-        except requests.exceptions.ConnectionError as e:
+                                     args[6], args[7])
+        except Exception as e:
             self.force_shutdown(e)
-        else:
-            self.dbclient.force_shutdown = self.force_shutdown
+
+        self.dbclient.force_shutdown = self.force_shutdown
 
     def run(self):
         self.dbclient.run()
