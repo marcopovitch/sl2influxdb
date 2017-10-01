@@ -66,5 +66,3 @@ class ConsumerThread(threading.Thread):
                      self.name)
         shutdown_event.set()
         sys.exit(1)
-
-

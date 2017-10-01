@@ -81,7 +81,7 @@ class StationCoordInfo(object):
                              info['latitude'],
                              info['longitude'],
                              info['elevation'],
-                             info['geohash'], 
+                             info['geohash'],
                              Geohash.decode(info['geohash']))
 
 
@@ -92,4 +92,3 @@ if __name__ == '__main__':
     info_sta = StationCoordInfo("http://renass-sc1.u-strasbg.fr:8080", streams)
     # info_sta.show_station_coordinfo()
     info_sta.show_geohash()
-

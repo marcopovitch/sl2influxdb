@@ -14,7 +14,7 @@ logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 class InfluxDBExporter(object):
     def __init__(self, host, port,
-                 dbname, user, pwd, 
+                 dbname, user, pwd,
                  flushtime,
                  db_management, geohash={}):
         self.host = host
@@ -126,7 +126,6 @@ class InfluxDBExporter(object):
                                  (nb_try, self.NB_MAX_TRY_REQUEST))
                     continue
             break
-    
+
     def run(self):
         pass
-

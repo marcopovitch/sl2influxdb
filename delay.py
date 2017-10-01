@@ -36,7 +36,7 @@ class LatencyDelayInfluxDBExporter(InfluxDBExporter):
         Delay value is computed at each self.refresh_rate seconds,
         if no new packet was received, delay time increase linearly.
 
-        Warning : definition may differ from other implementation 
+        Warning : definition may differ from other implementation
         (http://www.seiscomp3.org/doc/jakarta/current/apps/scqc.html)
         """
         now = datetime.utcnow()
@@ -52,7 +52,7 @@ class LatencyDelayInfluxDBExporter(InfluxDBExporter):
             + now.microsecond * 1e3
         t_str = str(int(t))
 
-        # delay 
+        # delay
         s = "delay,channel=%s" % channel + \
             geohash_tag + \
             " value=%.2f " % delay + \
@@ -88,4 +88,3 @@ class LatencyDelayInfluxDBExporter(InfluxDBExporter):
                 logger.info("%s thread has catched *shutdown_event*" %
                             self.__class__.__name__)
                 sys.exit(0)
-

@@ -34,10 +34,10 @@ Example :
 
 ### Note :
 
-Fdsnserver request (`--fdsnserver` option) is optional. It is only used and performed at the begining and *could be slow* (if too much stations info are requested) ! Data collected are only used to get station coordinates and are converted to geohash,  needed to plot measurements on a map. 
+Fdsnserver request (`--fdsnserver` option) is optional. It is only used and performed at the begining and *could be slow* (if too much stations info are requested) ! Data collected are only used to get station coordinates and are converted to geohash,  needed to plot measurements on a map.
 
 
-## Screenshot 
+## Screenshot
 
 Delay/Latency Map
 
@@ -68,27 +68,27 @@ Measurements:
 		* **type**=(consumer|producer)
 	* field
 		* **size**=queue size
-	* timestamp 
+	* timestamp
 
 * **count** : amplitude in count (waveforms)
 	* tags
 		* **channel** = channel name (eg. FR.WLS.00.HHZ)
 	* field
-		* **value** = amplitude	
+		* **value** = amplitude
 	* timestamp
-	 
+
 * **latency** : seedlink packet propagation time from station to datacenter
 	* tags
-		* **channel** = channel name 
+		* **channel** = channel name
 	* field
-		* **value** = latency value	
+		* **value** = latency value
 	* timestamp
-		
+
 * **delay** : time since last seedlink packet was received
 	* tags
 		* **channel** = channel name (eg. FR.WLS.00.HHZ)
 		* **geohash** = station coordinates geohash formated
-	* field 
+	* field
  		* **value** = latency value
 	* timestamp
 

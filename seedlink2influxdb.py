@@ -50,7 +50,7 @@ if __name__ == '__main__':
                       default=None,
                       help="fdsn station server name")
     parser.add_option("--streams", action="store", dest="streams",
-                      default=default_streams, 
+                      default=default_streams,
                       help="streams to fetch (regexp):" +
                            " [('FR','.*','SHZ','.*')]")
     parser.add_option("--flushtime", action="store", dest="flushtime",
@@ -160,4 +160,3 @@ if __name__ == '__main__':
     d.join()
     c.join()
     p.join()
-

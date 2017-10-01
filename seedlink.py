@@ -130,7 +130,7 @@ class MySeedlinkClient(EasySeedLinkClient):
         latency = UTCDateTime(now) - endtime
         if self.SL_PACKET_TIME_MAX and latency > self.SL_PACKET_TIME_MAX:
             if logger.getEffectiveLevel() <= logging.INFO:
-                # Show when a channel becomes unavailable 
+                # Show when a channel becomes unavailable
                 # ie. latency > threshold
                 if channel not in self.show_too_old_packet_msg or \
                    self.show_too_old_packet_msg[channel] is True:
@@ -169,7 +169,7 @@ class MySeedlinkClient(EasySeedLinkClient):
         try:
             q.put(trace, block=True, timeout=self.queue_timeout)
         except Queue.Full:
-            logger.error("Queue is full and timeout(%ds) reached !" % 
+            logger.error("Queue is full and timeout(%ds) reached !" %
                          self.queue_timeout)
             logger.error("Ignoring data !")
 

@@ -36,7 +36,7 @@ docker run -d --link influxdb:influxdb \
     --name seedlink2influxdb seedlink2influxdb
 </pre>
 
-# Using docker-compose 
+# Using docker-compose
 
 ## Build
 <pre>docker-compose build</pre>
@@ -59,4 +59,3 @@ I prefer to stick with the original grafana docker image. For the moment, it is 
 
 ## Stop services
 <pre>docker-compose down -v</pre>
-

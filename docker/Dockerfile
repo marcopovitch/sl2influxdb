@@ -31,7 +31,7 @@ RUN \
     mkdir /data && \
     chown sysop:users /data
 
-USER sysop 
+USER sysop
 
 VOLUME ["/data"]
 

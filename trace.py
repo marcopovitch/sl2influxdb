@@ -135,7 +135,3 @@ class TraceInfluxDBExporter(InfluxDBExporter):
                 q.task_done()
                 if data_pushed:
                     wait_time = 0
-
-
-
-
