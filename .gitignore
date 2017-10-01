@@ -10,3 +10,5 @@ tt
 tt
 
 *.statefile.txt
+
+.DS_Store
