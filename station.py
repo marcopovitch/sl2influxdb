@@ -36,7 +36,7 @@ class StationCoordInfo(object):
                                       station=sta,
                                       location=loc,
                                       channel=chan,
-                                      level="response")
+                                      level="channel")
             channels = set(inv.get_contents()['channels'])
 
             for c in channels:
