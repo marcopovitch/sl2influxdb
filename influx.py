@@ -65,8 +65,8 @@ class InfluxDBExporter(object):
         # self.client.create_database(dbname, if_not_exists=True)
         try:
             self.client.create_database(dbname)
-        except Exception:
-            raise Exception("Can't create database %s" % dbname)
+        except Exception as e:
+            raise Exception("Can't create database %s (%s)!" % (dbname, e))
 
         try:
             self.client.switch_database(dbname)
@@ -84,7 +84,7 @@ class InfluxDBExporter(object):
                                                 duration="%dd" % days,
                                                 replication="1",
                                                 database=dbname, default=True)
-        except:
+        except Exception:
             logger.info("Policy already exists. Changing to new policy !")
             self.client.alter_retention_policy(name,
                                                database=dbname,
