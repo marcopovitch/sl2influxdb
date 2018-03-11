@@ -24,23 +24,25 @@ def handler(f, s):
 if __name__ == '__main__':
 
     # Select a stream and start receiving data : use regexp
-    default_streams = [('FR', '.*', '(HHZ|EHZ|ELZ)', '.*'),
-                       ('ND', '.*', 'HHZ', '.*'),
-                       ('CL', '.*', 'HHZ', '.*'),
-                       ('FR', '.*', 'SHZ', ''),
-                       ('RA', '.*', 'HNZ', '00'),
-                       ('RD', '.*', 'BHZ', '.*'),
-                       ('G', '.*', 'BHZ', '.*'),
-                       ('XX', '.*', 'BHZ', '.*'),
-                       ('(SZ|RT|IG|RG)', '.*', '.*Z', '.*')
-                       ]
+    # only Z component
+    default_streams = "[('.*','.*','.*Z','.*')]"
+    # default_streams = "[('FR', '.*', '(HHZ|EHZ|ELZ)', '.*'),
+    #                     ('ND', '.*', 'HHZ', '.*'),
+    #                     ('CL', '.*', 'HHZ', '.*'),
+    #                     ('FR', '.*', 'SHZ', ''),
+    #                     ('RA', '.*', 'HNZ', '00'),
+    #                     ('RD', '.*', 'BHZ', '.*'),
+    #                     ('G', '.*', 'BHZ', '.*'),
+    #                     ('XX', '.*', 'BHZ', '.*'),
+    #                     ('(SZ|RT|IG|RG)', '.*', '.*Z', '.*')
+    #                    ]"
 
     # Parse cmd line
     parser = OptionParser()
     parser.add_option("--dbserver", action="store", dest="dbserver",
                       default=None, help="InfluxDB server name")
     parser.add_option("--dbport", action="store", dest="dbport",
-                      default='8083', help="InfluxDB server port")
+                      default='8086', help="InfluxDB server port")
     parser.add_option("--slserver", action="store", dest="slserver",
                       default='renass-fw.u-strasbg.fr',
                       help="seedlink server name")
@@ -51,8 +53,8 @@ if __name__ == '__main__':
                       help="fdsn station server name")
     parser.add_option("--streams", action="store", dest="streams",
                       default=default_streams,
-                      help="streams to fetch (regexp):" +
-                           " [('FR','.*','SHZ','.*')]")
+                      help="streams to fetch (regexp): " +
+                           default_streams)
     parser.add_option("--flushtime", action="store", dest="flushtime",
                       metavar="NUMBER", type="int",
                       default=15,
@@ -132,9 +134,9 @@ if __name__ == '__main__':
 
     try:
         mystreams = ast.literal_eval(options.streams)
-    except:
+    except Exception as e:
         logger.critical('Something went wrong with regexp streams: ' +
-                        '%s' % options.streams)
+                        '%s (%s)' % (options.streams, e))
         sys.exit(1)
 
     p = ProducerThread(name='seedlink-reader',
