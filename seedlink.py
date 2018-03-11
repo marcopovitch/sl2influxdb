@@ -25,7 +25,8 @@ class MySeedlinkClient(EasySeedLinkClient):
         self.stream_xml = self.get_info('STREAMS')
         # streams wanted by user
         for patterns in streams:
-            self.select_stream_re(patterns)
+            if self.select_stream_re(patterns) is False:
+                logger.critical("Error parsing %s. Ignoring ..." % patterns)
 
         self.statefile = statefile
         self.recover = recover
@@ -91,10 +92,13 @@ class MySeedlinkClient(EasySeedLinkClient):
 
     def select_stream_re(self, pattern):
         """Select stream based on regular expression."""
-        net_re = re.compile(pattern[0])
-        sta_re = re.compile(pattern[1])
-        chan_re = re.compile(pattern[2])
-        loc_re = re.compile(pattern[3])
+        try:
+            net_re = re.compile(pattern[0])
+            sta_re = re.compile(pattern[1])
+            chan_re = re.compile(pattern[2])
+            loc_re = re.compile(pattern[3])
+        except Exception:
+            return False
 
         info = self.get_stream_info()  # available streams from server
         for s in info:
@@ -105,6 +109,7 @@ class MySeedlinkClient(EasySeedLinkClient):
                    and loc_re.match(c['location']):
                     self.add_stream(s['network'], s['name'],
                                     c['seedname'], c['location'])
+        return True
 
     def add_stream(self, net, sta, chan, loc):
         """Add stream to be proceseed
@@ -161,7 +166,7 @@ class MySeedlinkClient(EasySeedLinkClient):
         if self.resample_rate:
             try:
                 trace.resample(self.resample_rate)
-            except:
+            except Exception:
                 msg = "Can't resample %s(%.2f Hz) to %.2f Hz" % \
                     (channel, sample_rate, self.resample_rate)
                 logger.warning(msg)
