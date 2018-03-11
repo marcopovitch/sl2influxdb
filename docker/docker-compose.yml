@@ -20,16 +20,17 @@ services:
     environment:
       - INFLUXDB_PORT_8086_TCP_ADDR=influxdb
       - INFLUXDB_PORT_8086_TCP_PORT=8086
-      - SEEDLINK_SERVER=192.168.1.17
+      - SEEDLINK_SERVER=raspberryshake.local
       - FDSN_WS_STATION_SERVER=http://raspberryshake.net:8080
-      - SEEDLINK_STREAMS=[('AM','.*','SHZ','.*')]
+      - SEEDLINK_STREAMS="[('AM','.*','.*','.*')]"
+      - FLUSHTIME=5
       - DB_NAME=raspberryshake
       - KEEP=1
       - RECOVER="no"
       - EXTRA='--drop-db'
 
   sl2influxdb:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     links:
@@ -92,4 +93,3 @@ volumes:
   grafana_conf:
     external:
       name: sl2influxdb_grafana_conf
-
