@@ -22,7 +22,7 @@ services:
       - INFLUXDB_PORT_8086_TCP_PORT=8086
       - SEEDLINK_SERVER=raspberryshake.local
       - FDSN_WS_STATION_SERVER=http://raspberryshake.net:8080
-      - SEEDLINK_STREAMS="[('AM','.*','.*','.*')]"
+      - SEEDLINK_STREAMS=[('AM','.*','.*','.*')]
       - FLUSHTIME=5
       - DB_NAME=raspberryshake
       - KEEP=1
@@ -41,7 +41,7 @@ services:
       - INFLUXDB_PORT_8086_TCP_PORT=8086
       - SEEDLINK_SERVER=renass-fw.u-strasbg.fr
       - FDSN_WS_STATION_SERVER=http://renass-sc1.u-strasbg.fr:8080
-      - SEEDLINK_STREAMS="[('FR', '.*', '(HHZ|EHZ|ELZ)', '.*'),
+      - SEEDLINK_STREAMS=[('FR', '.*', '(HHZ|EHZ|ELZ)', '.*'),
                            ('ND', '.*', 'HHZ', '.*'),
                            ('CL', '.*', 'HHZ', '.*'),
                            ('FR', '.*', 'SHZ', ''),
@@ -50,7 +50,7 @@ services:
                            ('G', '.*', 'BHZ', '.*'),
                            ('XX', '.*', 'BHZ', '.*'),
                            ('(SZ|RT|IG|RG)', '.*', '.*Z', '.*')
-                           ]"
+                           ]
       - DB_NAME=eost
       - KEEP=1
       - RECOVER="yes"
