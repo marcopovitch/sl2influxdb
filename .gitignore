@@ -12,3 +12,4 @@ tt
 *.statefile.txt
 
 .DS_Store
+.vscode/settings.json
