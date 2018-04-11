@@ -5,23 +5,27 @@ services:
   influxdb:
     image: influxdb
     ports:
-      - 8083:8083
       - 8086:8086
+    environment:
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=admin
     volumes:
       - influxdb_data:/var/lib/influxdb
 
-  raspberryshake:
+#---------------------------
+
+  sl2raspberryshake:
     build:
       context: .
       dockerfile: Dockerfile
     links:
       - influxdb
-      - grafana
     environment:
       - INFLUXDB_PORT_8086_TCP_ADDR=influxdb
       - INFLUXDB_PORT_8086_TCP_PORT=8086
       - SEEDLINK_SERVER=raspberryshake.local
       - FDSN_WS_STATION_SERVER=http://raspberryshake.net:8080
+      # do not put space into SEEDLINK_STREAMS string !
       - SEEDLINK_STREAMS=[('AM','.*','.*','.*')]
       - FLUSHTIME=5
       - DB_NAME=raspberryshake
@@ -29,32 +33,25 @@ services:
       - RECOVER="no"
       - EXTRA='--drop-db'
 
-  sl2influxdb:
+  sl2generic:
     build:
       context: .
       dockerfile: Dockerfile
     links:
       - influxdb
-      - grafana
     environment:
       - INFLUXDB_PORT_8086_TCP_ADDR=influxdb
       - INFLUXDB_PORT_8086_TCP_PORT=8086
       - SEEDLINK_SERVER=renass-fw.u-strasbg.fr
       - FDSN_WS_STATION_SERVER=http://renass-sc1.u-strasbg.fr:8080
-      - SEEDLINK_STREAMS=[('FR', '.*', '(HHZ|EHZ|ELZ)', '.*'),
-                           ('ND', '.*', 'HHZ', '.*'),
-                           ('CL', '.*', 'HHZ', '.*'),
-                           ('FR', '.*', 'SHZ', ''),
-                           ('RA', '.*', 'HNZ', '00'),
-                           ('RD', '.*', 'BHZ', '.*'),
-                           ('G', '.*', 'BHZ', '.*'),
-                           ('XX', '.*', 'BHZ', '.*'),
-                           ('(SZ|RT|IG|RG)', '.*', '.*Z', '.*')
-                           ]
+      # do not put space into SEEDLINK_STREAMS string !
+      - SEEDLINK_STREAMS=[('FR','.*','(HHZ|EHZ|ELZ)','.*'),('AM','.*','(SHZ|EHZ)','.*'),('ND','.*','HHZ','.*'),('CL','.*','HHZ','.*'),('FR','.*','SHZ',''),('RA','.*','HNZ','00'),('RD','.*','BHZ','.*'),('G','.*','BHZ','.*'),('XX','.*','BHZ','.*'),('(SZ|RT|IG|RG)','.*','.*Z','.*')]
       - DB_NAME=eost
       - KEEP=1
       - RECOVER="yes"
-#      - EXTRA='--drop-db'
+      # - EXTRA='--drop-db'
+
+#---------------------------
 
   grafana:
     image: grafana/grafana:master
@@ -62,26 +59,35 @@ services:
       - 3000:3000
     volumes:
       - grafana_conf:/etc/grafana
-        #- grafana_data:/var/lib/grafana
+      - grafana_data:/var/lib/grafana
       - ../dashboard:/var/lib/grafana/dashboards:rw
+      - ./provisioning:/etc/grafana/provisioning
+    links:
+      - influxdb
+      - sl2generic
     environment:
-      - GF_DASHBOARDS_JSON_ENABLED=true
-      - GF_DASHBOARDS_JSON_PATH=/var/lib/grafana/dashboards
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_INSTALL_PLUGINS=grafana-worldmap-panel,neocat-cal-heatmap-panel
-#      - GF_USERS_ALLOW_SIGN_UP=false
-#      - GF_AUTH_ANONYMOUS_ENABLED=true
-#      - GF_AUTH_ANONYMOUS_ORG_NAME=EOST
-#      - GF_USERS_ALLOW_ORG_CREATE: 'true'
-#      - GF_SECURITY_SECRET_KEY: xxxxx
-#      - HTTP_USER=admin
-#      - HTTP_PASS=admin
-#      - INFLUXDB_HOST=influxdb
-#      - INFLUXDB_PORT=8086
-#      - INFLUXDB_NAME=eost
-#      - INFLUXDB_USER=root
-#      - INFLUXDB_PASS=root
+
+  rshakegrafana:
+    image: grafana/grafana:master
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_conf:/etc/grafana
+      - grafana_data:/var/lib/grafana
+      - ../dashboard:/var/lib/grafana/dashboards:rw
+      - ./rshake_provisioning:/etc/grafana/provisioning
+    links:
+      - influxdb
+      - sl2raspberryshake
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=grafana-worldmap-panel,neocat-cal-heatmap-panel
+
+#---------------------------
 
 volumes:
   influxdb_data:
