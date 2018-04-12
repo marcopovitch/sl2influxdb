@@ -1,4 +1,4 @@
-version: '2'
+version: '3.4'
 
 services:
 
@@ -75,8 +75,8 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - grafana_conf:/etc/grafana
-      - grafana_data:/var/lib/grafana
+      - grafana_conf_rshake:/etc/grafana
+      - grafana_data_rshake:/var/lib/grafana
       - ../dashboard:/var/lib/grafana/dashboards:rw
       - ./rshake_provisioning:/etc/grafana/provisioning
     links:
@@ -94,8 +94,10 @@ volumes:
     external:
       name: sl2influxdb_influxdb_data
   grafana_data:
-    external:
-      name: sl2influxdb_grafana_data
+    name: sl2influxdb_grafana_data
   grafana_conf:
-    external:
-      name: sl2influxdb_grafana_conf
+    name: sl2influxdb_grafana_conf
+  grafana_data_rshake:
+    name: sl2influxdb_grafana_data_rshake
+  grafana_conf_rshake:
+    name: sl2influxdb_grafana_conf_rshake
