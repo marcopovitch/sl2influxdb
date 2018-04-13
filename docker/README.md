@@ -1,5 +1,7 @@
 # Using docker-compose
 
+
+
 ## Requirements
 * docker pull influxdb
 * docker pull grafana/grafana:master
@@ -14,36 +16,31 @@ To build all the containers :
 
 
 ## Data storage
-If you are running this project for the first time, you have to create
-some docker volume in order to keep data and configuration files *outside* the container :
+If you are running this project for the first time, you have to create a *influxdb data docker volume* in order to keep your measurements between restarts :
 
 <pre>
 docker volume create --name=sl2influxdb_influxdb_data
-docker volume create --name=sl2influxdb_grafana_conf
-docker volume create --name=sl2influxdb_grafana_data
 </pre>
 
 
 ## Start services
 
 ### For RaspberryShake
-Preconfigured
-Assuming your raspeberryshake is in you local network and
-reachable using *raspberryshake.local* address, start the all the containers (influxdb, seedlink fetcher, grafana) :
+This configuration is ready to be run, assuming your raspeberryshake is in you local network and
+reachable using *raspberryshake.local* address.
 
+To start all the containers (influxdb, seedlink fetcher and grafana) :
 <pre>
 docker-compose up -d rshakegrafana
 </pre>
 
-
-
-To check if seedlink data is fetched well :
+Check the logs to see if seedlink data is fetched without problem :
 <pre>
 docker-compose logs -f sl2raspberryshake
 </pre>
 
 ### For Generic Seedlink Server
-You need to customize the docker-compose.yml file to set properly :
+You need to customize the docker-compose.yml file to set properly this environement variables :
 
 * SEEDLINK_SERVER
 * FDSN\_WS\_STATION_SERVER
@@ -52,7 +49,7 @@ You need to customize the docker-compose.yml file to set properly :
 Then, starts the container:
 <pre>docker-compose up -d grafana</pre>
 
-To check if seedlink data is fetched well :
+To check the logs if seedlink data is fetched well :
 <pre>
 docker-compose logs -f sl2generic
 </pre>
