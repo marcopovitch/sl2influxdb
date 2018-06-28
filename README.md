@@ -11,15 +11,17 @@ Usage: seedlink2influxdb.py [options]
 Options:
   -h, --help            show this help message and exit
   --dbserver=DBSERVER   InfluxDB server name
-  --dbport=DBPORT       db server port
+  --dbport=DBPORT       InfluxDB server port
   --slserver=SLSERVER   seedlink server name
-  --fdsnserver=FDSN_SERVER:PORT
-                        fdsn station server name
   --slport=SLPORT       seedlink server port
-  --db=DBNAME           influxdb name to use
+  --fdsnserver=FDSN_SERVER[:PORT]
+                        fdsn station server name
+  --streams=STREAMS     streams to fetch (regexp): [('.*','.*','.*Z','.*')]
+  --flushtime=NUMBER    when to force the data flush to influxdb
+  --db=DBNAME           InfluxDB name to use
   --dropdb              [WARNING] drop previous database !
   --keep=NUMBER         how many days to keep data
-  --recover             save statefile & try to get stream from last run
+  --recover             use seedlink statefile to save/get streams from last
 </pre>
 
 Example :
