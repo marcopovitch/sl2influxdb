@@ -14,7 +14,7 @@ Options:
   --dbport=DBPORT       InfluxDB server port
   --slserver=SLSERVER   seedlink server name
   --slport=SLPORT       seedlink server port
-  --fdsnserver=FDSN_SERVER
+  --fdsnserver=FDSN_SERVER[:PORT]
                         fdsn station server name
   --streams=STREAMS     streams to fetch (regexp): [('.*','.*','.*Z','.*')]
   --flushtime=NUMBER    when to force the data flush to influxdb
