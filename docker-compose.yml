@@ -60,7 +60,7 @@ services:
     volumes:
       - grafana_conf:/etc/grafana
       - grafana_data:/var/lib/grafana
-      - ../dashboard:/var/lib/grafana/dashboards:rw
+      - ./dashboard:/var/lib/grafana/dashboards:rw
       - ./provisioning:/etc/grafana/provisioning
     links:
       - influxdb
@@ -77,7 +77,7 @@ services:
     volumes:
       - grafana_conf_rshake:/etc/grafana
       - grafana_data_rshake:/var/lib/grafana
-      - ../dashboard:/var/lib/grafana/dashboards:rw
+      - ./dashboard:/var/lib/grafana/dashboards:rw
       - ./rshake_provisioning:/etc/grafana/provisioning
     links:
       - influxdb

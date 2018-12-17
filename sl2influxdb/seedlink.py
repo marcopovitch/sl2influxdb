@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import sys
 from obspy import UTCDateTime
@@ -6,11 +6,11 @@ from obspy.clients.seedlink import EasySeedLinkClient
 from obspy.clients.seedlink.seedlinkexception import SeedLinkException
 from datetime import datetime
 from lxml import etree
-from StringIO import StringIO
+from io import StringIO
 import re
 import logging
 from threads import q, shutdown_event
-import Queue
+import queue
 
 # default logger
 logger = logging.getLogger('obspy.seedlink')
@@ -87,8 +87,8 @@ class MySeedlinkClient(EasySeedLinkClient):
         info = self.get_stream_info()
         for s in info:
             for c in s['channel']:
-                print s['network'], s['name'],
-                print c['location'], c['seedname'], s['stream_check']
+                print(s['network'], s['name'])
+                print(c['location'], c['seedname'], s['stream_check'])
 
     def select_stream_re(self, pattern):
         """Select stream based on regular expression."""
@@ -173,7 +173,7 @@ class MySeedlinkClient(EasySeedLinkClient):
 
         try:
             q.put(trace, block=True, timeout=self.queue_timeout)
-        except Queue.Full:
+        except queue.Full:
             logger.error("Queue is full and timeout(%ds) reached !" %
                          self.queue_timeout)
             logger.error("Ignoring data !")

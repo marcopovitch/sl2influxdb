@@ -8,7 +8,7 @@ from threads import q, shutdown_event, lock
 from threads import last_packet_time
 from influx import InfluxDBExporter
 import logging
-import Queue
+import queue
 
 
 # default logger
@@ -97,7 +97,7 @@ class TraceInfluxDBExporter(InfluxDBExporter):
         while True:
             try:
                 trace = q.get(timeout=timeout)
-            except Queue.Empty:
+            except queue.Empty:
                 # process queue before shutdown
                 if q.empty() and shutdown_event.isSet():
                     logger.info("%s thread has caught *shutdown_event*" %
