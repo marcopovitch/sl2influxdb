@@ -68,12 +68,12 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_INSTALL_PLUGINS=grafana-worldmap-panel,neocat-cal-heatmap-panel
+      - GF_INSTALL_PLUGINS=grafana-worldmap-panel 0.1.0,neocat-cal-heatmap-panel
 
   rshakegrafana:
     image: grafana/grafana:master
     ports:
-      - 3000:3000
+      - 3001:3000
     volumes:
       - grafana_conf_rshake:/etc/grafana
       - grafana_data_rshake:/var/lib/grafana
@@ -85,7 +85,7 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_INSTALL_PLUGINS=grafana-worldmap-panel,neocat-cal-heatmap-panel
+      - GF_INSTALL_PLUGINS=grafana-worldmap-panel 0.1.0,neocat-cal-heatmap-panel
 
 #---------------------------
 
