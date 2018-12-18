@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
-import sys
+import ast
 import logging
 from optparse import OptionParser
-from delay import LatencyDelayInfluxDBExporter
-from trace import TraceInfluxDBExporter
-from seedlink import MySeedlinkClient
-from station import StationCoordInfo
-import threading
-from threads import ConsumerThread, ProducerThread, shutdown_event
 import signal
-import ast
+import sys
+import threading
+
+from sl2influxdb.delay import LatencyDelayInfluxDBExporter
+from sl2influxdb.seedlink import MySeedlinkClient
+from sl2influxdb.station import StationCoordInfo
+from sl2influxdb.threads import ConsumerThread, ProducerThread, shutdown_event
+from sl2influxdb.trace import TraceInfluxDBExporter
 
 
 # default logger
@@ -21,8 +22,7 @@ def handler(f, s):
     shutdown_event.set()
 
 
-if __name__ == '__main__':
-
+def main():
     # Select a stream and start receiving data : use regexp
     # only Z component
     default_streams = "[('.*','.*','.*Z','.*')]"
@@ -162,3 +162,7 @@ if __name__ == '__main__':
     d.join()
     c.join()
     p.join()
+
+
+if __name__ == '__main__':
+    main()

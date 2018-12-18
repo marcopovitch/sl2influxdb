@@ -4,6 +4,10 @@ LABEL maintainer="Marc Grunberg <marc.grunberg@unistra.fr>"
 
 ENV SL2INFLUXDB_DIR /opt/sl2influxdb
 
+COPY sl2influxdb $SL2INFLUXDB_DIR/sl2influxdb
+COPY setup.py $SL2INFLUXDB_DIR/
+COPY requirements.txt $SL2INFLUXDB_DIR/
+
 WORKDIR $SL2INFLUXDB_DIR
 
 RUN set -ex \
@@ -19,24 +23,21 @@ RUN set -ex \
         $buildDeps \
     ## Install numpy before obspy…
     && pip3 install --no-cache-dir numpy \
-    && pip3 install --no-cache-dir \
-        python-geohash \
-        influxdb \
-        obspy \
+    && pip3 install --no-cache-dir --upgrade -r requirements.txt \
+    && pip3 install . \
     && apt-get purge -y --autoremove $buildDeps \
     && apt-get clean \
     && rm -rf \
         /var/lib/apt/lists/* \
         /tmp/* \
-        /var/tmp/*
+        /var/tmp/* \
+        $SL2INFLUXDB_DIR
 
-COPY ./sl2influxdb /opt/sl2influxdb
-COPY ./run.sh /run.sh
+COPY run.sh /run.sh
 
 RUN set -ex \
     && chmod +x /run.sh \
     && useradd -ms /bin/bash sysop \
-    && chown -R sysop:users $SL2INFLUXDB_DIR \
     && mkdir /data \
     && chown sysop:users /data
 

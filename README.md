@@ -6,10 +6,17 @@ the grafana [worldmap-panel plugin](https://github.com/grafana/worldmap-panel).
 
 Dockerfile, docker-compse.yml are available [here](https://github.com/marcopovitch/sl2influxdb/blob/master/docker/README.md).
 
+## Install
+
+```bash
+pip install .
+```
+
 ## Usage
 
 ```bash
-Usage: seedlink2influxdb.py [options]
+~$ seedlink2influxdb -help
+Usage: seedlink2influxdb [options]
 
 Options:
   -h, --help            show this help message and exit
@@ -30,7 +37,7 @@ Options:
 Example :
 
 ```bash
-./seedlink2influxdb.py
+seedlink2influxdb
     --dbserver localhost \
     --dbport 8086 \
     --slserver rtserve.resif.fr \

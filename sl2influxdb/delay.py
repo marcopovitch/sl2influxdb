@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 
-import sys
 from calendar import timegm
 from datetime import datetime
-from obspy import UTCDateTime
-from threads import shutdown_event, lock
-from threads import last_packet_time
-from influx import InfluxDBExporter
 import logging
+import sys
+
+from obspy import UTCDateTime
+
+from sl2influxdb.influx import InfluxDBExporter
+from sl2influxdb.threads import shutdown_event, lock
+from sl2influxdb.threads import last_packet_time
 
 # default logger
 logger = logging.getLogger('DelayInfluxDBExporter')

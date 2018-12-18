@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-import sys
-from obspy.clients.fdsn import Client
-from obspy import UTCDateTime
 import geohash
 import logging
+import sys
+
+from obspy.clients.fdsn import Client
+from obspy import UTCDateTime
 
 # default logger
 logger = logging.getLogger('StationCoordInfo')

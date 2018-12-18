@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
 
+from datetime import datetime
+from io import StringIO
+import logging
+import queue
+import re
 import sys
+
+from lxml import etree
 from obspy import UTCDateTime
 from obspy.clients.seedlink import EasySeedLinkClient
 from obspy.clients.seedlink.seedlinkexception import SeedLinkException
-from datetime import datetime
-from lxml import etree
-from io import StringIO
-import re
-import logging
-from threads import q, shutdown_event
-import queue
+
+from sl2influxdb.threads import q, shutdown_event
 
 # default logger
 logger = logging.getLogger('obspy.seedlink')

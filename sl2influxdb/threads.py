@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
+import logging
+from queue import Queue
 import sys
 import threading
-from queue import Queue
-import logging
+
 from obspy.clients.seedlink.seedlinkexception import SeedLinkException
 
 
