@@ -16,7 +16,6 @@ from sl2influxdb.threads import q, shutdown_event
 
 # default logger
 logger = logging.getLogger('obspy.seedlink')
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 
 class MySeedlinkClient(EasySeedLinkClient):

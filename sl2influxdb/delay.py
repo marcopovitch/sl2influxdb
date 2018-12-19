@@ -13,7 +13,6 @@ from sl2influxdb.threads import last_packet_time
 
 # default logger
 logger = logging.getLogger('DelayInfluxDBExporter')
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 
 class LatencyDelayInfluxDBExporter(InfluxDBExporter):

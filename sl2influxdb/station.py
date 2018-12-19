@@ -8,7 +8,6 @@ from obspy import UTCDateTime
 
 # default logger
 logger = logging.getLogger('StationCoordInfo')
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 
 class StationCoordInfo(object):

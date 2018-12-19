@@ -10,7 +10,6 @@ import requests.exceptions
 
 # default logger
 logger = logging.getLogger('InfluxDBClient')
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 
 class InfluxDBExporter(object):

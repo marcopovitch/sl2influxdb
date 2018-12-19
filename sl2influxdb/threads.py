@@ -10,7 +10,6 @@ from obspy.clients.seedlink.seedlinkexception import SeedLinkException
 
 # default logger
 logger = logging.getLogger('threads')
-logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 # variable shared by threads
 BUF_SIZE = 1000000
