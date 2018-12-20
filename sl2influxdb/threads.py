@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 
+import logging
+from queue import Queue
 import sys
 import threading
-import Queue
-import logging
+
 from obspy.clients.seedlink.seedlinkexception import SeedLinkException
 
 
 # default logger
 logger = logging.getLogger('threads')
-logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 # variable shared by threads
 BUF_SIZE = 1000000
-q = Queue.Queue(BUF_SIZE)
+q = Queue(BUF_SIZE)
 shutdown_event = threading.Event()
 last_packet_time = {}
 lock = threading.Lock()

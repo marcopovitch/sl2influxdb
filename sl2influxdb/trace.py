@@ -1,19 +1,20 @@
 #!/usr/bin/env python
 
-import sys
 from calendar import timegm
 from datetime import datetime
-from obspy import UTCDateTime
-from threads import q, shutdown_event, lock
-from threads import last_packet_time
-from influx import InfluxDBExporter
 import logging
-import Queue
+import queue
+import sys
+
+from obspy import UTCDateTime
+
+from sl2influxdb.influx import InfluxDBExporter
+from sl2influxdb.threads import q, shutdown_event, lock
+from sl2influxdb.threads import last_packet_time
 
 
 # default logger
 logger = logging.getLogger('TraceInfluxDBExporter')
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 
 class TraceInfluxDBExporter(InfluxDBExporter):
@@ -97,7 +98,7 @@ class TraceInfluxDBExporter(InfluxDBExporter):
         while True:
             try:
                 trace = q.get(timeout=timeout)
-            except Queue.Empty:
+            except queue.Empty:
                 # process queue before shutdown
                 if q.empty() and shutdown_event.isSet():
                     logger.info("%s thread has caught *shutdown_event*" %

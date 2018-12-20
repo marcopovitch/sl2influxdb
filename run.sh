@@ -64,7 +64,7 @@ trap 'kill ${!}; term_handler' SIGTERM
 
 # run application
 cd /data
-python $SL2IDB_DIR/sl2influxdb-master/seedlink2influxdb.py \
+seedlink2influxdb \
     --dbserver $INFLUXDB_PORT_8086_TCP_ADDR \
     --dbport $INFLUXDB_PORT_8086_TCP_PORT \
     --slserver $SEEDLINK_SERVER \

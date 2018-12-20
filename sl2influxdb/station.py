@@ -1,13 +1,13 @@
 #!/usr/bin/env python
+import geohash
+import logging
 import sys
+
 from obspy.clients.fdsn import Client
 from obspy import UTCDateTime
-import Geohash
-import logging
 
 # default logger
 logger = logging.getLogger('StationCoordInfo')
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 
 class StationCoordInfo(object):
@@ -46,7 +46,7 @@ class StationCoordInfo(object):
                     try:
                         coords = inv.get_coordinates(c)
                     except:
-                        print c, "No matching coordinates found"
+                        print(c, "No matching coordinates found")
                         continue
 
                 latitude = coords['latitude']
@@ -56,7 +56,7 @@ class StationCoordInfo(object):
                     {"latitude": latitude,
                      "longitude": longitude,
                      "elevation": elevation,
-                     "geohash": Geohash.encode(latitude,
+                     "geohash": geohash.encode(latitude,
                                                longitude,
                                                precision=7)
                      }
@@ -82,7 +82,7 @@ class StationCoordInfo(object):
                              info['longitude'],
                              info['elevation'],
                              info['geohash'],
-                             Geohash.decode(info['geohash']))
+                             geohash.decode(info['geohash']))
 
 
 if __name__ == '__main__':

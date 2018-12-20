@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 
+import logging
 import sys
+
 from influxdb import InfluxDBClient
 from influxdb.exceptions import InfluxDBServerError, \
                                 InfluxDBClientError
 import requests.exceptions
-import logging
 
 # default logger
 logger = logging.getLogger('InfluxDBClient')
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 
 class InfluxDBExporter(object):
