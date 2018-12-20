@@ -4,7 +4,7 @@ Dump seedlink (seismological) time series into [InfluxDB](https://influxdata.com
 [Grafana](http://grafana.org) to plot waveforms, real time latency delay, etc. Maps uses
 the grafana [worldmap-panel plugin](https://github.com/grafana/worldmap-panel).
 
-Dockerfile, docker-compse.yml are available [here](https://github.com/marcopovitch/sl2influxdb/blob/master/docker/README.md).
+Dockerfile, docker-compse.yml are available [here](#using-docker).
 
 ## Install
 
@@ -106,7 +106,7 @@ Measurements:
 * [geohash](https://pypi.org/project/python-geohash/)
 * [grafana](http://grafana.org) (with [worldmap-panel plugin](https://github.com/grafana/worldmap-panel))
 
-## Using docker-compose
+## Using docker
 
 A `docker-compose` is available to quickly setup influxdb and grafana.
 
@@ -150,7 +150,7 @@ variables:
 Then, starts the container:
 
 ```bash
-docker-compose up -d grafana
+docker-compose up -d sl2generic
 ```
 
 To check the logs if seedlink data is fetched well:
