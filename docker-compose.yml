@@ -68,7 +68,7 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_INSTALL_PLUGINS=grafana-worldmap-panel 0.1.0,neocat-cal-heatmap-panel
+      - GF_INSTALL_PLUGINS=grafana-worldmap-panel,neocat-cal-heatmap-panel
 
   rshakegrafana:
     image: grafana/grafana:master
@@ -85,7 +85,7 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_INSTALL_PLUGINS=grafana-worldmap-panel 0.1.0,neocat-cal-heatmap-panel
+      - GF_INSTALL_PLUGINS=grafana-worldmap-panel,neocat-cal-heatmap-panel
 
 #---------------------------
 
