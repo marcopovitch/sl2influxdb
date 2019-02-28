@@ -62,6 +62,7 @@
       "tableLabel": "channel",
       "tableQueryOptions": {
         "geohashField": "geohash",
+        "labelField": "channel",
         "latitudeField": "latitude",
         "longitudeField": "longitude",
         "metricField": "metric",
