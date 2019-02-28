@@ -161,6 +161,16 @@ docker-compose logs -f sl2generic
 
 ### Acces to grafana interface
 
+```bash
+docker-compose up -d grafana
+```
+
+Some time may be required to launch grafana since some modules will be installed or upgraded (have a look to the log file).
+
+```bash
+docker-compose logs -f grafana
+```
+
 Then launch you preferred browser and go to
 [http://localhost:3000](http://localhost:3000), with:
 
