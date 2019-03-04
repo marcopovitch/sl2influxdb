@@ -53,12 +53,14 @@
       "links": [
         {
           "dashUri": "db/single-trace",
-          "dashboard": "single trace",
+          "dashboard": "Single trace",
           "includeVars": true,
           "params": "",
+	  "targetBlank": true,
           "title": "single trace $channel",
           "type": "dashboard",
-          "url": "/dashboard/file/trace.json"
+          "url": "/d/2KMIXzZiz/single-trace"
+
         }
       ],
       "mappingType": 1,
