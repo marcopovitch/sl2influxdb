@@ -165,11 +165,20 @@ docker-compose logs -f sl2generic
 docker-compose up -d grafana
 ```
 
-Some time may be required to launch grafana since some modules will be installed or upgraded (have a look to the log file).
+Some time it may be required to wait for grafana to start since some modules will be installed or upgraded.
+Have a look to the log file using :
 
 ```bash
 docker-compose logs -f grafana
 ```
+
+When upgrading grafana (eg: version 5 to 5.1 or later) it may be necessary to remove  and create again grafana volumes :
+```bash
+docker volume rm _grafana_volume_name_
+docker volume create --name=_grafana_volume_name_
+```
+At least removes `_grafana_volume_name_`, when starting containers `docker-compose` will tell you which volume is missing and it will give you the command line to create it.
+
 
 Then launch you preferred browser and go to
 [http://localhost:3000](http://localhost:3000), with:
