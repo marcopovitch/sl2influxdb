@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 import geohash
 import logging
-import sys
-
 from obspy.clients.fdsn import Client
 from obspy import UTCDateTime
 
@@ -23,7 +21,7 @@ class StationCoordInfo(object):
         endtime = UTCDateTime()
         try:
             client = Client(self.fdsn_server)
-        except:
+        except Exception:
             logger.info("Can't get FDSN client from %s" % self.fdsn_server)
             logger.info("No station coordinates loaded !")
             return
@@ -42,10 +40,10 @@ class StationCoordInfo(object):
             for c in channels:
                 try:
                     coords = inv.get_coordinates(c, datetime=starttime)
-                except:
+                except Exception:
                     try:
                         coords = inv.get_coordinates(c)
-                    except:
+                    except Exception:
                         print(c, "No matching coordinates found")
                         continue
 
@@ -65,8 +63,8 @@ class StationCoordInfo(object):
         """ Extract only geohash info """
         geohash_dict = {}
         for channel in self.station_coordinfo.keys():
-                h = self.station_coordinfo[channel]['geohash']
-                geohash_dict[channel] = h
+            h = self.station_coordinfo[channel]['geohash']
+            geohash_dict[channel] = h
         return geohash_dict
 
     def show_geohash(self):
@@ -86,9 +84,14 @@ class StationCoordInfo(object):
 
 
 if __name__ == '__main__':
+    logging.basicConfig()
+    logger = logging.getLogger('StationCoordInfo')
+    logger.setLevel(logging.DEBUG)
+
     # streams = [('FR', '*', 'HHZ', '00')]
     # info_sta = StationCoordInfo("RESIF", streams)
+
     streams = [('*', '*', '*Z', '*')]
     info_sta = StationCoordInfo("http://renass-sc1.u-strasbg.fr:8080", streams)
-    # info_sta.show_station_coordinfo()
-    info_sta.show_geohash()
+    info_sta.show_station_coordinfo()
+    # info_sta.show_geohash()
