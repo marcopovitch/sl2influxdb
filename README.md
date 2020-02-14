@@ -4,7 +4,7 @@ Dump seedlink (seismological) time series into [InfluxDB](https://influxdata.com
 [Grafana](http://grafana.org) to plot waveforms, real time latency delay, etc. Maps uses
 the grafana [worldmap-panel plugin](https://github.com/grafana/worldmap-panel).
 
-Dockerfile, docker-compse.yml are available [here](#using-docker).
+Dockerfile, docker-compose.yml are available [here](#using-docker).
 
 ## Install
 
