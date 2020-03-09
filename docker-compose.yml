@@ -23,8 +23,8 @@ services:
     environment:
       - INFLUXDB_PORT_8086_TCP_ADDR=influxdb
       - INFLUXDB_PORT_8086_TCP_PORT=8086
-      - SEEDLINK_SERVER=raspberryshake.local
-      - FDSN_WS_STATION_SERVER=http://raspberryshake.net:8080
+      - SEEDLINK_SERVER=rs.local
+      - FDSN_WS_STATION_SERVER=https://fdsnws.raspberryshakedata.com
       # do not put space into SEEDLINK_STREAMS string !
       - SEEDLINK_STREAMS=[('AM','.*','.*','.*')]
       - FLUSHTIME=5
@@ -71,7 +71,7 @@ services:
       - GF_INSTALL_PLUGINS=grafana-worldmap-panel,neocat-cal-heatmap-panel
 
   rshakegrafana:
-    image: grafana/grafana:master
+    image: grafana/grafana:latest
     ports:
       - 3001:3000
     volumes:
