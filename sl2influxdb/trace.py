@@ -46,7 +46,12 @@ class TraceInfluxDBExporter(InfluxDBExporter):
             timestamp = starttime + i*delta
             t = timegm(timestamp.utctimetuple()) * 1e9 \
                 + timestamp.microsecond * 1e3
-            c = cc + " value=" + "%e " % v + str(int(t))
+            try:
+                v = float(v)
+                c = cc + " value=" + "%e " % v + str(int(t))
+            except Exception as e:
+                logger.warning(e, ",", cc, v, t)
+                return
             self.data.append(c)
 
     def manage_data(self, trace):
