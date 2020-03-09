@@ -45,7 +45,7 @@ services:
       - SEEDLINK_SERVER=renass-fw.u-strasbg.fr
       - FDSN_WS_STATION_SERVER=http://renass-sc1.u-strasbg.fr:8080
       # do not put space into SEEDLINK_STREAMS string !
-      - SEEDLINK_STREAMS=[('FR','.*','(HHZ|EHZ|ELZ)','.*'),('AM','.*','(SHZ|EHZ)','.*'),('ND','.*','HHZ','.*'),('CL','.*','HHZ','.*'),('FR','.*','SHZ',''),('RA','.*','HNZ','00'),('RD','.*','BHZ','.*'),('G','.*','BHZ','.*'),('XX','.*','BHZ','.*'),('(SZ|RT|IG|RG)','.*','.*Z','.*')]
+      - SEEDLINK_STREAMS=[('1T','.*','HHZ','.*'),('QM','.*','HHZ','.*'),('MT','.*','(HHZ|DHZ)','.*'),('FR','.*','(HHZ|EHZ|ELZ)','.*'),('AM','.*','(SHZ|EHZ)','.*'),('ND','.*','HHZ','.*'),('CL','.*','HHZ','.*'),('FR','.*','SHZ',''),('RA','.*','HNZ','00'),('RD','.*','BHZ','.*'),('G','.*','BHZ','.*'),('XX','.*','BHZ','.*'),('(SZ|RT|IG|RG)','.*','.*Z','.*')]
       - DB_NAME=eost
       - KEEP=1
       - RECOVER="yes"
