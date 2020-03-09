@@ -14094,7 +14094,7 @@
         ],
         "query": "SHOW TAG VALUES WITH KEY = \"channel\"",
         "refresh": 1,
-        "regex": "/(^[A-Z]*)/",
+        "regex": "/(^[A-Z0-9]*)/",
         "tagValuesQuery": "",
         "tagsQuery": "",
         "type": "query",

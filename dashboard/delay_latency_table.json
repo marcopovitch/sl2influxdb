@@ -77,7 +77,7 @@
         "options": [],
         "query": "SHOW TAG VALUES WITH KEY = \"channel\"",
         "refresh": 1,
-        "regex": "/(^[A-Z]*)/",
+        "regex": "/(^[A-Z0-9]*)/",
         "sort": 1,
         "tagValuesQuery": "",
         "tags": [],
