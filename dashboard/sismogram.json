@@ -44,6 +44,7 @@
           "linewidth": 1,
           "links": [],
           "minSpan": 3,
+	  "maxPerRow": 12,
           "nullPointMode": "null",
           "percentage": false,
           "pointradius": 5,
