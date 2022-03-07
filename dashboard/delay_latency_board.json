@@ -76,6 +76,7 @@
       ],
       "maxDataPoints": 100,
       "minSpan": 2,
+      "maxPerRow": 12,
       "nullPointMode": "connected",
       "nullText": null,
       "postfix": "",
