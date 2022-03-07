@@ -109,6 +109,7 @@ Measurements:
 ## Using docker
 
 A `docker-compose` is available to quickly setup influxdb and grafana.
+Use `docker-compose build` to make docker images.
 
 ### Data storage
 
