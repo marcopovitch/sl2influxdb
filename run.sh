@@ -43,6 +43,10 @@ if [ -z $SEEDLINK_SERVER ]; then
     exit 1
 fi
 
+if [ -z $SEEDLINK_PORT ]; then
+    SEEDLINK_PORT=18000
+fi
+
 if [ -z $FDSN_WS_STATION_SERVER ]; then
     FDSN_WS_STATION_SERVER="RESIF"
 fi
@@ -68,6 +72,7 @@ seedlink2influxdb \
     --dbserver $INFLUXDB_PORT_8086_TCP_ADDR \
     --dbport $INFLUXDB_PORT_8086_TCP_PORT \
     --slserver $SEEDLINK_SERVER \
+    --slport $SEEDLINK_PORT \
     --fdsnserver $FDSN_WS_STATION_SERVER \
     --streams $SEEDLINK_STREAMS \
     --db $DB_NAME \
