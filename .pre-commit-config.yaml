@@ -1,6 +1,6 @@
 repos:
--   repo: git://github.com/pre-commit/pre-commit-hooks
-    sha: v0.9.5
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
     hooks:
     - id: debug-statements
     - id: trailing-whitespace
@@ -8,6 +8,6 @@ repos:
     - id: check-json
     - id: check-xml
     - id: detect-private-key
+    - id: check-ast
     - id: end-of-file-fixer
-    - id: flake8
     - id: requirements-txt-fixer
