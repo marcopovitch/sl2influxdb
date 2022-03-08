@@ -252,7 +252,7 @@
       "type": "geomap"
     }
   ],
-  "refresh": "",
+  "refresh": "5s",
   "schemaVersion": 35,
   "style": "dark",
   "tags": [],
@@ -285,7 +285,7 @@
   },
   "timepicker": {},
   "timezone": "utc",
-  "title": "Delay/Latency Map 2",
+  "title": "Delay/Latency Geomap",
   "uid": "-vogPtYnk",
   "version": 3,
   "weekStart": "monday"
