@@ -55,17 +55,24 @@ seedlink2influxdb
 
 ## Screenshot
 
-### Delay/Latency Map
+### Delay/Latency
 
-<img src="https://cloud.githubusercontent.com/assets/4367036/22286118/6a4fa65e-e2ee-11e6-93ae-ae1b4f68a7a2.png" width="350">
+Map plugin|Geomap plugin
+--------- | ------------
+<img src="https://cloud.githubusercontent.com/assets/4367036/22286118/6a4fa65e-e2ee-11e6-93ae-ae1b4f68a7a2.png" width="350"> | <img src="https://user-images.githubusercontent.com/4367036/157223621-29a7d92b-4c7d-40be-8fce-c8a2794e1b8a.png" width="350">
 
-### Latency & traces for multiple stations
 
-<img src="https://cloud.githubusercontent.com/assets/4367036/12712706/95c4a38c-c8ca-11e5-8fa7-9c40bbdb8d24.png" width="350">
+### Dealy Latency board
+
+<img src="https://user-images.githubusercontent.com/4367036/157223937-fce074a2-2500-4f63-b5e7-7adb0342d12e.jpg" width="350">
 
 ### Waveform, RMS, latency plots for a given station
 
 <img src="https://cloud.githubusercontent.com/assets/4367036/12712707/95e9f498-c8ca-11e5-8115-cabb66dbf692.png" width="350">
+
+### Traces for multiple stations
+<img src="https://user-images.githubusercontent.com/4367036/157225061-275e1f09-5ed6-48bb-95d8-7e7b1ce2f0db.png" width="350">
+
 
 ## InfluxDB
 
