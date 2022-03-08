@@ -9,36 +9,73 @@
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1523612687981,
+  "iteration": 1646729170710,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
-      "cacheTimeout": null,
-      "colorBackground": true,
-      "colorValue": false,
-      "colors": [
-        "rgba(50, 172, 45, 0.97)",
-        "rgba(237, 129, 40, 0.89)",
-        "rgba(245, 54, 54, 0.9)"
-      ],
-      "datasource": "influxdb",
-      "decimals": 1,
-      "editable": true,
-      "error": false,
-      "format": "s",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": null
+              },
+              {
+                "color": "dark-yellow",
+                "value": 30
+              },
+              {
+                "color": "dark-orange",
+                "value": 60
+              },
+              {
+                "color": "dark-red",
+                "value": 300
+              },
+              {
+                "color": "dark-purple",
+                "value": 1800
+              },
+              {
+                "color": "#000000",
+                "value": 3600
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 3,
@@ -46,69 +83,46 @@
         "x": 0,
         "y": 0
       },
-      "height": "50",
       "id": 1,
       "interval": "",
-      "isNew": true,
       "links": [
         {
-          "dashUri": "db/single-trace",
-          "dashboard": "Single trace",
-          "includeVars": true,
-          "params": "",
-	  "targetBlank": true,
+          "targetBlank": true,
           "title": "single trace $channel",
-          "type": "dashboard",
-          "url": "/d/2KMIXzZiz/single-trace"
-
-        }
-      ],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
+          "url": "/d/2KMIXzZiz/single-trace?${channel:queryparam}&refresh=5s"
         }
       ],
       "maxDataPoints": 100,
-      "minSpan": 2,
       "maxPerRow": 12,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
+      "minSpan": 1,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {
+          "titleSize": 18,
+          "valueSize": 18
+        },
+        "textMode": "value"
+      },
+      "pluginVersion": "8.4.3",
       "repeat": "channel",
       "repeatDirection": "h",
-      "scopedVars": {
-        "channel": {
-          "selected": false,
-          "text": "AM.R461D.00.SHZ",
-          "value": "AM.R461D.00.SHZ"
-        }
-      },
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": true,
-        "lineColor": "rgb(0, 0, 0)",
-        "show": true
-      },
-      "tableColumn": "",
       "targets": [
         {
           "alias": "$channel",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P3C6603E967DC8568"
+          },
           "dsType": "influxdb",
           "groupBy": [
             {
@@ -128,7 +142,7 @@
           "measurement": "/^$measure$/",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"value\") FROM \"latency\" WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+          "query": "SELECT last(\"value\") AS \"metric\" FROM /^$measure$/ WHERE \"channel\" =~ /$channel$/ AND $timeFilter GROUP BY time($interval)",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -154,62 +168,60 @@
           ]
         }
       ],
-      "thresholds": "30,60",
       "title": "$channel",
-      "type": "singlestat",
-      "valueFontSize": "50%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "type": "stat"
     }
   ],
-  "refresh": "30s",
-  "schemaVersion": 16,
+  "refresh": "1m",
+  "schemaVersion": 35,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "delay",
           "value": "delay"
         },
-        "datasource": "influxdb",
+        "datasource": {
+          "type": "influxdb",
+          "uid": "P3C6603E967DC8568"
+        },
+        "definition": "",
         "hide": 0,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "measure",
         "options": [],
         "query": "SHOW MEASUREMENTS",
         "refresh": 1,
         "regex": "/delay|latency/",
+        "skipUrlSync": false,
         "sort": 1,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
         "allFormat": "regex values",
-        "allValue": null,
         "current": {
           "selected": true,
-          "text": "All",
-          "value": "$__all"
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
-        "datasource": "influxdb",
+        "datasource": {
+          "type": "influxdb",
+          "uid": "P3C6603E967DC8568"
+        },
+        "definition": "",
         "hide": 0,
         "includeAll": true,
-        "label": null,
         "multi": true,
         "multiFormat": "pipe",
         "name": "network",
@@ -217,25 +229,31 @@
         "query": "SHOW TAG VALUES WITH KEY = \"channel\"",
         "refresh": 1,
         "regex": "/(^[A-Z0-9]*)/",
+        "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
         "allFormat": "glob",
-        "allValue": null,
         "current": {
           "selected": true,
-          "text": "All",
-          "value": "$__all"
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
-        "datasource": "influxdb",
+        "datasource": {
+          "type": "influxdb",
+          "uid": "P3C6603E967DC8568"
+        },
+        "definition": "",
         "hide": 0,
         "includeAll": true,
-        "label": null,
         "multi": true,
         "multiFormat": "glob",
         "name": "channel",
@@ -243,9 +261,9 @@
         "query": "SHOW TAG VALUES WITH KEY = \"channel\"  WHERE channel =~ /^($network)\\..*/",
         "refresh": 1,
         "regex": "",
+        "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -286,5 +304,6 @@
   "timezone": "utc",
   "title": "Delay/Latency Board",
   "uid": "ESGIukWmz",
-  "version": 2
+  "version": 12,
+  "weekStart": ""
 }
