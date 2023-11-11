@@ -48,6 +48,16 @@ def main():
         default='8086',
     )
     parser.add_argument(
+        '--dbuser',
+        help="InfluxDB Username",
+        default='seedlink',
+    )
+    parser.add_argument(
+        '--dbpass',
+        help="InfluxDB Password",
+        default='seedlink',
+    )
+    parser.add_argument(
         '--slserver',
         help="seedlink server name",
         default='renass-fw.u-strasbg.fr',
@@ -103,6 +113,8 @@ def main():
 
     db_server = args.dbserver
     db_port = args.dbport
+    db_user = args.dbuser
+    db_pass = args.dbpass
     seedlink_server = args.slserver
     seedlink_port = args.slport
     fdsn_server = args.fdsnserver
@@ -155,8 +167,8 @@ def main():
                        args=(db_server,
                              db_port,
                              db_name,
-                             'seedlink',  # user
-                             'seedlink',  # pwd
+                             db_user,
+                             db_pass,
                              flush_time,
                              db_management,
                              station_geohash))
@@ -168,8 +180,8 @@ def main():
                        args=(db_server,
                              db_port,
                              db_name,
-                             'seedlink',  # user
-                             'seedlink',  # pwd
+                             db_user,
+                             db_pass,
                              flush_time,
                              db_management,
                              station_geohash))
